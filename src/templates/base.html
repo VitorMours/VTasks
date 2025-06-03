@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% include "partials/_head.html" %}
+    <title>VTask {% block subtitle %}{% endblock %}</title>
+</head>
+<body>
+    {% block header %}
+    {% endblock %}
+
+    {% block content %}
+    testing the jinja blocks
+    {% endblock %}
+
+    {% block footer %}
+    {% endblock %}
+</body>
+</html>

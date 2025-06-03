@@ -74,8 +74,9 @@ dmypy.json
 # Arquivos de configuração do pytype
 .pytype/
 
-
+# Env files
 .env
+
 # Arquivos de configuração do Cython
 cython_debug/
 

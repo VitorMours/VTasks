@@ -5,6 +5,7 @@ from pathlib import Path
 from src.models import db
 from src.models.user_model import User
 from src.admin import admin, admin_add_views
+from src.views import bp
 import os
 
 dotenv_file = Path(".env")
@@ -18,13 +19,13 @@ def create_app() -> Flask:
     app.config['FLASK_ADMIN_SWATCH'] = 'cerulean'
 
 
-
     # Initializing Extensions
     db.init_app(app)
 
     admin_add_views([User])
     admin.init_app(app)
 
+    app.register_blueprint(bp)
     # with app.app_context():
         # db.create_all()
     return app
