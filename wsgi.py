@@ -4,6 +4,7 @@ from dotenv import load_dotenv
 from pathlib import Path 
 from src.models import db
 from src.models.user_model import User
+from src.models.task_model import Task
 from src.admin import admin, admin_add_views
 from src.views import bp
 import os
@@ -16,18 +17,19 @@ def create_app() -> Flask:
     app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
     app.config["EXPLAINS_TEMPLATE_LOADING"] = True
     app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv("SQLALCHEMY_DATABASE_URI")
-    app.config['FLASK_ADMIN_SWATCH'] = 'cerulean'
+    app.config['FLASK_ADMIN_SWATCH'] = 'default'
 
 
     # Initializing Extensions
     db.init_app(app)
 
-    admin_add_views([User])
+    admin_add_views([User, Task])
     admin.init_app(app)
 
     app.register_blueprint(bp)
-    # with app.app_context():
-        # db.create_all()
+    
+    with app.app_context():
+        db.create_all()
     return app
 
 
