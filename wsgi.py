@@ -17,7 +17,7 @@ def create_app() -> Flask:
     app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
     app.config["EXPLAINS_TEMPLATE_LOADING"] = True
     app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv("SQLALCHEMY_DATABASE_URI")
-    app.config['FLASK_ADMIN_SWATCH'] = 'default'
+    app.config['FLASK_ADMIN_SWATCH'] = 'spacelab'
 
 
     # Initializing Extensions
