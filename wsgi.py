@@ -5,7 +5,7 @@ from pathlib import Path
 from src.models import db
 from src.models.user_model import User
 from src.models.task_model import Task
-from src.admin import admin, admin_add_views
+from src.views.admin import admin, admin_add_views
 from src.views import bp
 import os
 
@@ -22,14 +22,16 @@ def create_app() -> Flask:
 
     # Initializing Extensions
     db.init_app(app)
+    with app.app_context():
+        db.create_all()
 
+    # Adding Views
+    app.register_blueprint(bp)
     admin_add_views([User, Task])
     admin.init_app(app)
 
-    app.register_blueprint(bp)
     
-    with app.app_context():
-        db.create_all()
+    # print(app.url_map)
     return app
 
 
