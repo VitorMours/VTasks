@@ -1,9 +1,4 @@
-from flask_wtf import FlaskForm 
-from wtforms import StringField, IntegerField, PasswordField, SubmitField, EmailField
-from wtforms.validators import DataRequired 
+from . import BaseAuthForm
 
-
-class LoginForm(FlaskForm):
-  email = EmailField("email", validators=[DataRequired()])
-  password = PasswordField("password", validators=[DataRequired()])
-  submit = SubmitField("submit", validators=[DataRequired()])
+class LoginForm(BaseAuthForm):
+  pass

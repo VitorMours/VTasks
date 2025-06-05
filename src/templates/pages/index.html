@@ -2,6 +2,11 @@
 
 {% block header %}
     {% include "partials/header.html" %}
+    <div class="p-6">.</div>
+    <div class="p-6">.</div>
+    <div class="p-6">.</div>
 {% endblock %}
 
-{% block content %} {% endblock %}
+{% block content %}
+    {{ users }}
+{% endblock %}
