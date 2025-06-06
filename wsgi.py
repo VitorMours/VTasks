@@ -13,7 +13,7 @@ dotenv_file = Path(".env")
 load_dotenv(dotenv_path = dotenv_file)
 
 def create_app() -> Flask:
-    app = Flask(__name__, template_folder="src/templates")
+    app = Flask(__name__, template_folder="src/templates/pages")
     app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
     app.config["EXPLAINS_TEMPLATE_LOADING"] = True
     app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv("SQLALCHEMY_DATABASE_URI")
@@ -31,7 +31,7 @@ def create_app() -> Flask:
     admin.init_app(app)
 
     
-    # print(app.url_map)
+    print(app.url_map)
     return app
 
 
