@@ -1,11 +1,30 @@
 {% extends "base.html" %}
 
+{% block css %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+{% endblock %}
+
 {% block subtitle %}- Home{% endblock %}
-<main class="d-flex">
 	{% block sidebar %}
 		{% include "sidebar.html"%}
+		<div class="vr"></div>
 	{% endblock %}
 	{% block content %}
+	<div class="d-flex flex-column vw-100 bg-light" style="height: 100vh;">
+		<section class="m-3 bg-white rounded" style="height: 50vh;">
+asdasdasdasd
 
+
+		</section>
+
+		<section class="d-flex">
+			<article class=" bg-white m-3 w-50 rounded " style="height: 50vh;">
+				teste 1
+			</article>
+			<article class=" bg-white m-3 w-50 rounded " style="height: 50vh;">
+				teste 2
+			</article>
+
+		</section>
+	<div>
 	{% endblock %}
-</main>
