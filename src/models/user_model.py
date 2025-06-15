@@ -10,3 +10,33 @@ class User(db.Model):
     last_name = db.Column(String(50))
     email = db.Column(String(100), nullable=False)
     password = db.Column(String(256), nullable=False)
+
+
+    @property
+    def first_name(self) -> str:
+        return self.first_name
+
+    @first_name.setter
+    def first_name(self, new_first_name: str) -> None:
+        self.first_name = new_first_name
+
+    @property
+    def last_name(self) -> str:
+        return self.last_name
+
+    @last_name.setter
+    def last_name(self, new_last_name: str) -> None:
+        self.last_name = new_last_name
+
+    @property
+    def full_name(self) -> str:
+        if self.first_name != "":
+            full_name = f"{self.first_name} {self.last_name}"
+            return full_name.strip()
+        return "O usuario ainda nao possui nome cadastrado"
+
+    def __repr__(self) -> str:
+        pass
+
+    def __str__(self) -> str:
+        return f"{self.first_name} {self.last_name}: {self.email}"

@@ -9,10 +9,7 @@ bp = Blueprint("views", __name__)
 
 class IndexView(View):
     def dispatch_request(self):
-        user_repository = UserRepository(User)
-        users = user_repository.get_all()
-        print(users)
-        return render_template("index.html", users=users)
+        return render_template("index.html")
 
 bp.add_url_rule("/", view_func=IndexView.as_view("index"))
 

@@ -1,27 +1,38 @@
 from src.models.user_model import User
 from typing import List
+from ..models.user_model import User
+
 
 class UserRepository:
-    def __init__(self, user_model: User) -> None:
-        self.user_model = user_model
+    @staticmethod
+    def save(user_data: User) -> None:
+        user = User(**user_data)
+        db.session.add(user)
+        db.session.commit()
 
-    def save(self) -> None:
-        pass
-
-    def get_all(self) -> List[User] | User:
-        users = self.user_model.query.all()
+    @staticmethod
+    def get_all() -> List[User] | User:
+        users = User.query.all()
         return users
 
-    def get_user(self) -> None:
-        pass
+    @staticmethod
+    def get_user_by_email(email: str) -> str | int:
+        users = User.query.filter_by(email=email)
+        if user := len(users) == 1:
+            pass
+        elif len(users) == 0:
+            return 0
+        raise ValueError("Existem dois registros dentro do banco de dados com o mesmo email, entre em contato com nossa equipe de suporte para resolutar o problema.")
 
-    def get_user_attribute(self, attribute) -> None:
-        pass
-
+    @staticmethod
     def update() -> None:
-        pass 
-
-    def delete(self, id: int) -> None:
         pass
 
+    @staticmethod
+    def delete(id: int) -> None:
+        pass
+
+    @staticmethod
+    def get_full_name() -> str:
+        return User.full_name
     

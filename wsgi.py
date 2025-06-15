@@ -29,9 +29,7 @@ def create_app() -> Flask:
     app.register_blueprint(bp)
     admin_add_views([User, Task])
     admin.init_app(app)
-
-    
-    print(app.url_map)
+    # print(app.url_map)
     return app
 
 
