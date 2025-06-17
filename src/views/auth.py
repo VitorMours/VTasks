@@ -22,9 +22,15 @@ class LoginView(MethodView):
           password = form.data["password"]
 
 
-
-
-    return redirect(url_for("views.auth.login"))
+          try:
+            print("chegando")
+            # TODO: Ta tendo algum problema aqui, que a autenticacao esta dando erro, devmo desativar o tratamento de ezxceccoes, e ver como que faco para deixar isso daqui melhor
+            auth_service.login_user(data)
+            print("passando")
+            return redirect(url_for("views.home.home"), 308)
+          except Exception as e:
+            flash("Não foi possível fazer o login devido algum erro que ocorreu", "danger")
+            return redirect(url_for("views.auth.login"))
 
 class SigninView(MethodView):
   def get(self) -> str:
@@ -36,7 +42,10 @@ class SigninView(MethodView):
 
     if form.validate_on_submit():
       data = form.data
-      result = auth_service.create_and_login_user(data)
+      user_login = auth_service.create_and_login_user(data)
+
+      if user_login:
+        return redirect(url_for("views.home.home"))
 
 
     return render_template("signin.html", form=form)

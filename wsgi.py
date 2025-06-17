@@ -15,8 +15,10 @@ load_dotenv(dotenv_path = dotenv_file)
 def create_app() -> Flask:
     app = Flask(__name__, template_folder="src/templates/pages")
     app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
-    app.config["EXPLAINS_TEMPLATE_LOADING"] = True
     app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv("SQLALCHEMY_DATABASE_URI")
+    app.config["SESSION_PERMANENT"] = os.getenv("SESSION_PERMANENT")
+    app.config["SESSION_COOKIE_SAMESITE"] = os.getenv("SESSION_COOKIE_SAMESITE")
+    app.config["SESSION_COOKIE_HTTPONLY"] = os.getenv("SESSION_COOKIE_HTTPONLY")
     app.config['FLASK_ADMIN_SWATCH'] = 'spacelab'
 
 
