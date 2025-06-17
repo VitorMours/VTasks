@@ -3,10 +3,5 @@ from abc import ABC, abstractmethod
 class AuthService(ABC):
 
     @abstractmethod
-    def generate_password_hash(self):
+    def create_and_login_user(data) -> None:
         pass
-
-    @abstractmethod
-    def decrypt_password_hash(self):
-        pass
-

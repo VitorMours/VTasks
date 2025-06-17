@@ -23,12 +23,13 @@ class UserRepository:
 
     @staticmethod
     def get_user_by_email(email: str) -> str | int:
-        users = User.query.filter_by(email=email)
-        if user := len(users) == 1:
-            pass
-        elif len(users) == 0:
-            return 0
-        raise ValueError("Existem dois registros dentro do banco de dados com o mesmo email, entre em contato com nossa equipe de suporte para resolutar o problema.")
+        try:
+            print("passando")
+            user = User.query.filter_by(email=email).all()
+            print(user)
+            return user
+        except Exception as e:
+            raise ValueError("Existem dois registros dentro do banco de dados com o mesmo email, entre em contato com nossa equipe de suporte para resolutar o problema.")
 
     @staticmethod
     def update() -> None:

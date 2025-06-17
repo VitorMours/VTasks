@@ -36,7 +36,9 @@ class SigninView(MethodView):
 
     if form.validate_on_submit():
       data = form.data
-      auth_service.create_and_login_user(data)
+      result = auth_service.create_and_login_user(data)
+
+
     return render_template("signin.html", form=form)
 
 bp.add_url_rule("/login/", view_func=LoginView.as_view("login"))
