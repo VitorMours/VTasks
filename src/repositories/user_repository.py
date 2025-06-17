@@ -1,14 +1,20 @@
 from src.models.user_model import User
+from src.models import db
 from typing import List
-from ..models.user_model import User
 
 
 class UserRepository:
     @staticmethod
-    def save(user_data: User) -> None:
-        user = User(**user_data)
-        db.session.add(user)
-        db.session.commit()
+    def save(user_data: User, return_user: bool = False) -> None | User:
+        try:
+            user = User(**user_data)
+            db.session.add(user)
+            db.session.commit()
+
+            if return_user:
+                return user
+        except TypeError as e:
+            raise TypeError(f"Foi encontrado um erro de tipo durante a criação de um usuário: {e}")
 
     @staticmethod
     def get_all() -> List[User] | User:

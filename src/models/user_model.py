@@ -11,23 +11,6 @@ class User(db.Model):
     email = db.Column(String(100), nullable=False)
     password = db.Column(String(256), nullable=False)
 
-
-    @property
-    def first_name(self) -> str:
-        return self.first_name
-
-    @first_name.setter
-    def first_name(self, new_first_name: str) -> None:
-        self.first_name = new_first_name
-
-    @property
-    def last_name(self) -> str:
-        return self.last_name
-
-    @last_name.setter
-    def last_name(self, new_last_name: str) -> None:
-        self.last_name = new_last_name
-
     @property
     def full_name(self) -> str:
         if self.first_name != "":

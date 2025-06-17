@@ -33,11 +33,10 @@ class SigninView(MethodView):
 
   def post(self) -> str:
     form = SigninForm()
+
     if form.validate_on_submit():
       data = form.data
-      print(data)
-      auth_service.create_and_save_user(data)
-    print("passando p[eala view class de signin]")
+      auth_service.create_and_login_user(data)
     return render_template("signin.html", form=form)
 
 bp.add_url_rule("/login/", view_func=LoginView.as_view("login"))

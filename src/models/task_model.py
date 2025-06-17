@@ -5,7 +5,7 @@ from sqlalchemy.orm import Mapped, mapped_column
 from . import db 
 
 class Task(db.Model):
-    __tablename__= "tasks"
+    __tablename__= "task"
 
     id = db.Column(String(36), primary_key=True, nullable=False, default=lambda: str(uuid.uuid4()))
     task = db.Column(String(50), nullable=False)

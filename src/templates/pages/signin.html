@@ -31,7 +31,7 @@
           {% if form.last_name.errors %}
             <ul class="errors">
               {% for error in form.last_name.errors %}
-                <li>error</li>
+                <li>{{ error.message }}</li>
               {% endfor %}  
             </ul>
           {% endif %}
@@ -45,7 +45,7 @@
         {% if form.email.errors %}
           <ul class="errors">
             {% for error in form.email.errors %}
-              <li>error</li>
+              <li>{{ error.message }}</li>
             {% endfor %}  
           </ul>
         {% endif %}
@@ -57,19 +57,19 @@
           {% if form.password.errors %}
             <ul class="errors">
               {% for error in form.password.errors %}
-                <li>error</li>
+                <li>{{ error.message }}</li>
               {% endfor %}
             </ul>
           {% endif %}
         </div>
 
         <div class="form-check ml-3 mt-3 px-0">
-          {{ form.password.label(class="form-label text-primary") }}
-          {{ form.password(class="form-control", placeholder="Type your password", size=30) }}
-          {% if form.password.errors %}
+          {{ form.confirm_password.label(class="form-label text-primary") }}
+          {{ form.confirm_password(class="form-control", placeholder="Type your password", size=30) }}
+          {% if form.confirm_password.errors %}
             <ul class="errors">
-              {% for error in form.password.errors %}
-                <li>error</li>
+              {% for error in form.confirm_password.errors %}
+                <li>{{ error.message }}</li>
               {% endfor %}
             </ul>
           {% endif %}
