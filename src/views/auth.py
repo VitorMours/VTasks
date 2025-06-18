@@ -1,8 +1,9 @@
-from flask import Blueprint, render_template, flash, redirect, url_for
+from flask import Blueprint, render_template, flash, redirect, url_for, g
 from flask.views import View, MethodView
 from ..services.impl.auth_service_impl import AuthServiceImpl
 from ..forms.login_form import LoginForm
 from ..forms.signin_form import SigninForm
+from ..utils.security import sanitize_request
 
 bp = Blueprint("auth", __name__)
 auth_service = AuthServiceImpl()
@@ -14,23 +15,17 @@ class LoginView(MethodView):
     form = LoginForm()
     return render_template("login.html", form=form)
 
+  @sanitize_request
   def post(self) -> str:
     form = LoginForm()
 
     if form.validate_on_submit():
-          email = form.data["email"]
-          password = form.data["password"]
+      auth_service.login_user(g.sanitized_request)
 
+      return redirect(url_for("views.home.home"))
 
-          try:
-            print("chegando")
-            # TODO: Ta tendo algum problema aqui, que a autenticacao esta dando erro, devmo desativar o tratamento de ezxceccoes, e ver como que faco para deixar isso daqui melhor
-            auth_service.login_user(data)
-            print("passando")
-            return redirect(url_for("views.home.home"), 308)
-          except Exception as e:
-            flash("Não foi possível fazer o login devido algum erro que ocorreu", "danger")
-            return redirect(url_for("views.auth.login"))
+    flash("Não foi possível fazer o login devido algum erro que ocorreu", "danger")
+    return redirect(url_for("views.auth.login"))
 
 class SigninView(MethodView):
   def get(self) -> str:

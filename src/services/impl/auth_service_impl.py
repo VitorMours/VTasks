@@ -2,8 +2,8 @@ from ..auth_service import AuthService
 from src.repositories.user_repository import UserRepository
 from src.models.user_model import User
 from src.utils import security
-from src.utils.erros import UserAlreadyExistsError
-from flask import session
+from src.utils.erros import UserAlreadyExistsError, UserDoesNotExistsError, IncorrectCredentialsToLoginError
+from flask import session, redirect, url_for
 
 class AuthServiceImpl(AuthService):
 
@@ -29,19 +29,28 @@ class AuthServiceImpl(AuthService):
         except Exception as e:
             raise e
 
-    def login_user(data: dict[str, str]) -> None:
+    @staticmethod
+    def login_user(data: dict[str]) -> bool | Exception:
         if AuthServiceImpl.verify_user_register_by_email(data["email"]):
             email = data["email"]
-            password = ["password"]
+            password = data["password"]
             user = UserRepository.get_user_by_email(email)
-            security.check_password(password, user.password)
+
+            if len(user) == 1:
+                correct_password = security.check_password(password, user[0].password)
+
+            if correct_password:
+                AuthServiceImpl._create_user_session(data)
+                return True
+            raise IncorrectCredentialsToLoginError("Esse usuario tento logar com as credenciais erradas")
 
         raise UserDoesNotExistsError("Esse usuario nao esta cadastrado dentro do banco de dados")
 
     @staticmethod
     def _create_user_session(data: dict[str, str]) -> None:
         session["email"] = data["email"]
-        session["username"] = f"{data["first_name"]} {data["last_name"]}"
+        user_data = UserRepository.get_user_by_email(data["email"])
+        session["username"] = f"{user_data[0].first_name} {user_data[0].last_name}"
 
     @staticmethod
     def _destroy_user_session() -> None:
