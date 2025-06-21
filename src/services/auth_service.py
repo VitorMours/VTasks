@@ -6,7 +6,6 @@ class AuthService(ABC):
     def create_and_login_user(data) -> None:
         pass
 
-
     @abstractmethod
     def _create_user_session():
         pass
@@ -19,4 +18,3 @@ class AuthService(ABC):
     @abstractmethod
     def _destroy_user_session():
         pass
-

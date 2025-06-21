@@ -32,6 +32,7 @@ class SigninView(MethodView):
     form = SigninForm()
     return render_template("signin.html", form=form)
 
+  @sanitize_request
   def post(self) -> str:
     form = SigninForm()
 
@@ -45,8 +46,8 @@ class SigninView(MethodView):
 
     return render_template("signin.html", form=form)
 
-bp.add_url_rule("/login/", view_func=LoginView.as_view("login"))
-bp.add_url_rule("/signin/", view_func=SigninView.as_view("signin"))
+bp.add_url_rule("/login", view_func=LoginView.as_view("login"))
+bp.add_url_rule("/signin", view_func=SigninView.as_view("signin"))
 
 
 

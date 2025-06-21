@@ -11,3 +11,6 @@ class Task(db.Model):
     task = db.Column(String(50), nullable=False)
     task_description = db.Column(String(300))
     task_conclusion = db.Column(db.Boolean, nullable=False, default=False)
+
+
+    # TODO: preciso adicionar o relacionamento de chave estrangeira par aque o usuario possa ser dono dessa task

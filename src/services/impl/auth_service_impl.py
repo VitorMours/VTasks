@@ -10,21 +10,17 @@ class AuthServiceImpl(AuthService):
     @staticmethod
     def create_and_login_user(data) -> bool:
         try:
-            del data["submit"]
-            del data["csrf_token"]
-            del data["confirm_password"]
-            data["password"] = security.encrypt_password(data["password"])
+            # TODO: Receber Usuario
+            # TODO: verificar dentro do banco de dados
+            # TODO: se existir, retornar erro
+            # TODO: senao, criar mas primeiro codificar a senha
+            # TODO: commitar o banco de dados, e retoranr a tela correta
 
-            if AuthServiceImpl.verify_user_register_by_email(data["email"]):
-                raise UserAlreadyExistsError("Esse usuário não pode ser cadastro, pois já possui cadastro com esse email.")
+            if AuthServiceImpl.verify_user_register_by_email(email=data["email"]):
+                # TODO: Usuario registrado, redirecionar para tela de login
 
-            created_user = UserRepository.save(data, return_user = True)
 
-            try:
-                AuthServiceImpl._create_user_session(data)
-            except Exception as e:
-                raise e
-            return True
+
 
         except Exception as e:
             raise e
@@ -34,23 +30,19 @@ class AuthServiceImpl(AuthService):
         if AuthServiceImpl.verify_user_register_by_email(data["email"]):
             email = data["email"]
             password = data["password"]
-            user = UserRepository.get_user_by_email(email)
 
-            if len(user) == 1:
-                correct_password = security.check_password(password, user[0].password)
-
-            if correct_password:
+            if (user := UserRepository.get_user_by_email(email)) and security.check_password(password, user.password):
                 AuthServiceImpl._create_user_session(data)
                 return True
-            raise IncorrectCredentialsToLoginError("Esse usuario tento logar com as credenciais erradas")
 
-        raise UserDoesNotExistsError("Esse usuario nao esta cadastrado dentro do banco de dados")
+            raise IncorrectCredentialsToLoginError("As credenciais enviadas por esse usuário estão erradas")
+        raise UserDoesNotExistsError("Esse usuário não está cadastrado dentro do banco de dados")
 
     @staticmethod
     def _create_user_session(data: dict[str, str]) -> None:
         session["email"] = data["email"]
         user_data = UserRepository.get_user_by_email(data["email"])
-        session["username"] = f"{user_data[0].first_name} {user_data[0].last_name}"
+        session["username"] = f"{user_data.first_name} {user_data.last_name}"
 
     @staticmethod
     def _destroy_user_session() -> None:
@@ -58,8 +50,9 @@ class AuthServiceImpl(AuthService):
 
     @staticmethod
     def verify_user_register_by_email(email: str) -> bool:
-        query_result = UserRepository.get_user_by_email(email)
+        """
+        Verifica se o usuário possui algum registro dentro do banco de dados por meio do email,
+        que foi definida como uma chave de cadastro singular
+        """
 
-        if query_result:
-            return True
-        return False
+        return UserService.get_user_by_email(email)
