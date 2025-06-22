@@ -1,5 +1,7 @@
 from ..auth_service import AuthService
+from .user_service_impl import UserServiceImpl
 from src.repositories.user_repository import UserRepository
+
 from src.models.user_model import User
 from src.utils import security
 from src.utils.erros import UserAlreadyExistsError, UserDoesNotExistsError, IncorrectCredentialsToLoginError
@@ -10,18 +12,17 @@ class AuthServiceImpl(AuthService):
     @staticmethod
     def create_and_login_user(data) -> bool:
         try:
-            # TODO: Receber Usuario
-            # TODO: verificar dentro do banco de dados
             # TODO: se existir, retornar erro
             # TODO: senao, criar mas primeiro codificar a senha
             # TODO: commitar o banco de dados, e retoranr a tela correta
 
-            if AuthServiceImpl.verify_user_register_by_email(email=data["email"]):
-                # TODO: Usuario registrado, redirecionar para tela de login
+            if UserServiceImpl.check_user(data):
+                # TODO: Mandar uma flash message dizendo que o usuario ja existe dentro do banco de dados
+                return redirect(url_for("views.auth.login"))
+            UserServiceImpl.create_user(data)
+            AuthServiceImpl._create_user_session(data)
 
-
-
-
+            return True
         except Exception as e:
             raise e
 
@@ -39,20 +40,15 @@ class AuthServiceImpl(AuthService):
         raise UserDoesNotExistsError("Esse usuário não está cadastrado dentro do banco de dados")
 
     @staticmethod
+    def logout_user() -> None:
+        pass
+
+    @staticmethod
     def _create_user_session(data: dict[str, str]) -> None:
-        session["email"] = data["email"]
-        user_data = UserRepository.get_user_by_email(data["email"])
-        session["username"] = f"{user_data.first_name} {user_data.last_name}"
+        user = UserServiceImpl.get_user(data)
+        session["username"] = f"{user.first_name} {user.last_name}"
 
     @staticmethod
     def _destroy_user_session() -> None:
         session.clear()
 
-    @staticmethod
-    def verify_user_register_by_email(email: str) -> bool:
-        """
-        Verifica se o usuário possui algum registro dentro do banco de dados por meio do email,
-        que foi definida como uma chave de cadastro singular
-        """
-
-        return UserService.get_user_by_email(email)

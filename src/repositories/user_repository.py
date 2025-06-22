@@ -10,6 +10,7 @@ class UserRepository:
         try:
             user = User(**user_data)
             db.session.add(user)
+            db.session.commit()
 
             if return_user:
                 return user
@@ -44,9 +45,3 @@ class UserRepository:
     @staticmethod
     def get_full_name() -> str:
         return User.full_name
-
-
-    @staticmethod
-    def commit() -> None:
-        db.session.commit()
-    

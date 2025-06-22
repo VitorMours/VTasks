@@ -18,3 +18,7 @@ class AuthService(ABC):
     @abstractmethod
     def _destroy_user_session():
         pass
+
+    @abstractmethod
+    def logout_user() -> None:
+        pass

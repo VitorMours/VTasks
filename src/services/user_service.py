@@ -11,7 +11,7 @@ class UserService(ABC):
         pass
 
     @abstractmethod
-    def get_tasks() -> List[Task]
+    def get_tasks() -> list[Task]:
         pass
 
     @abstractmethod

@@ -8,7 +8,4 @@
 - [ ] Estudarsobre a possibilidade de colocar essa aplicação como um PWA
 
 
-
-# TODO
-- [ ] Preciso adicionar o regex de verificacao de senha, dentro do meu form de login e signin
-- [ ] preciso criar uma relacao entre o usuario e as outras ideias
+# 22/06/2025
