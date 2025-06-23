@@ -5,24 +5,20 @@ from src.repositories.user_repository import UserRepository
 from src.models.user_model import User
 from src.utils import security
 from src.utils.erros import UserAlreadyExistsError, UserDoesNotExistsError, IncorrectCredentialsToLoginError
-from flask import session, redirect, url_for
+from flask import session, redirect, url_for, flash
 
 class AuthServiceImpl(AuthService):
 
     @staticmethod
     def create_and_login_user(data) -> bool:
         try:
-            # TODO: se existir, retornar erro
-            # TODO: senao, criar mas primeiro codificar a senha
-            # TODO: commitar o banco de dados, e retoranr a tela correta
-
             if UserServiceImpl.check_user(data):
-                # TODO: Mandar uma flash message dizendo que o usuario ja existe dentro do banco de dados
-                return redirect(url_for("views.auth.login"))
-            UserServiceImpl.create_user(data)
-            AuthServiceImpl._create_user_session(data)
-
-            return True
+                flash("This email is already registered in the database, may you want to login")
+                return False
+            else:
+                UserServiceImpl.create_user(data)
+                AuthServiceImpl._create_user_session(data)
+                return True
         except Exception as e:
             raise e
 
@@ -46,6 +42,7 @@ class AuthServiceImpl(AuthService):
     @staticmethod
     def _create_user_session(data: dict[str, str]) -> None:
         user = UserServiceImpl.get_user(data)
+        print(user)
         session["username"] = f"{user.first_name} {user.last_name}"
 
     @staticmethod

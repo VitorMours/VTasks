@@ -19,7 +19,7 @@ __pycache__/
 
 # Diretório de instância do Flask
 instance/
-
+migrations/
 # Cache do Flask-Assets
 .webassets-cache
 

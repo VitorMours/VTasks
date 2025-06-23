@@ -6,7 +6,6 @@ from ..forms.signin_form import SigninForm
 from ..utils.security import sanitize_request
 
 bp = Blueprint("auth", __name__)
-auth_service = AuthServiceImpl()
 
 
 class LoginView(MethodView):
@@ -38,12 +37,10 @@ class SigninView(MethodView):
 
     if form.validate_on_submit():
       data = form.data
-      user_login = auth_service.create_and_login_user(data)
+      authentication = AuthServiceImpl.create_and_login_user(data)
 
-      if user_login:
+      if authentication:
         return redirect(url_for("views.home.home"))
-
-
     return render_template("signin.html", form=form)
 
 bp.add_url_rule("/login", view_func=LoginView.as_view("login"))

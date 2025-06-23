@@ -26,13 +26,29 @@ class UserRepository:
     @staticmethod
     def get_user_by_email(email: str) -> list[str]:
         try:
-            user = User.query.filter_by(email=email).all()
-            if len(user) > 1:
-                raise DuplicateRegisterError("""Existem dois registros dentro do banco de dados com o mesmo email.""")
+            user = User.query.filter_by(email=email).first()
+            if user is None:
+                raise UserDoesNotExistsError("The user does not exists.")
             return user
 
         except Exception as e:
             raise Exception(e)
+
+
+    @staticmethod
+    def user_exists(data: dict[str, str]) -> bool:
+        """
+        Function that return True if the user exists, and False if does not exists
+        """
+        try:
+            user_email = data["email"]
+            user = User.query.filter_by(email=user_email).all()
+            if len(user) != 1:
+                return False
+            return True
+
+        except Exception as e:
+            raise e
 
     @staticmethod
     def update() -> None:

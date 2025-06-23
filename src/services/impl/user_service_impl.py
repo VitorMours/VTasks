@@ -1,7 +1,9 @@
 from src.models.task_model import Task
 from src.models.user_model import User
+from src.utils.erros import UserDoesNotExistsError
 from src.repositories.user_repository import UserRepository
 from ..user_service import UserService
+
 class UserServiceImpl(UserService):
 
     @staticmethod
@@ -16,19 +18,19 @@ class UserServiceImpl(UserService):
 
     @staticmethod
     def get_user(data) -> User:
-        return UserRepository.get_user_by_email(email=data["email"])
+        if UserRepository.user_exists(data):
+            user = UserRepository.get_user_by_email(data["email"])
+            return user
+        return UserDoesNotExistsError("The user does not exists in the database")
 
     @staticmethod
     def get_tasks() -> list[Task]:
-
+        pass
 
     @staticmethod
     def check_user(data: dict[str, str]) -> bool:
-        email = data["email"]
-        user_exists = UserRepository.get_user_by_email(email)
-        if len(user_exists) > 0:
-            return True
-        return False
+        user = UserRepository.user_exists(data)
+        return user
 
     @staticmethod
     def check_password(password: str) -> bool:
