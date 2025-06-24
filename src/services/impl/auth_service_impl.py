@@ -1,10 +1,12 @@
 from ..auth_service import AuthService
 from .user_service_impl import UserServiceImpl
 from src.repositories.user_repository import UserRepository
-
 from src.models.user_model import User
 from src.utils import security
-from src.utils.erros import UserAlreadyExistsError, UserDoesNotExistsError, IncorrectCredentialsToLoginError
+from src.utils.erros import (UserAlreadyExistsError,
+                             UserDoesNotExistsError,
+                             IncorrectCredentialsToLoginError)
+
 from flask import session, redirect, url_for, flash
 
 class AuthServiceImpl(AuthService):
@@ -28,7 +30,7 @@ class AuthServiceImpl(AuthService):
             email = data["email"]
             password = data["password"]
 
-            if (user := UserRepository.get_user_by_email(email)) and security.check_password(password, user.password):
+            if (user := UserRepository.get_user_by_email(email)) and UserServiceImpl.check_password(password, user.password):
                 AuthServiceImpl._create_user_session(data)
                 return True
 

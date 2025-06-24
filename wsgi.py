@@ -21,6 +21,7 @@ def create_app() -> Flask:
     app.config["SESSION_COOKIE_SAMESITE"] = os.getenv("SESSION_COOKIE_SAMESITE") or "Strict"
     app.config["SESSION_COOKIE_HTTPONLY"] = os.getenv("SESSION_COOKIE_HTTPONLY") or True
     app.config['FLASK_ADMIN_SWATCH'] = 'spacelab'
+    app.config['FLASK_ADMIN'] = 'jvrezendemoura@gmail.com'
 
 
     # Initializing Extensions

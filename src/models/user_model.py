@@ -10,7 +10,7 @@ class User(db.Model):
     last_name = db.Column(String(50))
     email = db.Column(String(100), nullable=False)
     password = db.Column(String(256), nullable=False)
-    tasks = db.relationship("Task", back_populates="tasks")
+    tasks = db.relationship("Task", back_populates="user")
 
     @property
     def full_name(self) -> str:
