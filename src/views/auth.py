@@ -19,7 +19,7 @@ class LoginView(MethodView):
     form = LoginForm()
 
     if form.validate_on_submit():
-      auth_service.login_user(g.sanitized_request)
+      AuthServiceImpl.login_user(g.sanitized_request)
 
       return redirect(url_for("views.home.home"))
 
@@ -43,9 +43,17 @@ class SigninView(MethodView):
         return redirect(url_for("views.home.home"))
     return render_template("signin.html", form=form)
 
+class LogoutView(View):
+    def dispatch_request(self):
+        if AuthServiceImpl.check_session():
+            AuthServiceImpl.logout_user()
+            return redirect(url_for("views.index"))
+        flash("Você não pode fazer logout sem estar dentro de um login","warning")
+
+
 bp.add_url_rule("/login", view_func=LoginView.as_view("login"))
 bp.add_url_rule("/signin", view_func=SigninView.as_view("signin"))
-
+bp.add_url_rule("/logout", view_func=LogoutView.as_view("logout"))
 
 
 

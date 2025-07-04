@@ -26,7 +26,7 @@ class AuthServiceImpl(AuthService):
 
     @staticmethod
     def login_user(data: dict[str]) -> bool | Exception:
-        if AuthServiceImpl.verify_user_register_by_email(data["email"]):
+        if UserServiceImpl.check_user(data):
             email = data["email"]
             password = data["password"]
 
@@ -39,13 +39,21 @@ class AuthServiceImpl(AuthService):
 
     @staticmethod
     def logout_user() -> None:
-        pass
+        AuthServiceImpl._destroy_user_session()
+        return True
 
     @staticmethod
     def _create_user_session(data: dict[str, str]) -> None:
         user = UserServiceImpl.get_user(data)
         print(user)
         session["username"] = f"{user.first_name} {user.last_name}"
+
+
+    @staticmethod 
+    def check_session() -> bool: 
+        if session is not None:
+            return True 
+        return False
 
     @staticmethod
     def _destroy_user_session() -> None:
