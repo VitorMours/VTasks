@@ -19,10 +19,14 @@ class LoginView(MethodView):
     form = LoginForm()
 
     if form.validate_on_submit():
-      AuthServiceImpl.login_user(g.sanitized_request)
-
-      return redirect(url_for("views.home.home"))
-
+        try: 
+            response = AuthServiceImpl.login_user(g.sanitized_request)
+            print(response)
+            return redirect(url_for("views.home.home"))
+        except Exception as e: 
+            flash(f"{e.message}", "warning")
+            return redirect(url_for("views.auth.login"))
+        
     flash("Não foi possível fazer o login devido algum erro que ocorreu", "danger")
     return redirect(url_for("views.auth.login"))
 

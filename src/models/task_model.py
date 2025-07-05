@@ -15,8 +15,11 @@ class Task(db.Model):
     user = db.relationship("User", back_populates="tasks")
 
 
-    # @staticmethod
-    # def toggle_conclusion() -> None:
-        # self.task_conclusion = not(task_conclusion)
+    @staticmethod
+    def toggle_conclusion() -> None:
+        self.task_conclusion = not(task_conclusion)
+
+    def __repr__(self) -> str:
+        return f"<{self.user_id} -> {self.task} {self.task_conclusion}>"
 
     # TODO: preciso adicionar o relacionamento de chave estrangeira par aque o usuario possa ser dono dessa task

@@ -8,4 +8,6 @@
 - [ ] Estudarsobre a possibilidade de colocar essa aplicação como um PWA
 
 
-# 22/06/2025
+# 05/07/2025
+
+- [ ] Create the security for the pagesto user to be logged to access 

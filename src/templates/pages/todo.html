@@ -13,8 +13,39 @@
 	{% block content %}
 	<div class="d-flex flex-column vw-100 bg-white p-5" style="height: 100vh;">
 		<section>
-			<h1>Todo</h1>
-			<ul class="nav nav-tabs mb-4" id="tabMenu">
+      <div class="d-flex justify-content-between">
+        <h1>Todo</h1>
+        <button class="btn btn-primary mx-2 btn-md" data-bs-toggle="modal" data-bs-target="#createTask" type="button">+ Task</button>
+      </div>
+
+      <div class="modal fade" id="createTask" tabindex="-1" aria-labelledby="createTaskLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="createTaskLabel"> Creating Task</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              Please insert the data of the task you gonna create!
+              <form>
+                <div class="mb-1">
+                  <label for="task-name" class="col-form-label">Task name:</label>
+                  <input type="text" class="form-control" id="task-name">
+                </div>
+                <div class="mb-1">
+                  <label for="task-description" class="col-form-label">Task Description:</label>
+                  <input type="message-text" class="form-control" id="task-description">
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button class="btn btn-primary" data-bs-dismiss="modal">Create Task</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <ul class="nav nav-tabs mb-4" id="tabMenu">
 				<li class="nav-item">
 					<a class="nav-link active" data-bs-toggle="tab" aria-curent="page" href="#all">All</a>
 				</li>
