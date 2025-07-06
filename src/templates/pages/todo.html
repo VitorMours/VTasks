@@ -3,8 +3,6 @@
 	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 {% endblock  %}
 {% block subtitle %}- Home{% endblock %}
-<main class="d-flex flex-row">
-	s
 	{% block sidebar %}
 		{% include "sidebar.html"%}
 		<div class="vr"></div>
@@ -57,6 +55,8 @@
 				</li>
 			</ul>
 		</section>
-	<div>
-	{% endblock %}
-</main>
+	</div>
+{% endblock %}
+{% block javascript %}
+  <script src="{{ url_for('static', filename='js/taskModal.js') }}" defer></script>
+{% endblock %}
