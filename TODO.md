@@ -20,3 +20,8 @@ esteja em vias de fato conectado com essa task.
 Com isso, agora torna-se apenas necessário fazer o desenvolvimento do macro necessário para que sejam mostradas as tasks 
 dentro da interface para o usuário, de forma que são aplicados filtros dentro dessa interface, em que dividimos as tasks
 em todas, as tasks ativas, e as tasks que já foram concluída. Com isso, temos a necessidade de codificar ainda o desenvolvimento das possibilidades de edição e de deleção de alguma task por parte do usuário
+
+
+# 08/07/2025
+Atualmente a funcionalidade de criar e mostrar as tasks esta correta, entretanto precisa-se fazer com que ao criar uma nova task, ela seja automaticamente enviada
+e mostrada dentro da interface, para que possamos ter mais interatividade e fique mais facil para o usuario. Estou pensando em usar o localStorage do javascript apra quando tiver uma task dentro da interface criada que ainda nao foi enviada para o banco de dados, ela ficar salva e mostrada, de forma que fique mais facil de trabalhar com ela enquanto nao consigo dar auto-browser-referesh dentro da itnerface por mei odo backend

@@ -1,6 +1,15 @@
 {% macro list_task(json) %}
-      <li class="list-group-item">
-        <input class="form-check-input me-1" type="checkbox" value="" id="{{ json.id }}">
-        <label class="form-check-label" for="{{ json.id }}"></label>
-      </li>
+
+  {% for task in json %}
+    <li class="list-group-item">
+          <input class="form-check-input me-1" type="checkbox" value="" id="{{ task.id }}">
+          <label class="form-check-label" for="{{ task.id }}">
+          {# {% if %} #}
+           <strong>{{ task.task }}:</strong> {{ task.task_description }}
+          {# {% endif %} #}
+          </label>
+    </li>
+  {% endfor %} 
+  
 {% endmacro %}
+ 

@@ -26,6 +26,10 @@ def create_app() -> Flask:
     app.config['FLASK_ADMIN'] = 'jvrezendemoura@gmail.com'
 
 
+    # Adding template extensions 
+    app.jinja_env.add_extension('jinja2.ext.do')
+    
+
     # Initializing Extensions
     db.init_app(app)
     migrate = Migrate(app, db)

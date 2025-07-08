@@ -17,7 +17,7 @@ class Task(db.Model):
     def toggle_conclusion(self) -> None:
         self.task_conclusion = not self.task_conclusion
 
-    def __repr__(self) -> str:
+    def __str__(self) -> str:
         return f"<{self.user_id} -> {self.task} {self.task_conclusion}>"
 
     # TODO: preciso adicionar o relacionamento de chave estrangeira para que o usuario possa ser dono dessa task

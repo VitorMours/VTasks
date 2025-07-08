@@ -1,4 +1,4 @@
-from flask import Blueprint, redirect, render_template, flash, request
+from flask import Blueprint, redirect, render_template, flash, request, url_for
 from flask.views import MethodView, View
 from src.services.impl.task_service_impl import TaskServiceImpl
 from src.utils.security import login_required
@@ -27,6 +27,7 @@ class TodoView(MethodView):
         return render_template("todo.html", active_page="todo", tasks = tasks)
     
     def post(self) -> str:
+        tasks = TaskServiceImpl.get_all()
         data = request.get_json()
         if not isinstance(data, dict):
             try:
@@ -34,7 +35,7 @@ class TodoView(MethodView):
             except Exception:
                 data = {}
         TaskServiceImpl.create(data)
-        return render_template("todo.html", active_page="todo")
+        return redirect(url_for("views.home.todo"))
 
 bp.add_url_rule("/home", view_func=HomeView.as_view("home"))
 bp.add_url_rule("/dashboard", view_func=DashboardView.as_view("dashboard"))
