@@ -13,10 +13,14 @@ import os
 dotenv_file = Path(".env")
 load_dotenv(dotenv_path = dotenv_file)
 
+
+BASEDIR = Path(__file__).parent.parent
+db_path =  BASEDIR / "db.sqlite3"
+
 def create_app() -> Flask:
     app = Flask(__name__, template_folder="src/templates/pages")
-    app.config["SECRET_KEY"] = os.getenv("SECRET_KEY") or "dev"
-    app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv("SQLALCHEMY_DATABASE_URI") or "sqlite:///development.sqlite3"
+    app.config["SECRET_KEY"] = os.getenv("SECRET_KEY") or "development_key"
+    app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv("SQLALCHEMY_DATABASE_URI") or f"sqlite:///{db_path}"
     app.config["SESSION_PERMANENT"] = os.getenv("SESSION_PERMANENT") or True
     app.config["SESSION_COOKIE_SAMESITE"] = os.getenv("SESSION_COOKIE_SAMESITE") or "Strict"
     app.config["SESSION_COOKIE_HTTPONLY"] = os.getenv("SESSION_COOKIE_HTTPONLY") or True
@@ -26,6 +30,8 @@ def create_app() -> Flask:
 
     # Initializing Extensions
     db.init_app(app)
+    migrate = Migrate(app, db)
+
     with app.app_context():
         db.create_all()
 
@@ -33,8 +39,6 @@ def create_app() -> Flask:
     app.register_blueprint(bp)
     admin_add_views([User, Task])
     admin.init_app(app)
-    migrate = Migrate(app, db)
-    print(app.url_map)
     return app
 
 

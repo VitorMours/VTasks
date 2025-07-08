@@ -13,12 +13,17 @@ class AuthServiceImpl(AuthService):
 
     @staticmethod
     def create_and_login_user(data) -> bool:
+        print("criando o usuario")
         try:
+            print("criando o usuario")
             if UserServiceImpl.check_user(data):
+            
+                print("criando o usuario")
                 flash("This email is already registered in the database, may you want to login")
                 return False
             else:
                 UserServiceImpl.create_user(data)
+                print(123123123)
                 AuthServiceImpl._create_user_session(data)
                 return True
         except Exception as e:
@@ -45,9 +50,10 @@ class AuthServiceImpl(AuthService):
     @staticmethod
     def _create_user_session(data: dict[str, str]) -> None:
         user = UserServiceImpl.get_user(data)
-        print(user)
         session["username"] = f"{user.first_name} {user.last_name}"
-
+        session["user_id"] = f"{user.id}"
+        session["email"] = f"{user.email}"
+        session["login"] = True
 
     @staticmethod 
     def check_session() -> bool: 

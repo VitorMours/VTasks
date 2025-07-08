@@ -1,4 +1,8 @@
+
+{% import "macros/todo_tasks_macro.html" as todo_tasks %}
 {% extends "base.html" %}
+
+
 {% block css %}
 	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 {% endblock  %}
@@ -24,7 +28,7 @@
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-              Please insert the data of the task you gonna create!
+              <h4><strong>Please insert the data of the task you gonna create!</strong></h4>
               <form>
                 <div class="mb-1">
                   <label for="task-name" class="col-form-label">Task name:</label>
@@ -44,16 +48,27 @@
       </div>
 
       <ul class="nav nav-tabs mb-4" id="tabMenu">
-				<li class="nav-item">
-					<a class="nav-link active" data-bs-toggle="tab" aria-curent="page" href="#all">All</a>
+				<li class="nav-item" role="presentation">
+					<a class="nav-link active" id="todo-all-tab" data-bs-toggle="tab" aria-curent="page" href="#todo-all-tab-content">All</a>
 				</li>
-				<li class="nav-item">
-					<a class="nav-link" data-bs-toggle="tab" aria-curent="page" href="#active">Active</a>
+				<li class="nav-item" role="presentation">
+					<a class="nav-link" id="todo-active-tab" data-bs-toggle="tab" aria-curent="page" href="#todo-active-tab-content">Active</a>
 				</li>
-				<li class="nav-item">
-					<a class="nav-link" data-bs-toggle="tab" aria-curent="page" href="#done">Done</a>
+				<li class="nav-item" role="presentation">
+					<a class="nav-link" id="todo-done-tab" data-bs-toggle="tab" aria-curent="page" href="#todo-done-tab-content">Done</a>
 				</li>
 			</ul>
+      <div class="tab-content" id="tab-content">
+        <div class="tab-pane fade show active" id="todo-all-tab-content" role="tabpanel" aria-labelledby="todo-all-tab" tabindex="0">
+          {{ todo_tasks.list_task() }}
+        </div>  
+        <div class="tab-pane fade" id="todo-active-tab-content" role="tabpanel" aria-labelledby="todo-active-tab" tabindex="0">
+          {{ todo_tasks.list_task() }}
+        </div>  
+        <div class="tab-pane fade" id="todo-done-tab-content" role="tabpanel" aria-labelledby="todo-done-tab" tabindex="0">
+          {{ todo_tasks.list_task() }}
+        </div>  
+      </div>
 		</section>
 	</div>
 {% endblock %}

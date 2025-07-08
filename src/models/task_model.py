@@ -5,21 +5,19 @@ from sqlalchemy.orm import Mapped, mapped_column
 from . import db 
 
 class Task(db.Model):
-    __tablename__= "tasks"
+    __tablename__ = "tasks"
 
-    id = db.Column(String(36), primary_key=True, nullable=False, default=lambda: str(uuid.uuid4()))
-    task = db.Column(String(50), nullable=False)
-    task_description = db.Column(String(300))
+    id = db.Column(db.String(36), primary_key=True, nullable=False, default=lambda: str(uuid.uuid4()))
+    task = db.Column(db.String(50), nullable=False)
+    task_description = db.Column(db.String(300))
     task_conclusion = db.Column(db.Boolean, nullable=False, default=False)
-    user_id = db.Column(db.String(36), db.ForeignKey("users.id"))
+    user_id = db.Column(db.String(36), db.ForeignKey("users.id", name="fk_tasks_user_id"))
     user = db.relationship("User", back_populates="tasks")
 
-
-    @staticmethod
-    def toggle_conclusion() -> None:
-        self.task_conclusion = not(task_conclusion)
+    def toggle_conclusion(self) -> None:
+        self.task_conclusion = not self.task_conclusion
 
     def __repr__(self) -> str:
         return f"<{self.user_id} -> {self.task} {self.task_conclusion}>"
 
-    # TODO: preciso adicionar o relacionamento de chave estrangeira par aque o usuario possa ser dono dessa task
+    # TODO: preciso adicionar o relacionamento de chave estrangeira para que o usuario possa ser dono dessa task

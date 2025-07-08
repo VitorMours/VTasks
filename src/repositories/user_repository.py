@@ -33,6 +33,17 @@ class UserRepository:
 
         except Exception as e:
             raise Exception(e)
+        
+    @staticmethod 
+    def get_user_by_id(id: str) -> User:
+        try:
+            user = User.query.filter_by(id=id).first()
+            if user is None:
+                raise UserDoesNotExistsError("The user does not exists.")
+            return user
+
+        except Exception as e:
+            raise Exception(e)
 
 
     @staticmethod

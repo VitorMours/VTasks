@@ -19,6 +19,7 @@ class LoginView(MethodView):
     form = LoginForm()
 
     if form.validate_on_submit():
+       
         try: 
             response = AuthServiceImpl.login_user(g.sanitized_request)
             print(response)
@@ -42,7 +43,7 @@ class SigninView(MethodView):
     if form.validate_on_submit():
       data = form.data
       authentication = AuthServiceImpl.create_and_login_user(data)
-
+      print(authentication)
       if authentication:
         return redirect(url_for("views.home.home"))
     return render_template("signin.html", form=form)
