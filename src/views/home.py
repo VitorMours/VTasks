@@ -22,7 +22,9 @@ class TodoView(MethodView):
     decorators = [login_required]
 
     def get(self) -> str:
-        return render_template("todo.html", active_page="todo")
+        tasks = TaskServiceImpl.get_all()
+        print(tasks)
+        return render_template("todo.html", active_page="todo", tasks = tasks)
     
     def post(self) -> str:
         data = request.get_json()

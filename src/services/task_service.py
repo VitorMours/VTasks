@@ -1,11 +1,13 @@
 from abc import ABC, abstractmethod
-
+from typing import List 
+from src.models.task_model import Task
+from src.repositories.task_repository import TaskRepository
+from flask import session
 class TaskService(ABC):
 
     @abstractmethod
-    def get_all() -> None:
+    def get_all_user_tasks() -> List[Task]:
         pass
-
     @abstractmethod
     def delete() -> None:
         pass

@@ -7,7 +7,9 @@ class TaskServiceImpl(TaskService):
     
     @staticmethod
     def get_all() -> None:
-        pass
+        user_id = session.get("user_id")
+        tasks = TaskRepository.get_all_user_tasks(user_id)
+        return tasks
 
     @staticmethod
     def delete() -> None:
@@ -32,7 +34,6 @@ class TaskServiceImpl(TaskService):
     @staticmethod
     def create(data: dict[str, str]) -> None:
         if (user := UserServiceImpl.check_user_by_id(data)):
-            print(user)
             data["user_id"] = session["user_id"]
             task = TaskRepository.create(data)
         
