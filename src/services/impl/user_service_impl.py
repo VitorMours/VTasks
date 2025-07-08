@@ -47,7 +47,6 @@ class UserServiceImpl(UserService):
         """
         Check if the user exists by ID.
         """
-        print(data)
         user = UserRepository.get_user_by_id(data["user_id"])
         if user is None:
             raise UserDoesNotExistsError("The user does not exists in the database")
