@@ -5,6 +5,7 @@ from src.utils.security import check_password, encrypt_password
 from src.repositories.user_repository import UserRepository
 from ..user_service import UserService
 from collections.abc import Hashable
+from flask import session
 
 
 class UserServiceImpl(UserService):
@@ -47,7 +48,7 @@ class UserServiceImpl(UserService):
         """
         Check if the user exists by ID.
         """
-        user = UserRepository.get_user_by_id(data["user_id"])
+        user = UserRepository.get_user_by_id(session.get("user_id"))
         if user is None:
             raise UserDoesNotExistsError("The user does not exists in the database")
         return user

@@ -1,11 +1,10 @@
-
 {% import "macros/todo_tasks_macro.html" as todo_tasks %}
 {% extends "base.html" %}
-
 
 {% block css %}
 	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 {% endblock  %}
+
 {% block subtitle %}- Home{% endblock %}
 	{% block sidebar %}
 		{% include "sidebar.html"%}
@@ -24,7 +23,7 @@
         <div class="modal-dialog modal-dialog-centered">
           <div class="modal-content">
             <div class="modal-header">
-              <h1 class="modal-title fs-5" id="createTaskLabel"> Creating Task</h1>
+              <h1 class="modal-title fs-5" id="createTaskLabel">Creating Task</h1>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -32,11 +31,11 @@
               <form>
                 <div class="mb-1">
                   <label for="task-name" class="col-form-label">Task name:</label>
-                  <input type="text" class="form-control" id="task-name">
+                  <input type="text" class="form-control" id="task-name" />
                 </div>
                 <div class="mb-1">
                   <label for="task-description" class="col-form-label">Task Description:</label>
-                  <input type="message-text" class="form-control" id="task-description">
+                  <input type="message-text" class="form-control" id="task-description" />
                 </div>
               </form>
             </div>
@@ -60,17 +59,39 @@
 			</ul>
       <div class="tab-content" id="tab-content">
         <div class="tab-pane fade show active" id="todo-all-tab-content" role="tabpanel" aria-labelledby="todo-all-tab" tabindex="0">
-          {{ todo_tasks.list_task() }}
+          <ul class="list-group list-group-flush">  
+            {{ todo_tasks.list_task(tasks) }}
+          </ul>
         </div>  
         <div class="tab-pane fade" id="todo-active-tab-content" role="tabpanel" aria-labelledby="todo-active-tab" tabindex="0">
-          {{ todo_tasks.list_task() }}
-        </div>  
+          <ul class="list-group list-group-flush">
+
+            {% set active_tasks = [] %}
+            {% for task in tasks %}
+              {% if not task.task_conclusion %}
+                {% do active_tasks.append(task) %}
+              {% endif %}
+            {% endfor %}
+            
+            {{ todo_tasks.list_task(active_tasks) }}
+          </ul>
+        </div>
         <div class="tab-pane fade" id="todo-done-tab-content" role="tabpanel" aria-labelledby="todo-done-tab" tabindex="0">
-          {{ todo_tasks.list_task() }}
-        </div>  
+          <ul class="list-group list-group-flush">
+            
+            {% set done_tasks = [] %}
+            {% for task in tasks %}  
+              {% if task.task_conclusion == 1 %}
+                {% do done_tasks.append(task) %}
+              {% endif %}
+            {% endfor %}
+
+            {{ todo_tasks.list_task(done_tasks) }}
+          </ul>
+        </div>
       </div>
-		</section>
-	</div>
+    </section>
+  </div>
 {% endblock %}
 {% block javascript %}
   <script src="{{ url_for('static', filename='js/taskModal.js') }}" defer></script>

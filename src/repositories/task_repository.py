@@ -1,9 +1,9 @@
 from ..models.task_model import Task
 from ..models import db
+from typing import List 
+from src.models.task_model import Task
 
 class TaskRepository:
-    
-    
     
     @staticmethod 
     def create(task_data: Task) -> None:
@@ -16,7 +16,6 @@ class TaskRepository:
                 task_description=task_data.get("task_description", ""),
                 user_id=task_data["user_id"]
             )
-            print(task)
             db.session.add(task)
             db.session.commit()
         
@@ -24,4 +23,10 @@ class TaskRepository:
             raise e
         
     
-    
+    @staticmethod
+    def get_all_user_tasks(user_id: int) -> List[Task]:
+        try:
+            tasks = Task.query.filter_by(user_id=user_id).all()
+            return tasks
+        except Exception as e:
+            raise e
