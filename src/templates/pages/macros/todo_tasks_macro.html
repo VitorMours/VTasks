@@ -1,12 +1,28 @@
-{% macro list_task(json) %}
+{% macro list_task(json, filter=None) %}
 
-  {% for task in json %}
+  {% set filtered_tasks = [] %}
+  {% if filter != None %}
+    {% for task in json %}
+      {% if filter == "active" %}
+        {% if task.task_conclusion == 0 %}
+          {% do filtered_tasks.append(task) %}
+        {% endif %}
+      {% elif filter == "done" %}
+        {% if task.task_conclusion == 1 %}
+          {% do filtered_tasks.append(task) %}
+        {% endif %}
+      {% endif %}
+    {# {%%}{%%}{%%}{%%}{%%}{%%} #}
+    {% endfor %}
+  {% else %}
+    {% set filtered_tasks = json %}
+  {% endif %}
+
+  {% for task in filtered_tasks %}
     <li class="list-group-item">
-          <input class="form-check-input me-1" type="checkbox" value="" id="{{ task.id }}">
-          <label class="form-check-label" for="{{ task.id }}">
-          {# {% if %} #}
-           <strong>{{ task.task }}:</strong> {{ task.task_description }}
-          {# {% endif %} #}
+          <input class="form-check-input me-1" type="checkbox" value="" id="{{ task.id }}" {% if task.task_conclusion == 1 %}checked{% endif %}>
+          <label class="form-check-label {% if task.task_conclusion == 1 %} text-decoration-line-through {% endif %}" for="{{ task.id }}">
+              <strong>{{ task.task }}:</strong> {{ task.task_description }}
           </label>
     </li>
   {% endfor %} 
