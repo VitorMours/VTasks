@@ -48,13 +48,13 @@
 
       <ul class="nav nav-tabs mb-4" id="tabMenu">
 				<li class="nav-item" role="presentation">
-					<a class="nav-link active" id="todo-all-tab" data-bs-toggle="tab" aria-curent="page" href="#todo-all-tab-content">All</a>
+					<a class="nav-link active" id="todo-all-tab" data-bs-toggle="tab" aria-current="page" href="#todo-all-tab-content">All</a>
 				</li>
 				<li class="nav-item" role="presentation">
-					<a class="nav-link" id="todo-active-tab" data-bs-toggle="tab" aria-curent="page" href="#todo-active-tab-content">Active</a>
+					<a class="nav-link" id="todo-active-tab" data-bs-toggle="tab" aria-current="page" href="#todo-active-tab-content">Active</a>
 				</li>
 				<li class="nav-item" role="presentation">
-					<a class="nav-link" id="todo-done-tab" data-bs-toggle="tab" aria-curent="page" href="#todo-done-tab-content">Done</a>
+					<a class="nav-link" id="todo-done-tab" data-bs-toggle="tab" aria-current="page" href="#todo-done-tab-content">Done</a>
 				</li>
 			</ul>
       <div class="tab-content" id="tab-content">
@@ -80,6 +80,12 @@
   </div>
 {% endblock %}
 {% block javascript %}
+  
+  <script>
+    console.log({{ tasks }});
+    
+  </script>
+  // <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="{{ url_for('static', filename='js/taskModal.js') }}" defer></script>
   <script src="{{ url_for('static', filename='js/taskManager.js') }}" defer></script>
 {% endblock %}

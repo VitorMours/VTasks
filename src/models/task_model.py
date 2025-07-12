@@ -19,5 +19,14 @@ class Task(db.Model):
 
     def __str__(self) -> str:
         return f"<{self.user_id} -> {self.task} {self.task_conclusion}>"
+    
+    def to_json(self) -> dict[str, str | bool]:
+        return {
+            "id": self.id,
+            "task": self.task,
+            "task_description": self.task_description,
+            "task_conclusion": self.task_conclusion,
+            "user_id": self.user_id
+        }
 
     # TODO: preciso adicionar o relacionamento de chave estrangeira para que o usuario possa ser dono dessa task

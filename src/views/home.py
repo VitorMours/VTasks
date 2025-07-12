@@ -22,12 +22,10 @@ class TodoView(MethodView):
     decorators = [login_required]
 
     def get(self) -> str:
-        tasks = TaskServiceImpl.get_all()
-        print(tasks)
+        tasks = TaskServiceImpl.get_all(as_json=True)
         return render_template("todo.html", active_page="todo", tasks = tasks)
     
     def post(self) -> str:
-        tasks = TaskServiceImpl.get_all()
         data = request.get_json()
         if not isinstance(data, dict):
             try:
