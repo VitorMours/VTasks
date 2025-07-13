@@ -1,13 +1,2 @@
-{% macro list_task(json, filter=None) %}
-  {% for task in json %}
-      <li class="list-group-item">
-            <input class="form-check-input me-1" type="checkbox"  id="{{ task.id }}" 
-            {% if filter=="done" %} checked {% endif %}>
-            <label for="{{ task.id }}" 
-            class="form-check-label  {% if filter=="done" %} text-decoration-line-through {% endif %}">
-                <strong>{{ task.task }}:</strong> {{ task.task_description }}
-            </label>
-      </li>
-  {% endfor %} 
-{% endmacro %}
+
  

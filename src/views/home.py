@@ -23,7 +23,6 @@ class TodoView(MethodView):
 
     def get(self) -> str:
         tasks = TaskServiceImpl.get_all(as_json=True)
-        print(tasks)
         return render_template("todo.html", active_page="todo", tasks = tasks)
     
     def post(self) -> str:
