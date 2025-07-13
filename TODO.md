@@ -25,3 +25,6 @@ em todas, as tasks ativas, e as tasks que já foram concluída. Com isso, temos 
 # 08/07/2025
 Atualmente a funcionalidade de criar e mostrar as tasks esta correta, entretanto precisa-se fazer com que ao criar uma nova task, ela seja automaticamente enviada
 e mostrada dentro da interface, para que possamos ter mais interatividade e fique mais facil para o usuario. Estou pensando em usar o localStorage do javascript apra quando tiver uma task dentro da interface criada que ainda nao foi enviada para o banco de dados, ela ficar salva e mostrada, de forma que fique mais facil de trabalhar com ela enquanto nao consigo dar auto-browser-referesh dentro da itnerface por mei odo backend
+
+# 12/07/2025
+Percebi que preciso modificar dentro da parte de todo o template, todas as tasks devem ser gerenciadas dentro da pagina, e nao dentro do macro, de forma que eu defino anteriormente a injecao das tasks, oque deve ser enviado para ser mostrado ou nao, por meio de parametros dentro do proprio template

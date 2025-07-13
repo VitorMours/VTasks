@@ -1,4 +1,4 @@
-from flask import Blueprint, redirect, render_template, flash, request, url_for
+from flask import Blueprint, redirect, render_template, flash, request, url_for, jsonify
 from flask.views import MethodView, View
 from src.services.impl.task_service_impl import TaskServiceImpl
 from src.utils.security import login_required
@@ -23,6 +23,7 @@ class TodoView(MethodView):
 
     def get(self) -> str:
         tasks = TaskServiceImpl.get_all(as_json=True)
+        print(tasks)
         return render_template("todo.html", active_page="todo", tasks = tasks)
     
     def post(self) -> str:

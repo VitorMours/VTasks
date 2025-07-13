@@ -65,14 +65,20 @@
         </div>  
         <div class="tab-pane fade" id="todo-active-tab-content" role="tabpanel" aria-labelledby="todo-active-tab" tabindex="0">
           <ul class="list-group list-group-flush">
-            
-            {{ todo_tasks.list_task(tasks, filter="active") }}
+            {% for task in tasks %}
+              {% if task.task_conclusion == 0 %}
+                {{ todo_tasks.list_task(tasks, filter="active") }}
+              {% endif %}
+            {% endfor %}
           </ul>
         </div>
         <div class="tab-pane fade" id="todo-done-tab-content" role="tabpanel" aria-labelledby="todo-done-tab" tabindex="0">
           <ul class="list-group list-group-flush">
-
-            {{ todo_tasks.list_task(tasks, filter="done") }}
+            {% for task in tasks %}
+              {% if task.task_conclusion == 1 %}
+                {{ todo_tasks.list_task(tasks, filter="done") }}
+              {% endif %}
+            {% endfor %}
           </ul>
         </div>
       </div>
@@ -80,12 +86,8 @@
   </div>
 {% endblock %}
 {% block javascript %}
-  
-  <script>
-    console.log({{ tasks }});
-    
-  </script>
-  // <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="{{ url_for('static', filename='js/taskModal.js') }}" defer></script>
-  <script src="{{ url_for('static', filename='js/taskManager.js') }}" defer></script>
+  <script src="{{ url_for('static', filename='js/taskManager.js') }}" defer>
+  </script>
 {% endblock %}

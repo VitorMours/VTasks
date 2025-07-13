@@ -4,18 +4,22 @@ from flask import session
 from ..task_service import TaskService
 from src.repositories.task_repository import TaskRepository
 from src.services.impl.user_service_impl import UserServiceImpl
+from src.models.task_model import Task
 
 
 class TaskServiceImpl(TaskService):
     
     @staticmethod
-    def get_all(as_json = False) -> None:
+    def get_all(as_json = False) -> Task | list[dict[str, str | bool]]:
         user_id = session.get("user_id")
         tasks = TaskRepository.get_all_user_tasks(user_id)
-        # if as_json:
-            # if not isinstance(tasks, dict):
-                # for task in tasks:
-                    # print(dict(task))
+        if as_json:
+            tasks_list = list()
+            if not isinstance(tasks, dict):
+                for task in tasks:
+                    task_dict = task.to_json()
+                    tasks_list.append(task_dict)
+            return tasks_list
         return tasks
 
     @staticmethod
