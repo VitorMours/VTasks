@@ -28,3 +28,13 @@ e mostrada dentro da interface, para que possamos ter mais interatividade e fiqu
 
 # 12/07/2025
 Percebi que preciso modificar dentro da parte de todo o template, todas as tasks devem ser gerenciadas dentro da pagina, e nao dentro do macro, de forma que eu defino anteriormente a injecao das tasks, oque deve ser enviado para ser mostrado ou nao, por meio de parametros dentro do proprio template
+
+
+# 14/07/2025
+Dentro do caso da funcionalidade das tasks, posso tentar criar um endpoint em que recebe esse comportamento de fazer o 
+"toggle" entre a conclusao das tasks, e com base nele, modificar o comportamento naquele caso especifico, a cada clique.
+Com isso das duas uma, ou eu posso fazer em batch, ou de forma unica:
+
+> Quando digo em batch, significa que posso ficar recebendo todas as tasks que sao modificadas, e somente apos sair da rota 
+a qual o mesmo se encontra presente, ou mudar de aba, da ativa para geral por exemplo, enviar as tasks, e antes de serem mostradas, fazer as modificacoes necessarias. Por outro lado, posso fazer essas modificacoes no mesmo momento em que elas sao 
+acionadas, de forma a evitar possiveis mutacoes e duplicacoes de comportamento dentro da aplicacao. Preciso verificar isso.
