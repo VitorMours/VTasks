@@ -19,10 +19,8 @@ class LoginView(MethodView):
     form = LoginForm()
 
     if form.validate_on_submit():
-       
         try: 
             response = AuthServiceImpl.login_user(g.sanitized_request)
-            print(response)
             return redirect(url_for("views.home.home"))
         except Exception as e: 
             flash(f"{e.message}", "warning")

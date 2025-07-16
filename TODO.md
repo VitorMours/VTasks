@@ -38,3 +38,12 @@ Com isso das duas uma, ou eu posso fazer em batch, ou de forma unica:
 > Quando digo em batch, significa que posso ficar recebendo todas as tasks que sao modificadas, e somente apos sair da rota 
 a qual o mesmo se encontra presente, ou mudar de aba, da ativa para geral por exemplo, enviar as tasks, e antes de serem mostradas, fazer as modificacoes necessarias. Por outro lado, posso fazer essas modificacoes no mesmo momento em que elas sao 
 acionadas, de forma a evitar possiveis mutacoes e duplicacoes de comportamento dentro da aplicacao. Preciso verificar isso.
+
+
+
+
+# 16/07/2025
+pelo visto dentro da parte de todo, vou ter que fazer toda a interacao sendo feita totalmente pelo javascript, sem um pingo de 
+jinja sendo o foco do desenvolvimento. Com isso, vou ter que focar totalmente nas bases de desenvolvimento do javascript, e focar
+na forma como vou manipular o DOM, de forma que quando eu precise atualizar as tasks, seja rapido e eficiente, pois toda vez
+que eu trocar de aba, ou criar uma nova task tenho, salvar as modificacoes que foram feitas.
