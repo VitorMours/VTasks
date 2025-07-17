@@ -4,26 +4,48 @@ const activeList = document.getElementById("todo-active-list");
 const tasksCheckbox = document.getElementsByClassName("form-check-input me-1");
 
 // TODO: Isso daqui tem que ser um event listener
-function removeTaskFromList(list, listItem) {
-  console.log(list);
-  console.log(listItem);
+function removeTaskFromList(list, listItemId) {
+  const listItems = list.querySelectorAll("li");
+  listItems.forEach((item) => {
+    const checkbox = item.querySelector("input")
+    if(checkbox.id == listItemId) {
+      list.removeChild(item);
+    }
+  });
 }
 
-function addTaskToList(list, listItem){
-  console.log("PASS AND IGNORE");
+function addTaskToList(list, listItemId){
+  const taskData = window.tasksJson.find((task) => task.id === listItemId);
+  const taskDataIndex = window.tasksJson.findIndex((task) => task.id === listItemId);
+  // console.log(taskData);
+  if(taskData.task_conclusion === true){
+    taskData.task_conclusion = false;
+    window.tasksJson[taskDataIndex] = taskData; 
+    addToActiveList(taskData);
+    refreshLists();
+  } else if (taskData.task_conclusion === false) {
+    taskData.task_conclusion = true;
+    window.tasksJson[taskDataIndex] = taskData; 
+    addToDoneList(taskData);
+    refreshLists();
+  }
 }
 
 function addCheckboxEventListener() {
   for(let index = 0; index < tasksCheckbox.length; index++){
     const checkbox = tasksCheckbox[index];
     checkbox.addEventListener("change", () => {
-      checkboxLabel = checkbox.nextElementSibling;
+      const checkboxLabel = checkbox.nextElementSibling;
+      const task = checkbox.parentElement;
       if(checkbox.checked){
         checkboxLabel.classList.add("text-decoration-line-through");
+        addTaskToList(doneList, checkbox.id); 
+        removeTaskFromList(activeList, checkbox.id); 
       } else {
         checkboxLabel.classList.remove("text-decoration-line-through");
+        addTaskToList(activeList, checkbox.id); 
+        removeTaskFromList(doneList, checkbox.id); 
       }
-      removeTaskFromList(allList, checkbox.parentElement);
     });
   }
 }
@@ -70,8 +92,16 @@ function addToDoneList(task){
     doneList.appendChild(listItem);
 }
 
-document.addEventListener("DOMContentLoaded", function () {
+function cleanLists(){
+  allList.innerHTML = "";
+  doneList.innerHTML = "";
+  activeList.innerHTML = "";
+}
+
+
+function refreshLists(){
   const json = window.tasksJson;
+  cleanLists();
   addToAllList(json);
   for(let i = 0; i < json.length; i++){
     if(!(json[i].task_conclusion)){
@@ -80,9 +110,11 @@ document.addEventListener("DOMContentLoaded", function () {
       addToDoneList(json[i]);
     }
   }
-
-
   addCheckboxEventListener();  
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+  refreshLists();
   console.log("✅ Script de GIT (Gerenciamento de Interatividade de Tasks) carregado...");
 
 });
