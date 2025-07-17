@@ -4,8 +4,11 @@
 <main class="d-flex">
 	{% block sidebar %}
 		{% include "sidebar.html"%}
+		<div class="vr"></div>
 	{% endblock %}
-
 	{% block content %}
+	<section class="p-5">
+		<h1 class="fs-2 lead">Olá, {{ session.first_name }}.</h1>
+	</section>	
 	{% endblock %}
 </main>

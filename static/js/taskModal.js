@@ -1,5 +1,3 @@
-// Creating utility functions and values
-
 function postNewTask(json) {
   fetch("http://localhost:5000/todo", {
     method: "POST",
@@ -11,16 +9,11 @@ function postNewTask(json) {
     .then(response => {
       return response;
     });
+  window.tasksJson.push(json);
+  location.reload();
 }
-
-document.addEventListener("DOMContentLoaded", function () {
-  console.log("Elementos do DOM carregados...");
-});
-
 // Adding elements event listeners
 const createTaskButton = document.querySelector("#createTask .btn-primary");
-
-// Adding the interactivity
 if (createTaskButton) {
   createTaskButton.addEventListener("click", function () {
     let taskName = document.getElementById("task-name")
@@ -32,10 +25,12 @@ if (createTaskButton) {
         "task_description": taskDescription.value
       }
     );
-
     postNewTask(json);
     taskName.value = "";
     taskDescription.value = "";
   });
 }
 
+document.addEventListener("DOMContentLoaded", function () {
+  console.log("\u2705 Script de Criação de Tasks Carregado...");
+});

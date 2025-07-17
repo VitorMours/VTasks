@@ -8,6 +8,7 @@ class TaskService(ABC):
     @abstractmethod
     def get_all_user_tasks() -> List[Task]:
         pass
+    
     @abstractmethod
     def delete() -> None:
         pass

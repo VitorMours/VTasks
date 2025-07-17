@@ -34,7 +34,6 @@ class AuthServiceImpl(AuthService):
         if UserServiceImpl.check_user(data):
             email = data["email"]
             password = data["password"]
-
             if (user := UserRepository.get_user_by_email(email)) and UserServiceImpl.check_password(password, user.password):
                 AuthServiceImpl._create_user_session(data)
                 return True
@@ -50,6 +49,7 @@ class AuthServiceImpl(AuthService):
     @staticmethod
     def _create_user_session(data: dict[str, str]) -> None:
         user = UserServiceImpl.get_user(data)
+        session["first_name"] = f"{user.first_name}"
         session["username"] = f"{user.first_name} {user.last_name}"
         session["user_id"] = f"{user.id}"
         session["email"] = f"{user.email}"
