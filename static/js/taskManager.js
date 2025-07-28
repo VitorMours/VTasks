@@ -1,124 +1,135 @@
-const allList = document.getElementById("todo-all-list");
+ const allList = document.getElementById("todo-all-list");
 const doneList = document.getElementById("todo-done-list");
 const activeList = document.getElementById("todo-active-list");
-const tasksCheckbox = document.getElementsByClassName("form-check-input me-1");
+const deleteIconPath = document.body.dataset.deleteIcon;
 
 // TODO: Isso daqui tem que ser um event listener
 function removeTaskFromList(list, listItemId) {
   const listItems = list.querySelectorAll("li");
   listItems.forEach((item) => {
-    const checkbox = item.querySelector("input")
-    if(checkbox.id == listItemId) {
+    const checkbox = item.querySelector("input");
+    if (checkbox && checkbox.id === listItemId) {
       list.removeChild(item);
     }
   });
 }
 
-function addTaskToList(list, listItemId){
+function addTaskToList(list, listItemId) {
   const taskData = window.tasksJson.find((task) => task.id === listItemId);
   const taskDataIndex = window.tasksJson.findIndex((task) => task.id === listItemId);
-  // console.log(taskData);
-  if(taskData.task_conclusion === true){
-    taskData.task_conclusion = false;
-    window.tasksJson[taskDataIndex] = taskData; 
-    addToActiveList(taskData);
-    refreshLists();
-  } else if (taskData.task_conclusion === false) {
-    taskData.task_conclusion = true;
-    window.tasksJson[taskDataIndex] = taskData; 
+
+  if (!taskData) return;
+
+  // Atualiza o status de conclusão da task
+  taskData.task_conclusion = !taskData.task_conclusion;
+  window.tasksJson[taskDataIndex] = taskData;
+
+  // Atualiza as listas com base na nova conclusão
+  if (taskData.task_conclusion) {
     addToDoneList(taskData);
-    refreshLists();
+  } else {
+    addToActiveList(taskData);
   }
+
+  refreshLists();
 }
 
 function addCheckboxEventListener() {
-  for(let index = 0; index < tasksCheckbox.length; index++){
+  const tasksCheckbox = document.getElementsByClassName("form-check-input");
+  for (let index = 0; index < tasksCheckbox.length; index++) {
     const checkbox = tasksCheckbox[index];
+
     checkbox.addEventListener("change", () => {
-      const checkboxLabel = checkbox.nextElementSibling;
-      const task = checkbox.parentElement;
-      if(checkbox.checked){
-        checkboxLabel.classList.add("text-decoration-line-through");
-        addTaskToList(doneList, checkbox.id); 
-        removeTaskFromList(activeList, checkbox.id); 
+      const label = checkbox.nextElementSibling;
+      const id = checkbox.id;
+
+      if (checkbox.checked) {
+        label.classList.add("text-decoration-line-through");
+        addTaskToList(doneList, id);
+        removeTaskFromList(activeList, id);
       } else {
-        checkboxLabel.classList.remove("text-decoration-line-through");
-        addTaskToList(activeList, checkbox.id); 
-        removeTaskFromList(doneList, checkbox.id); 
+        label.classList.remove("text-decoration-line-through");
+        addTaskToList(activeList, id);
+        removeTaskFromList(doneList, id);
       }
     });
   }
 }
-// TODO: Preciso adicionar a interatividade entre as abas
 
 function addToAllList(tasks) {
-  for(let i = 0; i < tasks.length; i++){
+  for (let i = 0; i < tasks.length; i++) {
+    const task = tasks[i];
     const listItem = document.createElement("li");
+    const checked = task.task_conclusion ? "checked" : "";
+    const textDecoration = task.task_conclusion ? "text-decoration-line-through" : "";
+
     const taskStructure = `
-      <input type="checkbox" class="form-check-input me-1" id="${tasks[i].id}" ${tasks[i].task_conclusion ? "checked" : "" }>
-      <label class="form-check-label ${ (tasks[i].task_conclusion == true) ? "text-decoration-line-through" : "" }" for="${tasks[i].id}">
-        <strong> ${tasks[i].task} :</strong> ${tasks[i].task_description} 
-      </label>
-    `
+      <div class="d-flex justify-content-between w-full align-baseline">
+        <div>
+          <input type="checkbox" class="form-check-input me-1" id="${task.id}" ${checked}>
+          <label class="form-check-label ${textDecoration}" for="${task.id}">
+            <strong>${task.task}:</strong> ${task.task_description}
+          </label>
+        </div>
+        <img src="${deleteIconPath}" alt="Delete"></img>
+      </div>
+    `;
+
     listItem.classList.add("list-group-item");
-    listItem.innerHTML += taskStructure;
+    listItem.innerHTML = taskStructure;
     allList.appendChild(listItem);
   }
 }
 
-function addToActiveList(task){
-    const listItem = document.createElement("li");
-    const taskStructure = `
-      <input type="checkbox" class="form-check-input me-1" id="${task.id}" ${task.task_conclusion ? "checked" : "" }>
-      <label class="form-check-label" for="${task.id}">
-        <strong> ${task.task} :</strong> ${task.task_description} 
-      </label>
-    `
-    listItem.classList.add("list-group-item");
-    listItem.innerHTML += taskStructure;
-    activeList.appendChild(listItem);
+function addToActiveList(task) {
+  const listItem = document.createElement("li");
+  const taskStructure = `
+    <input type="checkbox" class="form-check-input me-1" id="${task.id}">
+    <label class="form-check-label" for="${task.id}">
+      <strong>${task.task}:</strong> ${task.task_description}
+    </label>
+  `;
+  listItem.classList.add("list-group-item");
+  listItem.innerHTML = taskStructure;
+  activeList.appendChild(listItem);
 }
 
-function addToDoneList(task){
-    const listItem = document.createElement("li");
-    const taskStructure = `
-      <input type="checkbox" class="form-check-input me-1" id="${task.id}" ${task.task_conclusion ? "checked" : "" }>
-      <label class="form-check-label ${task.task_conclusion ? "text-decoration-line-through" : "" }" for="${task.id}" >
-        <strong> ${task.task} :</strong> ${task.task_description} 
-      </label>
-    `
-    listItem.classList.add("list-group-item");
-    listItem.innerHTML += taskStructure;
-    doneList.appendChild(listItem);
+function addToDoneList(task) {
+  const listItem = document.createElement("li");
+  const taskStructure = `
+    <input type="checkbox" class="form-check-input me-1" id="${task.id}" checked>
+    <label class="form-check-label text-decoration-line-through" for="${task.id}">
+      <strong>${task.task}:</strong> ${task.task_description}
+    </label>
+  `;
+  listItem.classList.add("list-group-item");
+  listItem.innerHTML = taskStructure;
+  doneList.appendChild(listItem);
 }
 
-function cleanLists(){
+function cleanLists() {
   allList.innerHTML = "";
   doneList.innerHTML = "";
   activeList.innerHTML = "";
 }
 
-
-function refreshLists(){
-  const json = window.tasksJson;
+function refreshLists() {
+  const json = window.tasksJson || [];
   cleanLists();
   addToAllList(json);
-  for(let i = 0; i < json.length; i++){
-    if(!(json[i].task_conclusion)){
-      addToActiveList(json[i]);
+
+  json.forEach((task) => {
+    if (task.task_conclusion) {
+      addToDoneList(task);
     } else {
-      addToDoneList(json[i]);
+      addToActiveList(task);
     }
-  }
-  addCheckboxEventListener();  
+  });
+
+  addCheckboxEventListener(); // Reaplica os event listeners após atualizar DOM
 }
 
 document.addEventListener("DOMContentLoaded", function () {
   refreshLists();
   console.log("✅ Script de GIT (Gerenciamento de Interatividade de Tasks) carregado...");
-
 });
-
-
-
-

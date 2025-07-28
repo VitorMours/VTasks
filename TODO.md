@@ -47,3 +47,8 @@ pelo visto dentro da parte de todo, vou ter que fazer toda a interacao sendo fei
 jinja sendo o foco do desenvolvimento. Com isso, vou ter que focar totalmente nas bases de desenvolvimento do javascript, e focar
 na forma como vou manipular o DOM, de forma que quando eu precise atualizar as tasks, seja rapido e eficiente, pois toda vez
 que eu trocar de aba, ou criar uma nova task tenho, salvar as modificacoes que foram feitas.
+
+
+
+# 28/07/2025
+- [ ] Ainda precisa ser feito o script javascript para enviar a delecao de tasks
