@@ -1,4 +1,4 @@
-const allList = document.getElementById("todo-all-list");
+ const allList = document.getElementById("todo-all-list");
 const doneList = document.getElementById("todo-done-list");
 const activeList = document.getElementById("todo-active-list");
 const deleteIconPath = document.body.dataset.deleteIcon;
@@ -58,7 +58,6 @@ function removeTaskFromList(list, listItemId) {
     }
   });
 }
-
 
 
 function addCheckboxEventListener() {

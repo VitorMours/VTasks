@@ -45,10 +45,6 @@ jinja sendo o foco do desenvolvimento. Com isso, vou ter que focar totalmente na
 na forma como vou manipular o DOM, de forma que quando eu precise atualizar as tasks, seja rapido e eficiente, pois toda vez
 que eu trocar de aba, ou criar uma nova task tenho, salvar as modificacoes que foram feitas.
 
-# 18/07/2025
-Conseguir fazer a mudanca do ambiente de desenvolvimento, agora preciso fazer 
-a atualizacao do metodo para receber as tasks, e atualizar elas dentro do 
-banco de dados
 
 
 # 28/07/2025
