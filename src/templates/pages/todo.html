@@ -73,7 +73,10 @@
   </div>
 {% endblock %}
 {% block javascript %}
-  <script>window.tasksJson = {{ tasks | tojson }}</script>
+  <script>
+  window.tasksJson = {{ tasks | tojson }} 
+
+  </script> 
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="{{ url_for('static', filename='js/taskModal.js') }}" defer></script>
   <script src="{{ url_for('static', filename='js/taskManager.js') }}" defer>
