@@ -3,6 +3,10 @@ const doneList = document.getElementById("todo-done-list");
 const activeList = document.getElementById("todo-active-list");
 const deleteIconPath = document.body.dataset.deleteIcon;
 
+
+
+
+
 // TODO: Isso daqui tem que ser um event listener
 function removeTaskFromList(list, listItemId) {
   const listItems = list.querySelectorAll("li");
@@ -13,6 +17,17 @@ function removeTaskFromList(list, listItemId) {
     }
   });
 }
+
+
+
+
+
+
+
+
+
+
+
 
 function addTaskToList(list, listItemId) {
   const taskData = window.tasksJson.find((task) => task.id === listItemId);
