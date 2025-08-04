@@ -16,6 +16,7 @@ __pycache__/
 *.sqlite3
 *.db
 *.db-journal
+/sql
 
 # Diretório de instância do Flask
 instance/

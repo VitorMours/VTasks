@@ -2,7 +2,7 @@ site_name: VTasks API Docs
 
 nav:
   - Home: index.md
-  - Endpoints: endpoints.md
+  - Services: services.md
   - Entities:
     - User: entities/user.md
     - Task: entities/task.md
