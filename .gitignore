@@ -6,6 +6,10 @@ env/
 env.bak/
 venv.bak/
 
+# npm packages
+/node_modules/
+
+
 # Arquivos Python compilados
 __pycache__/
 *.py[cod]
