@@ -12,6 +12,8 @@ class HomeView(View):
     def dispatch_request(self) -> str:
         return render_template("home.html", active_page="home")
 
+
+
 class DashboardView(MethodView):
     decorators = [login_required]
 

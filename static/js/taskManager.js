@@ -1,8 +1,43 @@
- const allList = document.getElementById("todo-all-list");
+const allList = document.getElementById("todo-all-list");
 const doneList = document.getElementById("todo-done-list");
 const activeList = document.getElementById("todo-active-list");
 const deleteIconPath = document.body.dataset.deleteIcon;
 
+class TaskManager{
+  /**
+   * Loading the tasks received in the window object in the localStorage for better usage 
+   * @param {list[dict]} tasks get a list of the tasks objects
+   * @returns {boolean} return trues if the localstorage action was sucessfull
+   */
+  static loadTasksInLocalStorage(tasks){
+    console.log(tasks);
+    for(let i = 0; i < tasks.length; i++){
+      const task = new Task(  taskName=tasks["task"], 
+                              taskDescription=tasks["task_description"],
+                              taskConclusion= tasks["task_conclusion"],
+                              id=tasks["id"],
+                              user_id=tasks["user_id"]
+                            );
+      console.log(task);
+    }
+  }
+
+  /**
+   * Delete the task based on the id that it's given for the function
+   * @param {uuid} id - the id of the task that's gonna be deleted
+   */
+  static deleteTaskById(id) {
+
+  }
+  /**
+   * Get the task based on the id gived 
+   * @param {uuid} id - The id of the task that we gonna see
+   * @returns {Task} the task that we gonna receive to work on
+   */
+  static getTaskDataById(id){}
+
+
+}
 
 
 
