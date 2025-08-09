@@ -4,7 +4,7 @@
 	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 {% endblock  %}
 
-{% block subtitle %}- Home{% endblock %}
+{% block subtitle %}- Todo{% endblock %}
 	{% block sidebar %}
 		{% include "sidebar.html"%}
 		<div class="vr"></div>
@@ -44,7 +44,6 @@
           </div>
         </div>
       </div>
-
       <ul class="nav nav-tabs mb-4" id="tabMenu">
 				<li class="nav-item" role="presentation">
 					<a class="nav-link active" id="todo-all-tab" data-bs-toggle="tab" aria-current="page" href="#todo-all-tab-content">All</a>
@@ -74,9 +73,7 @@
   </div>
 {% endblock %}
 {% block javascript %}
-  <script>window.tasksJson = {{ tasks | tojson }}</script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="{{ url_for('static', filename='js/taskModal.js') }}" defer></script>
-  <script src="{{ url_for('static', filename='js/taskManager.js') }}" defer>
-  </script>
+  <script>
+  window.tasksJson = {{ tasks | tojson }} 
+  </script> 
 {% endblock %}

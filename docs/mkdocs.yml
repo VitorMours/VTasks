@@ -1,0 +1,28 @@
+site_name: VTasks API Docs
+
+nav:
+  - Home: index.md
+  - Services: services.md
+  - Entities:
+    - User: entities/user.md
+    - Task: entities/task.md
+    - Notes: entities/notes.md
+
+theme:
+  name: material
+  features:
+    - content.tabs.link # Opcional, mas útil para o Material Theme
+    - content.code.annotate # Opcional, mas útil para o Material Theme
+
+markdown_extensions:
+  - pymdownx.highlight # Essencial para blocos de código
+  - pymdownx.superfences: # Essencial para Mermaid.js e outros blocos especiais
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  # Outras extensões que você já usa, como adr, attr_list, md_in_html, etc.
+
+plugins:
+  - search # Se você já usa
+  - mermaid2

@@ -10,8 +10,11 @@ function postNewTask(json) {
       return response;
     });
   window.tasksJson.push(json);
-  location.reload();
+  TaskManager.loadTasksInLocalStorage(window.tasksJson);
+  // location.reload();
+  // TaskManager.loadTasksInLocalStorage(window.tasksJson);
 }
+
 // Adding elements event listeners
 const createTaskButton = document.querySelector("#createTask .btn-primary");
 if (createTaskButton) {

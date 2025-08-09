@@ -1,18 +1,19 @@
-from sqlalchemy import String, Boolean
+from sqlalchemy import String, Boolean, ForeignKey
+from sqlalchemy.orm import Mapped, mapped_column, relationship
+from . import db
 import uuid
-from sqlalchemy import String, Integer, Boolean
-from sqlalchemy.orm import Mapped, mapped_column
-from . import db 
+
 
 class Task(db.Model):
-    __tablename__ = "tasks"
+    __tablename__ = "task"
 
-    id = db.Column(db.String(36), primary_key=True, nullable=False, default=lambda: str(uuid.uuid4()))
-    task = db.Column(db.String(50), nullable=False)
-    task_description = db.Column(db.String(300))
-    task_conclusion = db.Column(db.Boolean, nullable=False, default=False)
-    user_id = db.Column(db.String(36), db.ForeignKey("users.id", name="fk_tasks_user_id"))
-    user = db.relationship("User", back_populates="tasks")
+    id: Mapped[str] = mapped_column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
+    task: Mapped[str] = mapped_column(String(50), nullable=False)
+    task_description: Mapped[str | None] = mapped_column(String(300))
+    task_conclusion: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False)
+    user_id: Mapped[str] = mapped_column(ForeignKey("user.id", name="fk_task_user_id"), nullable=False)
+    user: Mapped["User"] = relationship(back_populates="tasks") # type:ignore
+    
 
     def toggle_conclusion(self) -> None:
         self.task_conclusion = not self.task_conclusion
@@ -28,5 +29,3 @@ class Task(db.Model):
             "task_conclusion": self.task_conclusion,
             "user_id": self.user_id
         }
-
-    # TODO: preciso adicionar o relacionamento de chave estrangeira para que o usuario possa ser dono dessa task

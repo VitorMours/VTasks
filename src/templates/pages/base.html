@@ -27,7 +27,7 @@
     {% block css %}{% endblock %}
     <title>VTask {% block subtitle %}{% endblock %}</title>
 </head>
-<body>
+<body data-delete-icon="{{ url_for('static', filename='svg/delete.svg') }}">
     <header>
         {% block header %}{% endblock %}
     </header>
@@ -44,5 +44,6 @@
     </main>
 </body>
 {% block javascript %}
+    <script src="{{ url_for('static', filename='dist/bundle.js') }}"></script>
 {% endblock %}
 </html>

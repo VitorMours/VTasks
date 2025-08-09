@@ -50,3 +50,7 @@ Conseguir fazer a mudanca do ambiente de desenvolvimento, agora preciso fazer
 a atualizacao do metodo para receber as tasks, e atualizar elas dentro do 
 banco de dados
 
+
+
+# 28/07/2025
+- [ ] Ainda precisa ser feito o script javascript para enviar a delecao de tasks
