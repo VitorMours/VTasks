@@ -74,6 +74,6 @@
 {% endblock %}
 {% block javascript %}
   <script>
-  window.tasksJson = {{ tasks | tojson }} 
+  window.tasksJson = {{ tasks | tojson | safe }};
   </script> 
 {% endblock %}
