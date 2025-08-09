@@ -3,14 +3,14 @@ import uuid
 from . import db
 
 class User(db.Model):
-    __tablename__ = "users"
+    __tablename__ = "user"
 
     id = db.Column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
     first_name = db.Column(String(50), nullable=False)
     last_name = db.Column(String(50))
     email = db.Column(String(100), nullable=False, unique=True)
     password = db.Column(String(256), nullable=False)
-    tasks = db.relationship("Task", back_populates="user")
+    tasks = db.relationship("task", back_populates="user")
 
     @property
     def full_name(self) -> str:
