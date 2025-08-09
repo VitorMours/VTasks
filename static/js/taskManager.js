@@ -60,6 +60,36 @@ function removeTaskFromList(list, listItemId) {
 }
 
 
+
+
+
+
+
+
+
+
+
+
+function addTaskToList(list, listItemId) {
+  const taskData = window.tasksJson.find((task) => task.id === listItemId);
+  const taskDataIndex = window.tasksJson.findIndex((task) => task.id === listItemId);
+
+  if (!taskData) return;
+
+  // Atualiza o status de conclusão da task
+  taskData.task_conclusion = !taskData.task_conclusion;
+  window.tasksJson[taskDataIndex] = taskData;
+
+  // Atualiza as listas com base na nova conclusão
+  if (taskData.task_conclusion) {
+    addToDoneList(taskData);
+  } else {
+    addToActiveList(taskData);
+  }
+
+  refreshLists();
+}
+
 function addCheckboxEventListener() {
   const tasksCheckbox = document.getElementsByClassName("form-check-input");
   for (let index = 0; index < tasksCheckbox.length; index++) {
