@@ -6,7 +6,7 @@ from src.models import db
 from flask_migrate import Migrate
 from src.models.user_model import User
 from src.models.task_model import Task
-from src.models.notes_model import Note
+from src.models.note_model import Note
 from src.views.admin import admin, admin_add_views
 from src.views import bp
 import os
