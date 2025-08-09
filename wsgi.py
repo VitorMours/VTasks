@@ -5,9 +5,7 @@ from src.models import db
 from flask_migrate import Migrate
 from src.models.user_model import User
 from src.models.task_model import Task
-from src.models.note_model import Note
-from flask_admin import Admin
-from src.views.admin import admin_add_views
+from src.views.admin import admin, admin_add_views
 from src.views import bp
 from src.resources import api_bp
 import os
@@ -51,8 +49,8 @@ def create_app() -> Flask:
 
     # Adding Views
     app.register_blueprint(bp)
-    app.register_blueprint(api_bp)
-
+    admin_add_views([User, Task])
+    admin.init_app(app)
     return app
 
 

@@ -18,6 +18,7 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "type": "module",
   "bugs": {
     "url": "https://github.com/VitorMours/VTasks/issues"
   },
