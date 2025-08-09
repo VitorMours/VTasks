@@ -10,32 +10,38 @@ class TaskManager{
    * @returns {boolean} return trues if the localstorage action was sucessfull
    */
   static loadTasksInLocalStorage(tasks){
-    console.log(tasks);
     for(let i = 0; i < tasks.length; i++){
-      const task = new Task(  taskName=tasks["task"], 
-                              taskDescription=tasks["task_description"],
-                              taskConclusion= tasks["task_conclusion"],
-                              id=tasks["id"],
-                              user_id=tasks["user_id"]
-                            );
-      console.log(task);
+      const task = new Task(  
+        taskName=tasks["task"], 
+        taskDescription=tasks["task_description"],
+        taskConclusion= tasks["task_conclusion"],
+        id=tasks["id"],
+        user_id=tasks["user_id"]
+      );
+      // TODO: Add the tasks to the local storage
     }
   }
 
-  /**
-   * Delete the task based on the id that it's given for the function
-   * @param {uuid} id - the id of the task that's gonna be deleted
-   */
-  static deleteTaskById(id) {
+  // TODO: Remake the addTasksToList function to a more specific and good function
+  static addTaskToList(list) {
+  
+  }
+
+
+  static refreshLists() {
+    const json = window.tasksJson || [];
+    cleanLists();
+    addToAllList(json);
+
+    json.forEach((task) => {
+      if (task.task_conclusion) {
+        addToDoneList(task);
+      } else {
+        addToActiveList(task);
+      }
+    });
 
   }
-  /**
-   * Get the task based on the id gived 
-   * @param {uuid} id - The id of the task that we gonna see
-   * @returns {Task} the task that we gonna receive to work on
-   */
-  static getTaskDataById(id){}
-
 
 }
 
@@ -54,35 +60,6 @@ function removeTaskFromList(list, listItemId) {
 }
 
 
-
-
-
-
-
-
-
-
-
-
-function addTaskToList(list, listItemId) {
-  const taskData = window.tasksJson.find((task) => task.id === listItemId);
-  const taskDataIndex = window.tasksJson.findIndex((task) => task.id === listItemId);
-
-  if (!taskData) return;
-
-  // Atualiza o status de conclusão da task
-  taskData.task_conclusion = !taskData.task_conclusion;
-  window.tasksJson[taskDataIndex] = taskData;
-
-  // Atualiza as listas com base na nova conclusão
-  if (taskData.task_conclusion) {
-    addToDoneList(taskData);
-  } else {
-    addToActiveList(taskData);
-  }
-
-  refreshLists();
-}
 
 function addCheckboxEventListener() {
   const tasksCheckbox = document.getElementsByClassName("form-check-input");
