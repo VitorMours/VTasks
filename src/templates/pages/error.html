@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block css %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+{% endblock %}
+
+{% block title %} - Error{% endblock %}
+
+{% block content %}
+    <div class="d-flex flex-column align-items-center justify-content-center vw-100 vh-100">
+        <h1 id="error-message">Houve algum problema, por favor volte para a tela de login...</h1>
+        <br>
+        <h4><a href="{{ url_for('views.index') }}">Home Page</a></h4>
+    </div>
+{% endblock %}
+
+
+

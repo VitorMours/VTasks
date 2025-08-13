@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, render_template
 from dotenv import load_dotenv
 from pathlib import Path 
 from src.models import db
@@ -25,6 +25,13 @@ def create_app() -> Flask:
     app.config["SESSION_COOKIE_HTTPONLY"] = os.getenv("SESSION_COOKIE_HTTPONLY") or True
     app.config['FLASK_ADMIN_SWATCH'] = 'spacelab'
     app.config['FLASK_ADMIN'] = 'jvrezendemoura@gmail.com'
+
+    def render_http_error(error):
+        code = getattr(error, 'code', 500)
+        return render_template("error.html", error=error, code=code), code
+
+    for err_code in [404, 405, 500]:
+        app.register_error_handler(err_code, render_http_error)
 
 
     # Adding template extensions 
