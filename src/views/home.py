@@ -9,6 +9,8 @@ bp = Blueprint("home", __name__)
 
 
 
+
+
 class HomeView(View):
     decorators = [login_required]
 
