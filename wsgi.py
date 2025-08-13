@@ -1,11 +1,13 @@
-from flask import Flask, render_template
+from flask import Flask
 from dotenv import load_dotenv
 from pathlib import Path 
 from src.models import db
 from flask_migrate import Migrate
 from src.models.user_model import User
 from src.models.task_model import Task
-from src.views.admin import admin, admin_add_views
+from src.models.note_model import Note
+from flask_admin import Admin
+from src.views.admin import admin_add_views
 from src.views import bp
 from src.resources import api_bp
 import os
@@ -49,8 +51,8 @@ def create_app() -> Flask:
 
     # Adding Views
     app.register_blueprint(bp)
-    admin_add_views([User, Task])
-    admin.init_app(app)
+    admin = Admin(app)
+    admin_add_views(admin, [User, Task, Note])
     return app
 
 
