@@ -3,3 +3,22 @@
 .max-vh-50 {
       max-height: 50vh;
 }
+
+
+.card-img-top.image-failed {
+    /* Garante que o container ocupe o espaço da imagem quebrada */
+    min-height: 100px; 
+    
+    /* Configura o gradiente como fundo */
+    background: linear-gradient(135deg, #fdd835, #ff5722); /* Gradiente de amarelo para laranja */
+
+    /* Garante que a imagem original não seja exibida */
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+
+    /* Estilos para o texto de "erro" (opcional) */
+    color: white; 
+    font-size: 0.8rem; 
+    text-align: center;
+}
