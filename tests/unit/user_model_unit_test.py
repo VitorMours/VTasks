@@ -30,3 +30,7 @@ class TestUserModel:
         password = create_default_user.password 
         assert password == "32322916aA!"
         
+
+    def test_get_full_name(self, create_default_user):
+        full_name = create_default_user.full_name
+        assert full_name == "Lucas Moura"

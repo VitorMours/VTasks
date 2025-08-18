@@ -48,6 +48,17 @@ que eu trocar de aba, ou criar uma nova task tenho, salvar as modificacoes que f
 
 
 # 28/07/2025
-- [ ] Ainda precisa ser feito o script javascript para enviar a delecao de tasks
+- [x] Ainda precisa ser feito o script javascript para enviar a delecao de tasks
 
 
+
+
+
+# 17/08/2025
+- [ ] Modificar todos os arquivos que possuem base.html para base.jinja
+
+
+# 18/08/2025
+- [ ] Adicionar docker dentro da estrutura de forma que facilite o desenvolvimento em diferentes ambientes 
+- [ ] 
+- [ ] 

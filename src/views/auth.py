@@ -12,7 +12,7 @@ class LoginView(MethodView):
 
   def get(self) -> str:
     form = LoginForm()
-    return render_template("login.html", form=form)
+    return render_template("login.jinja", form=form)
 
   @sanitize_request
   def post(self) -> str:
