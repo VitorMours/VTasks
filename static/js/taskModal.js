@@ -34,6 +34,21 @@ if (createTaskButton) {
   });
 }
 
+function postAllTasks(){
+  const tasks = window.tasksJson;
+  console.log(tasks);
+  fetch("http:localhost:5000/todo", {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(tasks)
+  }).then(response => {return response;})
+
+
+}
+
+
 document.addEventListener("DOMContentLoaded", function () {
   console.log("\u2705 Script de Criação de Tasks Carregado...");
 });
