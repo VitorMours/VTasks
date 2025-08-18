@@ -9,6 +9,7 @@ class RequestMethod(Enum):
     put = 'PUT'
     delete = 'DELETE'
 
+
 def verify_request_method(route, request, method: RequestMethod):
     assert request.method == method.value
     route.continue_()
@@ -37,7 +38,10 @@ def test_home_page_post(client):
 def test_home_page_put(client):
     response = client.put('/')
     assert response.status_code == 405 
+    # TODO: Preciso adicionar a parte de verificar o comportamento para poder fazer com que o mesmo seja redirecionado de maneira correta
 
 def test_home_page_delete(client):
     response = client.delete('/')
     assert response.status_code == 405 
+    # TODO: Preciso adicionar a parte de verificar o comportamento para poder fazer com que o mesmo seja redirecionado de maneira correta
+

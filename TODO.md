@@ -51,20 +51,7 @@ a atualizacao do metodo para receber as tasks, e atualizar elas dentro do
 banco de dados
 
 
-
 # 28/07/2025
-- [x] Ainda precisa ser feito o script javascript para enviar a delecao de tasks
-
-# 17/08/2025
-- [ ] Modificar todos os arquivos que possuem base.html para base.jinja
-
-# 18/08/2025
-- [ ] Adicionar docker dentro da estrutura de forma que facilite o desenvolvimento em diferentes ambientes 
+- [ ] Ainda precisa ser feito o script javascript para enviar a delecao de tasks
 
 
-# 08/09/2025 
-- [x] Fazer a landing page sem a parte de contanto
-- [x] Fazer o rodape com o link de email e o link do linkedin
-- [ ] Criar o sistema de temas com javascript dentro do projeto
-- [ ] Fazer o sistema de anoteções e de tasks dentro do projeto 
-- [ ] Estudar como siansi funcionam dentro do flask para poder adicionar dentro do projeto
