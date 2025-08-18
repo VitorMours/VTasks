@@ -16,13 +16,13 @@
 
     </li>
     <li class="nav-item">
-      {% if active_page == "notes" %}
-        <a class="nav-link link-body-emphasis active text-light" href="{{ url_for('views.home.notes') }}">
-         <img class="px-1" src="{{ url_for('static', filename='svg/light_dashboard.svg') }}">notes
+      {% if active_page == "dashboard" %}
+        <a class="nav-link link-body-emphasis active text-light" href="{{ url_for("views.home.dashboard") }}">
+         <img class="px-1" src="{{ url_for('static', filename="svg/light_dashboard.svg") }}"></img>dashboard
         </a>
       {% else %}
-        <a class="nav-link link-body-emphasis" href="{{ url_for('views.home.notes') }}">
-          <img class="px-1" src="{{ url_for('static', filename='svg/dashboard.svg') }}">notes
+        <a class="nav-link link-body-emphasis" href="{{ url_for("views.home.dashboard") }}">
+          <img class="px-1" src="{{ url_for('static', filename="svg/dashboard.svg") }}"></img>dashboard
         </a>
       {% endif %}
     </li>
