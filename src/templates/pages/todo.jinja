@@ -4,6 +4,9 @@
 	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 {% endblock  %}
 
+{% block javascript %}
+{% endblock %}
+
 {% block subtitle %}- Todo{% endblock %}
 	{% block sidebar %}
 		{% include "sidebar.html"%}
@@ -71,9 +74,4 @@
       </div>
     </section>
   </div>
-{% endblock %}
-{% block javascript %}
-  <script>
-  window.tasksJson = {{ tasks | tojson | safe }};
-  </script> 
 {% endblock %}
