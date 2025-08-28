@@ -53,5 +53,6 @@ class TodoView(MethodView):
 
 bp.add_url_rule("/home", view_func=HomeView.as_view("home"))
 bp.add_url_rule("/notes", view_func=NotesView.as_view("notes"))
-bp.add_url_rule("/note/<int:id>", view_func=NoteTakerView.as_view("note_taker"), Note) # FIXME: Corrigir isso daqui p
+# FIXME: Corrigir isso daqui p
+#bp.add_url_rule("/note/<int:id>", view_func=NoteTakerView.as_view("note_taker"), Note) 
 bp.add_url_rule("/todo", view_func=TodoView.as_view("todo"))

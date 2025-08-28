@@ -16,8 +16,10 @@ A aplicação foi feita com o intuito de criar ferramentas de uso comum por estu
 que essas ferramentas fiquem centralizadas dentro de um mesmo local.
 
 ## Features do Projeto
-
 Como feature do projeto, algumas funcionalidades existentes que vão ser usadas para facilitar os estudos dos nossos usuários são:
+
+- **Todo:** Feature para listarmos nossas tasks, e poder acompanhar.
+- **Note taker:** Tomar notas com base na formatação markdown.
 
 
 
