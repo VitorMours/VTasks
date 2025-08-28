@@ -16,11 +16,23 @@ class HomeView(View):
 
 
 
-class DashboardView(MethodView):
+class NotesView(MethodView):
     decorators = [login_required]
 
     def get(self) -> str:
-        return render_template("dashboard.html", active_page="dashboard")
+        return render_template("notes.html", active_page="notes")
+
+class NoteTakerView(MethodView):
+    decorators = [login_required]
+
+    def get(self, note_uuid: int) -> str:
+        # TODO: Fazer esse método para retornar um template da nota, especificado com base na rota
+        # note = Note
+        # return render_template("note_taker.html", note_uuid = note_uuid active_page="notes")
+        pass
+
+
+
 
 class TodoView(MethodView):
     decorators = [login_required]
@@ -40,5 +52,6 @@ class TodoView(MethodView):
         return redirect(url_for("views.home.todo"))
 
 bp.add_url_rule("/home", view_func=HomeView.as_view("home"))
-bp.add_url_rule("/dashboard", view_func=DashboardView.as_view("dashboard"))
+bp.add_url_rule("/notes", view_func=NotesView.as_view("notes"))
+bp.add_url_rule("/note/<int:id>", view_func=NoteTakerView.as_view("note_taker"), Note) # FIXME: Corrigir isso daqui p
 bp.add_url_rule("/todo", view_func=TodoView.as_view("todo"))
