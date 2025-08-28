@@ -9,12 +9,20 @@ from src.utils.api import user_serializer
 import json
 
 @pytest.mark.resources
-class TestUserModel:
-    
-    
-    @pytest.mark.skip
-    def test_get_user_list(self, client):
+class TestUserResource:
+    def test_get_user_list_content_type(self, client):
         response = client.get("/api/user/")
-        response_json = user_serializer(response.json)
-        
-        assert response_json == ""
+        assert response.headers["Content-Type"] == "application/json"
+
+
+    def test_get_user_list_status_code(self, client):
+        response = client.get("/api/user/")
+        assert response.status_code == 200
+            
+            
+    # TODO: Corrijir comportamento do teste para serializar response
+    @pytest.mark.skip
+    def test_get_user_list_response(self, client):
+        response = client.get("/api/user")
+        json_response = user_serializer(response.__dict__)
+        assert isinstance(json_response, json)
