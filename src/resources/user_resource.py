@@ -19,6 +19,17 @@ class UserList(Resource):
 @bp.route("/<int:id>")
 @bp.param("id", "The user identifier")
 @bp.response(404, "User not found")
+@bp.response(200, "OK")
+@bp.response(204, "No content in the request")
 class User(Resource):
+    
+    @bp.doc("Get a specific user by the id")
     def get(self, id):
         return {"Returning specific user"}
+
+
+    def put(self, id) -> None: 
+        return {"Returing": "MOdified user"}
+    
+    
+    

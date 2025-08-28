@@ -33,6 +33,7 @@ class UserServiceImpl(UserService):
     @staticmethod
     def get_all_users() -> List[User]:
         user = UserRepository.get_all()
+        
         print(user)
         if len(user) > 0:
             return user
