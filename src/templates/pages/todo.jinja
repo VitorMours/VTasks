@@ -1,8 +1,11 @@
-{% extends "base.html" %}
+{% extends "base.jinja" %}
 
 {% block css %}
 	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 {% endblock  %}
+
+{% block javascript %}
+{% endblock %}
 
 {% block subtitle %}- Todo{% endblock %}
 	{% block sidebar %}
@@ -71,9 +74,4 @@
       </div>
     </section>
   </div>
-{% endblock %}
-{% block javascript %}
-  <script>
-  window.tasksJson = {{ tasks | tojson }} 
-  </script> 
 {% endblock %}

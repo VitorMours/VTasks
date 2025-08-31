@@ -1,39 +1,39 @@
 <div class="d-flex flex-column flex-shrink-0 bg-body-tertiary p-3 min-vh-100" style="width: 280px;">
   <h3>VTasks</h3>
   <hr>
-  <ul class="nav nav-pills flex-column mb-auto">
+  <ul class="gap-1 nav nav-pills flex-column mb-auto">
     <li class="nav-item">
       
       {% if active_page == "home" %}
-        <a class="nav-link link-body-emphasis active text-light" href="{{ url_for("views.home.home") }}">
-      	 <img class="px-1" src="{{ url_for('static', filename="svg/light_home.svg") }}"></img>Home
+        <a class="nav-link link-body-emphasis active text-light" href="{{ url_for('views.home.home') }}">
+      	 <img class="px-1" src="{{ url_for('static', filename='svg/light_home.svg') }}">Home
         </a>
       {% else %}
-        <a class="nav-link link-body-emphasis" href="{{ url_for("views.home.home") }}">
-          <img class="px-1" src="{{ url_for('static', filename="svg/home.svg") }}"></img>Home
+        <a class="nav-link link-body-emphasis" href="{{ url_for('views.home.home') }}">
+          <img class="px-1" src="{{ url_for('static', filename='svg/home.svg') }}">Home
         </a>
       {% endif %}
 
     </li>
     <li class="nav-item">
-      {% if active_page == "dashboard" %}
-        <a class="nav-link link-body-emphasis active text-light" href="{{ url_for("views.home.dashboard") }}">
-         <img class="px-1" src="{{ url_for('static', filename="svg/light_dashboard.svg") }}"></img>dashboard
+      {% if active_page == "notes" %}
+        <a class="nav-link link-body-emphasis active text-light" href="{{ url_for('views.home.notes') }}">
+         <img class="px-1" src="{{ url_for('static', filename='svg/light_dashboard.svg') }}">notes
         </a>
       {% else %}
-        <a class="nav-link link-body-emphasis" href="{{ url_for("views.home.dashboard") }}">
-          <img class="px-1" src="{{ url_for('static', filename="svg/dashboard.svg") }}"></img>dashboard
+        <a class="nav-link link-body-emphasis" href="{{ url_for('views.home.notes') }}">
+          <img class="px-1" src="{{ url_for('static', filename='svg/dashboard.svg') }}">notes
         </a>
       {% endif %}
     </li>
     <li class="nav-item">
       {% if active_page == "todo" %}
-        <a class="nav-link link-body-emphasis active text-light" href="{{ url_for("views.home.todo") }}">
-         <img class="px-1" src="{{ url_for('static', filename="svg/light_checklist.svg") }}"></img>todo
+        <a class="nav-link link-body-emphasis active text-light" href="{{ url_for('views.home.todo') }}">
+         <img class="px-1" src="{{ url_for('static', filename='svg/light_checklist.svg') }}">todo
         </a>
       {% else %}
-        <a class="nav-link link-body-emphasis" href="{{ url_for("views.home.todo") }}">
-          <img class="px-1" src="{{ url_for('static', filename="svg/checklist.svg") }}"></img>todo
+        <a class="nav-link link-body-emphasis" href="{{ url_for('views.home.todo') }}">
+          <img class="px-1" src="{{ url_for('static', filename='svg/checklist.svg') }}">todo
         </a>
       {% endif %}
     </li>
@@ -47,13 +47,13 @@
     	<li><a class="dropdown-item" href="#">Perfil</a></li>
     	<li>
     		<a class="dropdown-item" href="#">
-    			<img class="px-1" src="{{ url_for('static', filename="svg/settings.svg") }}"></img>Configuração
+    			<img class="px-1" src="{{ url_for('static', filename='svg/settings.svg') }}">Configuração
     		</a>
     	</li>
       <li><hr class="dropdown-divider"></li>
       	<li>
-          <a class="dropdown-item" href="{{ url_for("views.auth.logout") }}">
-      			<img class="px-1" src="{{ url_for('static', filename="svg/logout.svg") }}"></img>Log out
+          <a class="dropdown-item" href="{{ url_for('views.auth.logout') }}">
+      			<img class="px-1" src="{{ url_for('static', filename='svg/logout.svg') }}">Log out
   			</a>
   		</li>
     </ul>

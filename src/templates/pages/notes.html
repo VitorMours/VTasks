@@ -1,0 +1,37 @@
+{% extends "base.jinja" %}
+
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+{% endblock %}
+
+{% block subtitle %}- Notes{% endblock %}
+{% block sidebar %}
+{% include "sidebar.html"%}
+<div class="vr"></div>
+{% endblock %}
+{% block content %}
+
+<section class="w-100 d-flex flex-column vh-100">
+	<div class=" m-5 mb-3 d-flex justify-content-between">
+		<h3 class="fs-3 lead">Notes</h3>
+		<button class="btn btn-primary">Create Note</button>
+	</div>
+
+	<div class="d-flex flex-wrap overflow-auto mx-5 w-100 ">
+			{% for _ in range(0, 12) %}
+		<div class="card m-4" style="width: 20rem;">
+			<img src="ttps://plus.unsplash.com/premium_photo-1753982281853-9411e384483e?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+				class="card-img-top " style="height: 12rem;" alt="Erro de carregamento da imagem">
+			<div class="card-body">
+				<a href="{{ url_for('views.home.note') }}" target="_self">
+					<h5 class="card-title">Card title</h5>
+				</a>
+				<p class="card-text">Some quick example text to build on the card title and make up the bulk of the
+					card’s
+					content.</p>
+			</div>
+		</div>
+		{% endfor %}
+	</div>
+</section>
+{% endblock %}

@@ -2,6 +2,9 @@ import sys
 import os
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
+
+from src.models.user_model import User
+
 from wsgi import create_app
 import pytest
 
@@ -22,3 +25,13 @@ def client(app):
 @pytest.fixture()
 def runner(app):
     return app.test_cli_runner()
+
+
+@pytest.fixture
+def create_default_user():
+    return User(
+        first_name="Lucas",
+        last_name="Moura",
+        email="lucas.moura@email.com",
+        password="32322916aA!",
+    )

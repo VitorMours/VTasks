@@ -11,6 +11,7 @@ class IndexView(MethodView):
     def get(self):
         return render_template("index.html")
 
+
 bp.add_url_rule("/", view_func=IndexView.as_view("index"))
 bp.register_blueprint(auth)
 bp.register_blueprint(home)

@@ -1,3 +1,4 @@
+from typing import List
 from src.models.task_model import Task
 from src.models.user_model import User
 from src.utils.erros import UserDoesNotExistsError
@@ -26,6 +27,15 @@ class UserServiceImpl(UserService):
     def get_user(data) -> User:
         if UserRepository.user_exists(data):
             user = UserRepository.get_user_by_email(data["email"])
+            return user
+        return UserDoesNotExistsError("The user does not exists in the database")
+
+    @staticmethod
+    def get_all_users() -> List[User]:
+        user = UserRepository.get_all()
+        
+        print(user)
+        if len(user) > 0:
             return user
         return UserDoesNotExistsError("The user does not exists in the database")
 

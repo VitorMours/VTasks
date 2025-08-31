@@ -18,13 +18,13 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "module",
   "bugs": {
     "url": "https://github.com/VitorMours/VTasks/issues"
   },
   "homepage": "https://github.com/VitorMours/VTasks#readme",
   "dependencies": {
     "@babel/preset-env": "^7.28.0",
+    "axios": "^1.11.0",
     "babel-loader": "^10.0.0",
     "css-loader": "^7.1.2",
     "style-loader": "^4.0.0",

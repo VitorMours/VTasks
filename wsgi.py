@@ -9,7 +9,11 @@ from src.models.note_model import Note
 from flask_admin import Admin
 from src.views.admin import admin_add_views
 from src.views import bp
+from src.resources import api_bp
 import os
+
+
+
 
 dotenv_file = Path(".env")
 load_dotenv(dotenv_path = dotenv_file)
@@ -45,10 +49,17 @@ def create_app() -> Flask:
     with app.app_context():
         db.create_all()
 
+
+    admin = Admin()
+    admin_add_views(admin, [User, Task, Note])
+    admin.init_app(app)
+
     # Adding Views
     app.register_blueprint(bp)
-    admin = Admin(app)
-    admin_add_views(admin, [User, Task, Note])
+    app.register_blueprint(api_bp)
+
+    print(app.url_map)
+
     return app
 
 

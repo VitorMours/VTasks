@@ -1,9 +1,9 @@
-{% extends "base.html" %}
+{% extends "base.jinja" %}
 
 {% block subtitle %} - Signin{% endblock  %}
 
 {% block header%}
-  {% include "partials/header.html" %}
+  {% include "partials/header.jinja" %}
 {% endblock %}
 
 {% block content %}
@@ -14,7 +14,6 @@
         <div class="form-check mt-3 p-0">
           {{ form.first_name.label(class="form-label text-primary") }}
           {{ form.first_name(class="form-control", placeholder="Type your first name", size=30) }}
-          {# TODO: Verificar se isso pode ser trocado por um macro, ou deve ser assim mesmo #}
           {% if form.first_name.errors %}
             <ul class="errors">
               {% for error in form.first_name.errors %}
@@ -27,7 +26,6 @@
         <div class="form-check mt-3 p-0">
           {{ form.last_name.label(class="form-label text-primary") }}
           {{ form.last_name(class="form-control", placeholder="Type your last name", size=30) }}
-          {# TODO: Verificar se isso pode ser trocado por um macro, ou deve ser assim mesmo #}
           {% if form.last_name.errors %}
             <ul class="errors">
               {% for error in form.last_name.errors %}
@@ -41,7 +39,6 @@
       <div class="form-check mt-3 px-0">
         {{ form.email.label(class="form-label text-primary") }}
         {{ form.email(class="form-control", placeholder="Type your email", size=30) }}
-        {# TODO: Verificar se isso pode ser trocado por um macro, ou deve ser assim mesmo #}
         {% if form.email.errors %}
           <ul class="errors">
             {% for error in form.email.errors %}
