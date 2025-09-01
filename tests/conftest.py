@@ -1,10 +1,7 @@
 import sys
 import os
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-
-
 from src.models.user_model import User
-
 from wsgi import create_app
 import pytest
 

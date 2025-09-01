@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template, flash, redirect, url_for, g
 from flask.views import View, MethodView
-from ..services.impl.auth_service_impl import AuthServiceImpl
+
+from ..services.auth_service import AuthService
 from ..forms.login_form import LoginForm
 from ..forms.signin_form import SigninForm
 from ..utils.security import sanitize_request
@@ -20,7 +21,7 @@ class LoginView(MethodView):
 
     if form.validate_on_submit():
         try: 
-            response = AuthServiceImpl.login_user(g.sanitized_request)
+            response = AuthService.login_user(g.sanitized_request)
             return redirect(url_for("views.home.home"))
         except Exception as e: 
             flash(f"{e.message}", "warning")
@@ -40,7 +41,7 @@ class SigninView(MethodView):
 
     if form.validate_on_submit():
       data = form.data
-      authentication = AuthServiceImpl.create_and_login_user(data)
+      authentication = AuthService.create_and_login_user(data)
       print(authentication)
       if authentication:
         return redirect(url_for("views.home.home"))
@@ -48,8 +49,8 @@ class SigninView(MethodView):
 
 class LogoutView(View):
     def dispatch_request(self):
-        if AuthServiceImpl.check_session():
-            AuthServiceImpl.logout_user()
+        if AuthService.check_session():
+            AuthService.logout_user()
             return redirect(url_for("views.index"))
         flash("Você não pode fazer logout sem estar dentro de um login","warning")
 

@@ -26,23 +26,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="{{ url_for('static', filename='dist/bundle.js') }}"></script>
     {% block css %}{% endblock %}
+
     <title>VTask {% block subtitle %}{% endblock %}</title>
+
 </head>
 <body data-delete-icon="{{ url_for('static', filename='svg/delete.svg') }}">
     <header>
         {% block header %}{% endblock %}
     </header>
-    <main class="d-flex">
+    <main class="d-flex flex-column">
         {% block sidebar %}
-    
         {% endblock %}
         {% block content %}
-    
-        {% endblock %}
-
-        {% block footer %}
         {% endblock %}
     </main>
+        {% block footer %}
+        
+        {% endblock %}
 </body>
 <script src="{{ url_for('static', filename='dist/bundle.js') }}"></script>
 </html>

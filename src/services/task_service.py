@@ -1,36 +1,53 @@
 from abc import ABC, abstractmethod
-from typing import List 
-from src.models.task_model import Task
-from src.repositories.task_repository import TaskRepository
+import json
 from flask import session
-class TaskService(ABC):
+from ..interfaces.task_service_interface import TaskServiceInterface
+from ..services.user_service import UserService
+from src.repositories.task_repository import TaskRepository
+from src.models.task_model import Task
 
-    @abstractmethod
-    def get_all_user_tasks() -> List[Task]:
-        pass
+
+class TaskService(TaskServiceInterface):
     
-    @abstractmethod
+    @staticmethod
+    def get_all(as_json = False) -> Task | list[dict[str, str | bool]]:
+        user_id = session.get("user_id")
+        tasks = TaskRepository.get_all_user_tasks(user_id)
+        if as_json:
+            tasks_list = list()
+            if not isinstance(tasks, dict):
+                for task in tasks:
+                    task_dict = task.to_json()
+                    tasks_list.append(task_dict)
+            return tasks_list
+        return tasks
+
+    @staticmethod
     def delete() -> None:
         pass
 
-    @abstractmethod
+    @staticmethod
     def update() -> None:
         pass
 
-    @abstractmethod
+    @staticmethod
     def toggle_status() -> None:
         pass
 
-    @abstractmethod
+    @staticmethod
     def check_owner() -> None:
         pass
 
-    @abstractmethod
+    @staticmethod
     def get_one_by_id() -> None:
         pass
 
-    @abstractmethod
-    def create() -> None:
-        pass
+    @staticmethod
+    def create(data: dict[str, str]) -> None:
+        if (user := UserService.check_user_by_id(data)):
+            data["user_id"] = session["user_id"]
+            task = TaskRepository.create(data)
+        
 
-
+    
+    

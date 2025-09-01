@@ -1,5 +1,5 @@
 from flask_restx import Namespace, Resource
-from ..services.impl.user_service_impl import UserServiceImpl
+from ..services.user_service import UserService
 from ..utils.api import user_serializer
 bp = Namespace("user", description="Api resource to access the users data")
 

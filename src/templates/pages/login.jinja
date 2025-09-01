@@ -26,7 +26,6 @@
 
         {{ form.email.label(class="form-label text-primary") }}
         {{ form.email(class="form-control", placeholder="Type your email", size=30) }}
-        {# TODO: Verificar se isso pode ser trocado por um macro, ou deve ser assim mesmo #}
         {% if form.email.errors %}
           <ul class="errors">
             {% for error in form.email.errors %}

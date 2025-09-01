@@ -4,9 +4,6 @@
 	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 {% endblock  %}
 
-{% block javascript %}
-{% endblock %}
-
 {% block subtitle %}- Todo{% endblock %}
 	{% block sidebar %}
 		{% include "sidebar.html"%}
@@ -20,7 +17,7 @@
         <h1>Todo</h1>
         <button class="btn btn-primary mx-2 btn-md" data-bs-toggle="modal" data-bs-target="#createTask" type="button">+ Task</button>
       </div>
-
+      {{ tasks }}
       <div class="modal fade" id="createTask" tabindex="-1" aria-labelledby="createTaskLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
           <div class="modal-content">
@@ -42,7 +39,7 @@
               </form>
             </div>
             <div class="modal-footer">
-              <button class="btn btn-primary" data-bs-dismiss="modal">Create Task</button>
+              <button class="btn btn-primary" id="btn-create-task" data-bs-dismiss="modal">Create Task</button>
             </div>
           </div>
         </div>
