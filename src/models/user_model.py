@@ -37,9 +37,6 @@ class User(db.Model):
             return self.first_name
         return "O usuário ainda não possui nome cadastrado"
 
-    def __repr__(self) -> str:
-        return f"<User(id='{self.id}', email='{self.email}')>"
-
     def __str__(self) -> str:
         return f"{self.first_name} {self.last_name}: {self.email}"
     

@@ -1,7 +1,8 @@
 from flask import Blueprint, redirect, render_template, flash, request, url_for, jsonify
 from flask.views import MethodView, View
 from ..services.task_service import TaskService
-from src.utils.security import login_required
+from src.utils.security import login_required, sanitize_request
+from src.forms import TaskForm 
 import json
 
 bp = Blueprint("home", __name__)
@@ -36,17 +37,20 @@ class TodoView(MethodView):
     decorators = [login_required]
 
     def get(self) -> str:
+        form = TaskForm()
         tasks = TaskService.get_all(as_json=True)
-        return render_template("todo.jinja", active_page="todo", tasks = tasks)
-    
+        return render_template("todo.jinja", active_page="todo", tasks = tasks, form = form)
+
+    @sanitize_request
     def post(self) -> str:
-        data = request.get_json()
-        if not isinstance(data, dict):
+        form = TaskForm()
+        if form.validate_on_submit():
             try:
-                data = json.loads(data)
-            except Exception:
-                data = {}
-        TaskService.create(data)
+                data = form.data 
+                TaskService.create(data)
+                flash("Task created successfully!", "success")    
+            except Exception as e:
+                flash("An error occurred while creating the task.", "danger")
         return redirect(url_for("views.home.todo"))
     
 
