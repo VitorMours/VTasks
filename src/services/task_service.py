@@ -45,7 +45,6 @@ class TaskService(TaskServiceInterface):
     @staticmethod
     def create(data: dict[str, str]) -> None:
         if (user := UserService.check_user_by_id(data)):
-            data["user_id"] = session["user_id"]
             task = TaskRepository.create(data)
         
 

@@ -1,4 +1,4 @@
-from flask import Blueprint, redirect, render_template, flash, request, url_for, jsonify
+from flask import Blueprint, redirect, render_template, flash, request, session, url_for, jsonify
 from flask.views import MethodView, View
 from ..services.task_service import TaskService
 from src.utils.security import login_required, sanitize_request
@@ -47,7 +47,9 @@ class TodoView(MethodView):
         if form.validate_on_submit():
             try:
                 data = form.data 
-                TaskService.create(data)
+                data["user_id"] = session.get("user_id")
+                data["task_conclusion"] = False
+                task = TaskService.create(data)
                 flash("Task created successfully!", "success")    
             except Exception as e:
                 flash("An error occurred while creating the task.", "danger")
