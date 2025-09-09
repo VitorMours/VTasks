@@ -25,71 +25,136 @@ endblock %} {% block content %}
 </div>
 
 <!-- Segundo bloco -->
-<div  id="products" class="d-flex justify-content-center align-items-center p-5 bg-body-tertiary" style="height: 70vh">
-  <div class="container text-center">
-    <h2 class="border-bottom mt-10 pb-5">Diversas ferramentas, um único lugar</h2>
-    <div
-      class="row row-cols-1 row-cols-md-2 g-4 justify-content-center mt-4"
-    >
+<div
+  id="products"
+  class="d-flex justify-content-center align-items-center p-5 bg-body-tertiary"
+  style="height: 70vh"
+>
+  <div class="container text-center pt-3">
+    <h2 class="border-bottom mt-10 pb-5">
+      Diversas ferramentas, um único lugar
+    </h2>
+    <div class="row row-cols-1 row-cols-md-2 g-4 justify-content-center mt-4">
       <div class="col mb-3 text-start">
         <h4 class="fw-bold">
           Uma nova forma de ter as ferramentas e integrá-las com mais facilidade
         </h4>
-        <p class="lead text-justify">Com o <strong>VTasks</strong> você possui um ambiente integrado e desenvolvido pensando na 
-        sua experncia, não precisando integrar com outras ferramentas, e tendo tudo centralizado em um único lugar, promovendo segurança,
-        tranquilidade, e maior agilidade para atingir seus objetivos. </p>
-      </div>
-      <div class="col mb-3">
-        <div class="row row-cols-1">
-            <div class="col mb-3 d-flex justify-content-start align-items-center gap-3">
-                <div class="bg-gradient bg-primary p-2 rounded-2 text-white text-primary">
-                    <img
-                        class="text-primary text-white"
-                        src="{{ url_for('static', filename='svg/book_light.svg') }}"
-                        alt="bookmark"
-                        width="32"
-                        height="32"
-                    />
-                </div>
-                <h5>Anotações markdown focando em <i>conforto</i> e <i>ergononomia</i></h5>
-            </div>
-            <div class="col mb-3 d-flex justify-content-start align-items-center gap-3">
-                <div class="bg-gradient bg-primary p-2 rounded-2 text-white text-primary">
-                    <img
-                        class="text-primary text-white"
-                        src="{{ url_for('static', filename='svg/todo_light.svg') }}"
-                        alt="bookmark"
-                        width="32"
-                        height="32"
-                    />
-                </div>
-                <h5>Feramentas <i>integradas</i> e <i>centralizadas</i>, em um único lugar</h5>
-            </div>
-            <div class="col mb-3 d-flex justify-content-start align-items-center gap-3">
-                <div class="bg-gradient bg-primary p-2 rounded-2 text-white text-primary">
-                    <img
-                        class="text-primary text-white"
-                        src="{{ url_for('static', filename='svg/timer_light.svg') }}"
-                        alt="bookmark"
-                        width="32"
-                        height="32"
-                    />
-                </div>
-                <h5>Maior <i>velocidade</i>, menos <i>estresse</i></h5>
-            </div>
+        <p class="lead text-justify">
+          Com o <strong>VTasks</strong> você possui um ambiente integrado e
+            desenvolvido pensando na sua experncia, não precisando integrar com
+            outras ferramentas, e tendo tudo centralizado em um único lugar,
+            promovendo segurança, tranquilidade, e maior agilidade para atingir
+            seus objetivos.
+          </p>
         </div>
+        <div class="col mb-3">
+          <div class="row row-cols-1">
+            <div
+              class="col mb-3 d-flex justify-content-start align-items-center gap-3"
+            >
+              <div
+                class="bg-gradient bg-primary p-2 rounded-2 text-white text-primary"
+              >
+                <img
+                  class="text-primary text-white"
+                  src="{{ url_for('static', filename='svg/book_light.svg') }}"
+                  alt="bookmark"
+                  width="32"
+                  height="32"
+                />
+              </div>
+              <h5>
+                Anotações markdown focando em <i>conforto</i> e <i>ergononomia</i>
+              </h5>
+            </div>
+            <div
+              class="col mb-3 d-flex justify-content-start align-items-center gap-3"
+            >
+              <div
+                class="bg-gradient bg-primary p-2 rounded-2 text-white text-primary"
+              >
+                <img
+                  class="text-primary text-white"
+                  src="{{ url_for('static', filename='svg/todo_light.svg') }}"
+                  alt="bookmark"
+                  width="32"
+                  height="32"
+                />
+              </div>
+              <h5>
+                Feramentas <i>integradas</i> e <i>centralizadas</i>, em um único
+                lugar
+              </h5>
+            </div>
+            <div
+              class="col mb-3 d-flex justify-content-start align-items-center gap-3"
+            >
+              <div
+                class="bg-gradient bg-primary p-2 rounded-2 text-white text-primary"
+              >
+                <img
+                  class="text-primary text-white"
+                  src="{{ url_for('static', filename='svg/timer_light.svg') }}"
+                  alt="bookmark"
+                  width="32"
+                  height="32"
+                />
+              </div>
+              <h5>Maior <i>velocidade</i>, menos <i>estresse</i></h5>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+</div>
+<div
+  class="d-flex align-items-center justify-content-center bg-body-secondary"
+  style="min-height: 90vh"
+>
+  <div class="container" id="founder-section">
+    <div class="row align-items-center g-4">
+      <div class="col-12 col-md-4 d-flex justify-content-center">
+        <div
+          id="founder-image"
+          class="rounded-4 shadow-sm border border-5 border-primary mt-5"
+        ></div>
+      </div>
+
+      <div class="col-12 col-md-8">
+        <h2 class="border-bottom pb-3 mt-3">Sobre o fundador</h2>
+        <p class="lead text-justify mt-4">
+          Olá! Meu nome é <strong>Vitor</strong>, sou estudante de
+          <strong>Ciência da Computação</strong> e apaixonado por tecnologia.
+          Desde cedo, sempre busquei maneiras de otimizar meu aprendizado e
+          melhorar minha produtividade nos estudos. Foi essa busca que me levou
+          a criar o VTasks, uma plataforma desenvolvida para centralizar todas
+          as ferramentas essenciais para estudantes em um único lugar.
+        </p>
+        <p class="lead text-justify">
+          A ideia do VTasks surgiu da minha própria experiência como estudante,
+          onde percebi a necessidade de ter um ambiente integrado que facilitasse
+          o acesso a anotações, listas de tarefas e técnicas de gerenciamento de
+          tempo. Com o VTasks, espero proporcionar aos usuários uma experiência
+          mais eficiente e organizada, permitindo que eles se concentrem no que
+          realmente importa: aprender e crescer academicamente.
+        </p>
+        <p class="lead text-justify">
+          Estou comprometido em continuar aprimorando o VTasks com base no
+          feedback dos usuários, garantindo que a plataforma evolua para atender
+          às necessidades em constante mudança dos estudantes. Agradeço por fazer
+          parte dessa jornada comigo e espero que o VTasks possa ser uma
+          ferramenta valiosa no seu caminho acadêmico.
+        </p>
       </div>
     </div>
   </div>
 </div>
-<div class="d-flex align-items-center justify-content-center bg-body-secondary " style="height: 90vh">
-        <div class="d-flex justify-content-center align-items-center">
-            <div id="founder-image" class=" rounded-4 shadow-sm border border-5 border-primary"></div>
-        </div>
+  <div>
+
+
+  </div>
 
 </div>
 
-{% endblock %} 
-{% block footer %} 
-    {% include "partials/footer.html" %} 
-{% endblock %}
+{% endblock %} {% block footer %} {% include "partials/footer.html" %} {%
+endblock %}

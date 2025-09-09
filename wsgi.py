@@ -12,13 +12,8 @@ from src.views import bp
 from src.resources import api_bp
 import os
 
-
-
-
 dotenv_file = Path(".env")
 load_dotenv(dotenv_path = dotenv_file)
-
-
 
 def create_app() -> Flask:
     app = Flask(__name__, template_folder="src/templates/pages")
@@ -57,8 +52,6 @@ def create_app() -> Flask:
     # Adding Views
     app.register_blueprint(bp)
     app.register_blueprint(api_bp)
-
-    print(app.url_map)
 
     return app
 

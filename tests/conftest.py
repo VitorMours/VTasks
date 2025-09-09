@@ -32,3 +32,13 @@ def create_default_user():
         email="lucas.moura@email.com",
         password="32322916aA!",
     )
+    
+
+@pytest.fixture
+def create_second_user():
+    return User(
+        first_name="John",
+        last_name="Doe",
+        email="john.doe@email.com",
+        password="32322916aA!",
+    )

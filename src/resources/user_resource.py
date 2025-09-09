@@ -9,7 +9,7 @@ bp = Namespace("user", description="Api resource to access the users data")
 class UserList(Resource):
     @bp.doc("Get all the users data")
     def get(self):
-        users = UserServiceImpl.get_all_users()
+        users = UserService.get_all_users()
         return user_serializer(users)
 
     @bp.doc("Create a new user with body data")

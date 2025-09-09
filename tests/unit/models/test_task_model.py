@@ -69,3 +69,35 @@ class TestTaskModel:
         )
         assert task_instance.user == create_default_user
         assert isinstance(task_instance.user, User)
+        
+    def test_get_task_owner_id(self, create_default_user) -> None:
+        task_instance = Task(
+            task = "Estudar Flask",
+            task_description = "Estudar o framework Flask para desenvolver aplicações web",
+            task_conclusion = False,
+            user = create_default_user
+        )
+        assert task_instance.user_id == create_default_user.id
+        # assert isinstance(task_instance.user_id, str)
+        
+    def test_modify_task_owner(self, create_default_user, create_second_user) -> None:
+        task_instance = Task(
+            task = "Estudar Flask",
+            task_description = "Estudar o framework Flask para desenvolver aplicações web",
+            task_conclusion = False,
+            user = create_default_user
+        )
+        assert task_instance.user == create_default_user
+        with pytest.raises(AttributeError):
+            task_instance.user_id = create_second_user
+    
+    
+    def test_modify_task_id(self, create_default_user) -> None:
+        task_instance = Task(
+            task = "Estudar Flask",
+            task_description = "Estudar o framework Flask para desenvolver aplicações web",
+            task_conclusion = False,
+            user = create_default_user
+        )
+        with pytest.raises(AttributeError):
+            task_instance.id = "new_id"
