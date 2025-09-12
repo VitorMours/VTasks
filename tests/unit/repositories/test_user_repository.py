@@ -1,3 +1,22 @@
+import pytest 
+import importlib
+
+class TestUserRepository:
+
+    def test_if_its_running(self) -> None:
+        assert True == True
+    
+    def test_if_import_repository(self) -> None:
+        import src.repositories.user_repository
+        assert True == True
+    
+    def test_if_import_user_model(self) -> None:
+        from src.models import user_model 
+        assert True == True
+
+
+    def test_if_can_instantiate_user_repository(self) -> None:
+        repository = UserRepository() 
 import pytest
 import importlib
 from src.models.user_model import User

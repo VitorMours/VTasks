@@ -19,7 +19,7 @@ class TestUserModel:
                 password = "32322916aA!")
         assert str(user_instance) == "Lucas Moura: lucas.moura@gmail.com"
         
-    def test_get_user_frst_name(self, create_default_user) -> None:
+    def test_get_user_first_name(self, create_default_user) -> None:
         assert create_default_user.first_name == "Lucas"
         
     def test_get_user_last_name(self, create_default_user) -> None:
@@ -31,7 +31,7 @@ class TestUserModel:
     def test_get_user_password(self, create_default_user) -> None:
         assert create_default_user.password == "32322916aA!"
         
-    def test_modify_user_frst_name(self, create_default_user) -> None:
+    def test_modify_user_first_name(self, create_default_user) -> None:
         create_default_user.first_name = "Pietro"
         assert create_default_user.first_name == "Pietro"
         
@@ -47,14 +47,24 @@ class TestUserModel:
         create_default_user.password = "123123123aA!"
         assert create_default_user.password == "123123123aA!"
 
-    def test_wrong_primitive_type_in_first_name(self, create_default_user) -> None:
+    def test_delete_user_first_name(self, create_default_user) -> None:
         with pytest.raises(TypeError):
-            create_default_user.first_name(123)
+            create_default_user.first_name = None
 
-    def test_wrong_primitive_value_for_last_name(self, create_default_user) -> None:
+    def test_delete_user_last_name(self, create_default_user) -> None:
         with pytest.raises(TypeError):
-            create_default_user.last_name(123)
+            create_default_user.last_name = None
+            
+    def test_delete_user_email(self, create_default_user) -> None:
+        with pytest.raises(TypeError):
+            create_default_user.email = None
+            
+    def test_delete_user_password(self, create_default_user) -> None:
+        with pytest.raises(TypeError):
+            create_default_user.password = None
 
-    def test_wrong_primitive_type_for_email(self, create_default_user) -> None:
-        with pytest.raises(TypeError):
-            create_default_user.email(123)
+    def test_get_user_by_id_with_empty_database(self, app, create_default_user) -> None:
+        with app.app_context():
+            query = User.query.filter_by(id=create_default_user.id).all()
+            for user in query:
+                assert isinstance(user, User)

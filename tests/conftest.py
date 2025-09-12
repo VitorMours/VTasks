@@ -5,17 +5,23 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')
 from src.repositories.user_repository import UserRepository
 from src.models.user_model import User
 from wsgi import create_app
+from src.models import db
 import pytest
 
 @pytest.fixture()
 def app():
+    """
+    Creating a app with a database functionality working. to test the models necessities
+    """
     app = create_app()
     app.config.update({
         "TESTING": True,
     })
 
     with app.app_context():
+        db.create_all()
         yield app
+        db.drop_all()
 
 @pytest.fixture()
 def client(app):

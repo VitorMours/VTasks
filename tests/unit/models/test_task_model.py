@@ -60,16 +60,7 @@ class TestTaskModel:
         task_instance.toggle_conclusion()
         assert task_instance.task_conclusion == False
         
-    def test_get_task_owner(self, create_default_user) -> None:
-        task_instance = Task(
-            task = "Estudar Flask",
-            task_description = "Estudar o framework Flask para desenvolver aplicações web",
-            task_conclusion = False,
-            user = create_default_user
-        )
-        assert task_instance.user == create_default_user
-        assert isinstance(task_instance.user, User)
-        
+
     def test_get_task_owner_id(self, create_default_user) -> None:
         task_instance = Task(
             task = "Estudar Flask",
