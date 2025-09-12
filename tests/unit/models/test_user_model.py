@@ -46,4 +46,15 @@ class TestUserModel:
     def test_modify_user_password(self, create_default_user) -> None:
         create_default_user.password = "123123123aA!"
         assert create_default_user.password == "123123123aA!"
-        
+
+    def test_wrong_primitive_type_in_first_name(self, create_default_user) -> None:
+        with pytest.raises(TypeError):
+            create_default_user.first_name(123)
+
+    def test_wrong_primitive_value_for_last_name(self, create_default_user) -> None:
+        with pytest.raises(TypeError):
+            create_default_user.last_name(123)
+
+    def test_wrong_primitive_type_for_email(self, create_default_user) -> None:
+        with pytest.raises(TypeError):
+            create_default_user.email(123)

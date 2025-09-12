@@ -1,6 +1,8 @@
 import sys
 import os
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
+from src.repositories.user_repository import UserRepository
 from src.models.user_model import User
 from wsgi import create_app
 import pytest
@@ -42,3 +44,8 @@ def create_second_user():
         email="john.doe@email.com",
         password="32322916aA!",
     )
+
+
+@pytest.fixture
+def create_user_repository():
+    return UserRepository()

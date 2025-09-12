@@ -7,7 +7,7 @@ import uuid
 class Task(db.Model):
     __tablename__ = "task"
 
-    _id: Mapped[str] = mapped_column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
+    id: Mapped[str] = mapped_column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
     task: Mapped[str] = mapped_column(String(50), nullable=False)
     task_description: Mapped[str | None] = mapped_column(String(300))
     task_conclusion: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False)
@@ -31,14 +31,6 @@ class Task(db.Model):
         }
         
         
-    @property 
-    def id(self) -> None:
-        return self._id
-
-    @id.setter 
-    def id(self, value: str) -> None:
-        raise AttributeError("This attribute it's read-only and cannot be modified.")
-
     @property 
     def user_id(self) -> None:
         return self._user_id
