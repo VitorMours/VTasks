@@ -42,7 +42,6 @@ class SigninView(MethodView):
     if form.validate_on_submit():
       data = form.data
       authentication = AuthService.create_and_login_user(data)
-      print(authentication)
       if authentication:
         return redirect(url_for("views.home.home"))
     return render_template("signin.html", form=form)
