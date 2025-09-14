@@ -44,11 +44,6 @@ def create_app() -> Flask:
     with app.app_context():
         db.create_all()
 
-
-    admin = Admin()
-    admin_add_views(admin, [User, Task, Note])
-    admin.init_app(app)
-
     # Adding Views
     app.register_blueprint(bp)
     admin = Admin()
