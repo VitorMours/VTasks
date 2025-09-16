@@ -21,13 +21,14 @@ class User(db.Model):
     """
     __tablename__ = "user"
 
-    id = db.Column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
-    first_name = db.Column(String(50), nullable=False)
-    last_name = db.Column(String(50))
-    email = db.Column(String(100), nullable=False, unique=True)
-    password = db.Column(String(256), nullable=False)
-    tasks = db.relationship("Task", back_populates="user")
-
+    id: Mapped[str] = mapped_column(UUID(as_uuid=False), primary_key=True, default=lambda: str(uuid.uuid4()))
+    first_name: Mapped[str] = mapped_column(String(50), nullable=False)
+    last_name: Mapped[str | None] = mapped_column(String(50))
+    email: Mapped[str] = mapped_column(String(100), nullable=False, unique=True)
+    password: Mapped[str] = mapped_column(String(256), nullable=False)
+    tasks: Mapped[List["Task"]] = relationship(back_populates="user") # type:ignore
+    notes: Mapped[List["Note"]] = relationship(back_populates="owner") # type:ignore
+    
     @property
     def full_name(self) -> str:
         if self.first_name and self.last_name:

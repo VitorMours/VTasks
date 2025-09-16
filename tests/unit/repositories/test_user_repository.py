@@ -1,6 +1,10 @@
 import pytest 
 import importlib
+<<<<<<< HEAD
 from src.repositories.user_repository import UserRepository
+=======
+
+>>>>>>> d4d4dc6 (tests: Creating more tests)
 class TestUserRepository:
 
     def test_if_its_running(self) -> None:
@@ -14,6 +18,10 @@ class TestUserRepository:
         from src.models import user_model 
         assert True == True
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> d4d4dc6 (tests: Creating more tests)
     def test_if_can_instantiate_user_repository(self) -> None:
         repository = UserRepository() 
 import pytest

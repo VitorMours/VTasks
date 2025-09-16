@@ -5,8 +5,6 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')
 from src.repositories.user_repository import UserRepository
 from src.models.user_model import User
 from wsgi import create_app
-from src.models import db
-import pytest
 
 @pytest.fixture()
 def app():
@@ -20,6 +18,9 @@ def app():
 
     with app.app_context():
         db.create_all()
+        # db.session.add()
+        # db.session.commit()
+
         yield app
         db.drop_all()
 
