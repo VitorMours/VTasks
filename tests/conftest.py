@@ -1,20 +1,21 @@
 import sys
 import os
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+import pytest
 
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+from src.models import db
 from src.repositories.user_repository import UserRepository
 from src.models.user_model import User
 from wsgi import create_app
-import pytest
 
 @pytest.fixture()
 def app():
-    app = create_app()
-    app.config.update({
-        "TESTING": True,
-    })
-
+    app = create_app("testing")
     with app.app_context():
+        db.create_all()
+        # db.session.add()
+        # db.session.commit()
+
         yield app
 
 @pytest.fixture()
