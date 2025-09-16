@@ -2,7 +2,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask import redirect, url_for, g, request, session, flash
 from functools import wraps
 from markupsafe import escape
-
+import re
 salt = 16
 
 def encrypt_password(password: str) -> str:
@@ -14,6 +14,9 @@ def check_password(password: str, hashed_password: str) -> str:
     password_validation = check_password_hash(hashed_password, password)
     return password_validation
 
+def email_validator(email: str) -> bool:
+    EMAIL_REGEX = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
+    return re.fullmatch(EMAIL_REGEX, email) is not None
 
 
 def login_required(view):

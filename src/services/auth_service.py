@@ -23,7 +23,7 @@ class AuthService(AuthServiceInterface):
                 flash("This email is already registered in the database, may you want to login")
                 return False
             else:
-                UserService.create_user(data)
+                create_user(data, )
                 print(123123123)
                 AuthService._create_user_session(data)
                 return True

@@ -1,7 +1,7 @@
 import sys
 import os
 import pytest
-
+from faker import Faker
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from src.models import db
 from src.repositories.user_repository import UserRepository
@@ -44,6 +44,16 @@ def create_second_user():
         last_name="Doe",
         email="john.doe@email.com",
         password="32322916aA!",
+    )
+
+@pytest.fixture
+def create_random_user():
+    faker = Faker()
+    return User(
+        first_name = faker.name(),
+        last_name = faker.name(),
+        email = faker.email(),
+        password = faker.password()
     )
 
 

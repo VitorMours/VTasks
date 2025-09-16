@@ -12,6 +12,7 @@ from src.views.admin import admin_add_views
 from src.views import bp
 from src.resources import api_bp
 from config import config
+
 dotenv_file = Path(".env")
 load_dotenv(dotenv_path = dotenv_file)
 

@@ -1,69 +1,47 @@
+from abc import ABC
 from typing import List
 from ..interfaces.user_service_interface import UserServiceInterface
-from src.models.task_model import Task
 from src.models.user_model import User
 from src.utils.erros import UserDoesNotExistsError
 from src.utils.security import check_password, encrypt_password
 from src.repositories.user_repository import UserRepository
 from collections.abc import Hashable
 from flask import session
-
+from src.utils.security import email_validator
 
 class UserService(UserServiceInterface):
 
     @staticmethod
     def create_user(data) -> None:
-        try:
-            sanitized_data = data.copy()
-            for key in ["submit","csrf_token","confirm_password"]:
-                sanitized_data.pop(key, None)
-                
-            sanitized_data["password"] = encrypt_password(data["password"])
-            UserRepository.save(sanitized_data)
-        except Exception as e:
-            raise e
-
-    @staticmethod
-    def get_user(data) -> User:
-        if UserRepository.user_exists(data):
-            user = UserRepository.get_user_by_email(data["email"])
-            return user
-        return UserDoesNotExistsError("The user does not exists in the database")
-
-    @staticmethod
-    def get_user_by_id(id) -> User:
-        user = UserRepository.get_user_by_id(id)
-        return user
-
-    @staticmethod
-    def get_all_users() -> List[User]:
-        user = UserRepository.get_all()
-        
-        print(user)
-        if len(user) > 0:
-            return user
-        return UserDoesNotExistsError("The user does not exists in the database")
-
-    @staticmethod
-    def get_tasks() -> list[Task]:
         pass
 
     @staticmethod
-    def check_user(data: dict[str, str]) -> bool:
-        user = UserRepository.user_exists(data)
-        return user
+    def get_all_users() -> None:
+        pass
 
     @staticmethod
-    def check_password(password: str, secured_password: Hashable) -> bool:
-        return check_password(password, secured_password)
-
+    def get_user_by_email(data) -> None:
+        pass
 
     @staticmethod
-    def check_user_by_id(data: dict[str, str]) -> User:
+    def update_user(user, data) -> None:
+        pass
+
+    @staticmethod
+    def delete_user(data) -> None:
+        pass
+    @staticmethod
+    def exists(user: User | str) -> bool:
         """
-        Check if the user exists by ID.
+        Check if user exists
         """
-        user = UserRepository.get_user_by_id(session.get("user_id"))
-        if user is None:
-            raise UserDoesNotExistsError("The user does not exists in the database")
-        return user
+        if type(user) == User:
+            email = user.email
+            # user = UserRepository.get_by_email(email)
+        elif type(user) == str and email_validator(user):
+            return True
+        else:
+            raise TypeError("This function must receive a email, or a user object to search for the user in the database")
+
+    def __str__(self) -> str:
+        return "<UserService>"
