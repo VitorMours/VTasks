@@ -3,7 +3,7 @@ import importlib
 from src.models.user_model import User
 from src.repositories.user_repository import UserRepository
 from src.utils.erros import UserDoesNotExistsError
-
+from faker import Faker
 
 class TestUserRepository:
     def test_if_is_running(self) -> None:
@@ -78,6 +78,14 @@ class TestUserRepository:
             with pytest.raises(UserDoesNotExistsError):
                 create_user_repository.get_by_email("never.exists@gmail.com")
 
-    #def test_if_can_update_a_user_that_exists(self, app, create_user_repository, create_random_user) -> None:
-    #    with app.app_context():
+    def test_if_can_update_a_user_that_exists(self, app, create_user_repository, create_random_user) -> None:
+
+        with app.app_context():
+            faker = Faker()
+            create_user_repository.create(create_random_user)
+            searched_user = create_user_repository.get_by_email(create_random_user.email)
+            data = {"email":faker.email()}
+            create_user_repository.update(searched_user, data=data)
+
+
 

@@ -37,9 +37,8 @@ class UserRepository:
             raise UserDoesNotExistsError("The user does not exists.")
         
     @staticmethod
-    def update() -> None:
+    def update(user: User, data: dict[str, str | int]) -> None:
         pass
-
     @staticmethod
     def delete(id: int) -> None:
         pass
