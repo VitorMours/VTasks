@@ -2,7 +2,7 @@ import pytest
 import importlib
 from src.models.user_model import User
 from src.repositories.user_repository import UserRepository
-from src.utils.erros import UserDoesNotExistsError
+from src.utils.erros import UserDoesNotExistsError, IncorrectUserDataError
 from faker import Faker
 
 class TestUserRepository:
@@ -78,14 +78,24 @@ class TestUserRepository:
             with pytest.raises(UserDoesNotExistsError):
                 create_user_repository.get_by_email("never.exists@gmail.com")
 
+
     def test_if_can_update_a_user_that_exists(self, app, create_user_repository, create_random_user) -> None:
 
         with app.app_context():
             faker = Faker()
             create_user_repository.create(create_random_user)
             searched_user = create_user_repository.get_by_email(create_random_user.email)
-            data = {"email":faker.email()}
+            new_email = faker.email()
+            data = {"email":new_email}
             create_user_repository.update(searched_user, data=data)
+            modified_user = create_user_repository.get_by_email(searched_user.email)
+            assert modified_user.email == data["email"]
 
+    def test_if_raise_error_with_wrong_key(self, app, create_user_repository, create_random_user) -> None:
+        with app.app_context():
+            create_user_repository.create(create_random_user)
+            with pytest.raises(IncorrectUserDataError):
+                searched_user = create_user_repository.get_by_email(create_random_user.email)
+                create_user_repository.update(searched_user, {"dando":"errado"})
 
 

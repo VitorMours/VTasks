@@ -30,6 +30,13 @@ def login_required(view):
 
 
 def sanitize_request(view):
+    """
+    This function is responsible for sanitizing the request
+    in a way that the data is more clean and easy to work with on
+    Returns:
+    --------
+        g.sanitized_request: dict
+    """
     @wraps(view)
     def wrapped_view(*args, **kwargs):
         sanitized = {}

@@ -1,9 +1,7 @@
-import sqlalchemy
-
 from src.models.user_model import User
 from src.models import db
 from typing import List
-
+from src.utils.security import email_validator
 from src.utils.erros import UserDoesNotExistsError, IncorrectUserDataError, UserAlreadyExistsError
 
 class UserRepository:
@@ -37,8 +35,23 @@ class UserRepository:
             raise UserDoesNotExistsError("The user does not exists.")
         
     @staticmethod
-    def update(user: User, data: dict[str, str | int]) -> None:
-        pass
+    def update(user: User, data: dict[str, str | int]) -> User:
+        for key in data.keys():
+            if key not in user.__dict__:
+                raise IncorrectUserDataError("The user does not have the required key '{}'".format(key))
+            if not hasattr(user, key):
+                raise IncorrectUserDataError("The user does not have the required key '{}'".format(key))
+            if key == "email":
+                email_validator(data["email"])
+
+        if searched_user := User.query.filter_by(email=user.email).first():
+            for key in data.keys():
+                if key in searched_user.__dict__:
+                    setattr(searched_user, key, data[key])
+
+        db.session.commit()
+        return searched_user
+
     @staticmethod
     def delete(id: int) -> None:
         pass

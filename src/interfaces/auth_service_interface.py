@@ -2,22 +2,32 @@ from abc import ABC, abstractmethod
 
 class AuthServiceInterface(ABC):
 
+    @staticmethod
     @abstractmethod
-    def create_and_login_user(data) -> None:
-        pass
+    def create_session():
+        raise NotImplementedError()
 
+    @staticmethod
     @abstractmethod
-    def _create_user_session():
-        pass
+    def destroy_session():
+        raise NotImplementedError()
 
+    @staticmethod
     @abstractmethod
-    def _destroy_user_session():
-        pass
+    def check_session():
+        raise NotImplementedError()
 
-    @abstractmethod 
-    def _check_session():
-        pass
-
+    @staticmethod
     @abstractmethod
     def logout_user() -> None:
-        pass
+        raise NotImplementedError()
+
+    @staticmethod
+    @abstractmethod
+    def login_user(user_data: dict) -> None:
+        raise NotImplementedError()
+
+    @staticmethod
+    @abstractmethod
+    def authenticate_user(user_data: dict) -> None:
+        raise NotImplementedError()

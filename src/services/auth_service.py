@@ -1,4 +1,3 @@
-
 from ..interfaces.auth_service_interface import AuthServiceInterface
 from .user_service import UserService
 from ..repositories.user_repository import UserRepository
@@ -13,56 +12,40 @@ from flask import session, redirect, url_for, flash
 class AuthService(AuthServiceInterface):
 
     @staticmethod
-    def create_and_login_user(data) -> bool:
-        print("criando o usuario")
-        try:
-            print("criando o usuario")
-            if UserService.check_user(data):
-            
-                print("criando o usuario")
-                flash("This email is already registered in the database, may you want to login")
-                return False
-            else:
-                create_user(data, )
-                print(123123123)
-                AuthService._create_user_session(data)
-                return True
-        except Exception as e:
-            raise e
+    def _check_session() -> bool:
+        return True
+
 
     @staticmethod
-    def login_user(data: dict[str]) -> bool | Exception:
-        if UserService.check_user(data):
-            email = data["email"]
-            password = data["password"]
-            if (user := UserRepository.get_user_by_email(email)) and UserService.check_password(password, user.password):
-                AuthService._create_user_session(data)
-                return True
-
-            raise IncorrectCredentialsToLoginError("As credenciais enviadas por esse usuário estão erradas")
-        raise UserDoesNotExistsError("Esse usuário não está cadastrado dentro do banco de dados")
-
-    @staticmethod
-    def logout_user() -> None:
-        AuthService._destroy_user_session()
+    def create_session() -> None:
         return True
 
     @staticmethod
-    def _create_user_session(data: dict[str, str]) -> None:
-        user = UserService.get_user(data)
-        session["first_name"] = f"{user.first_name}"
-        session["username"] = f"{user.first_name} {user.last_name}"
-        session["user_id"] = f"{user.id}"
-        session["email"] = f"{user.email}"
-        session["login"] = True
-
-    @staticmethod 
-    def check_session() -> bool: 
-        if session is not None:
-            return True 
-        return False
+    def destroy_session() -> None:
+        return True
 
     @staticmethod
-    def _destroy_user_session() -> None:
-        session.clear()
+    def login_user(user_data: dict) -> None:
+        print(user_data)
+        AuthService.authenticate_user(user_data)
+        return True
 
+    @staticmethod
+    def logout_user() -> None:
+        return True
+
+
+    @staticmethod
+    def authenticate_user(user_data: dict) -> None:
+        service = UserService()
+        user_email = user_data["email"]
+        if user := service.get_user_by_email(user_email):
+            print(user)
+        return True
+    
+    @staticmethod 
+    def check_password(password: str, confirmation:str) -> bool | IncorrectCredentialsToLoginError:
+        if password == confirmation:
+            return True
+        else:
+            raise IncorrectCredentialsToLoginError("A senha e a contrasenha possuem valores diferentes")

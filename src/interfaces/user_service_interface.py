@@ -1,5 +1,6 @@
 from abc import abstractmethod, ABC
 from src.models.task_model import Task
+from src.models.user_model import User
 
 class UserServiceInterface(ABC):
 
@@ -30,5 +31,5 @@ class UserServiceInterface(ABC):
 
     @staticmethod
     @abstractmethod
-    def exists() -> bool:
+    def exists(user: User) -> bool:
         raise NotImplementedError()

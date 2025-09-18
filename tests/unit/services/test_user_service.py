@@ -1,6 +1,8 @@
 import pytest
 import importlib
 from src.services.user_service import UserService
+from src.utils.erros import UserDoesNotExistsError
+
 
 class TestUserService:
     def test_if_is_running(self) -> None:
@@ -27,13 +29,20 @@ class TestUserService:
         with pytest.raises(TypeError):
             service.exists(123)
 
-    def test_user_service_exists_function_with_email_string(self) -> None:
-        user_service = UserService()
-        assert user_service.exists("email@email.com")
+    def test_user_service_exists_function_with_email_string(self, app) -> None:
+        with app.app_context():
+            user_service = UserService()
+            assert user_service.exists("fguzman@example.net")
 
-    def test_user_service_exists_function_with_not_email_string(self) -> None:
-        user_service = UserService()
-        with pytest.raises(TypeError):
-            assert user_service.exists("emailemail.com")
+    def test_user_service_exists_function_with_not_email_string(self, app) -> None:
+        with app.app_context():
+            user_service = UserService()
+            with pytest.raises(TypeError):
+                assert user_service.exists("emailemail.com")
 
+    def test_user_service_exists_function_with_user_email_string_not_exists(self, app) -> None:
+        with app.app_context():
+            user_service = UserService()
+            with pytest.raises(UserDoesNotExistsError):
+                assert user_service.exists("jvrezendemoura@gmail.com")
 
