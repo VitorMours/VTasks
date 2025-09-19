@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, flash, redirect, url_for, g
 from flask.views import View, MethodView
-
+from ..services.user_service import UserService
 from ..services.auth_service import AuthService
 from ..forms.login_form import LoginForm
 from ..forms.signin_form import SigninForm
@@ -11,24 +11,23 @@ bp = Blueprint("auth", __name__)
 
 class LoginView(MethodView):
 
-  def get(self) -> str:
-    form = LoginForm()
-    return render_template("login.jinja", form=form)
+    def get(self) -> str:
+        form = LoginForm()
+        return render_template("login.jinja", form=form)
 
-  @sanitize_request
-  def post(self) -> str:
-    form = LoginForm()
-
-    if form.validate_on_submit():
-        try: 
-            response = AuthService.login_user(g.sanitized_request)
-            return redirect(url_for("views.home.home"))
-        except Exception as e: 
-            flash(f"{e.message}", "warning")
-            return redirect(url_for("views.auth.login"))
+    @sanitize_request
+    def post(self) -> str:
+        form = LoginForm()
+        if form.validate_on_submit():
+            try:
+                response = AuthService.login_user(g.sanitized_request)
+                return redirect(url_for("views.home.home"))
+            except Exception as e:
+                flash(f"{e.message}", "warning")
+                return redirect(url_for("views.auth.login"))
         
-    flash("Não foi possível fazer o login devido algum erro que ocorreu", "danger")
-    return redirect(url_for("views.auth.login"))
+        flash("Não foi possível fazer o login devido algum erro que ocorreu", "danger")
+        return redirect(url_for("views.auth.login"))
 
 class SigninView(MethodView):
   def get(self) -> str:
@@ -40,10 +39,18 @@ class SigninView(MethodView):
     form = SigninForm()
 
     if form.validate_on_submit():
-      data = form.data
-      authentication = AuthService.create_and_login_user(data)
-      if authentication:
-        return redirect(url_for("views.home.home"))
+        data = form.data
+        password_confirmation = AuthService.check_password(data["password"], data["confirm_password"])
+        
+        del data["confirm_password"]
+        del data["csrf_token"]
+        del data["submit"]
+        
+        if password_confirmation:
+            if user_created := UserService.create_user(data):
+                AuthService.create_session(user_created) #type: ignore
+
+                return redirect(url_for("views.home.home")) #type: ignore
     return render_template("signin.html", form=form)
 
 class LogoutView(View):
