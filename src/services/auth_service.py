@@ -17,7 +17,8 @@ class AuthService(AuthServiceInterface):
 
 
     @staticmethod
-    def create_session() -> None:
+    def create_session(user: User) -> None:
+        print(user)
         return True
 
     @staticmethod

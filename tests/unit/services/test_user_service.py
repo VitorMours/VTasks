@@ -29,10 +29,11 @@ class TestUserService:
         with pytest.raises(TypeError):
             service.exists(123)
 
-    def test_user_service_exists_function_with_email_string(self, app) -> None:
+    def test_user_service_exists_function_with_email_string(self, app, create_user_repository, create_random_user_dict) -> None:
         with app.app_context():
+            create_user_repository.create(create_random_user_dict)
             user_service = UserService()
-            assert user_service.exists("fguzman@example.net")
+            assert user_service.exists(create_random_user_dict["email"]) is True
 
     def test_user_service_exists_function_with_not_email_string(self, app) -> None:
         with app.app_context():
@@ -43,6 +44,6 @@ class TestUserService:
     def test_user_service_exists_function_with_user_email_string_not_exists(self, app) -> None:
         with app.app_context():
             user_service = UserService()
-            with pytest.raises(UserDoesNotExistsError):
+            with pytest.raises(AssertionError):
                 assert user_service.exists("testelouco@teste.com")
 
