@@ -14,14 +14,7 @@ def app():
     app = create_app("testing")
 
     with app.app_context():
-<<<<<<< HEAD
-=======
-        db.create_all()
-        # db.session.add()
-        # db.session.commit()
-
         yield app
->>>>>>> a0d0867dfe92a923a81e0dd9c7941cc072e7be72
         db.drop_all()
         db.create_all()
         for _ in range(25):
