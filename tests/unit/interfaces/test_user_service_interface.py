@@ -13,7 +13,7 @@ class TestUserServiceInterface:
         assert issubclass(UserServiceInterface, ABC)
 
     def test_if_user_service_interface_have_abstract_methods(self) -> None:
-        methods_list = ["create_user","get_all_users","get_user_by_email","update_user","delete_user"]
+        methods_list = ["create_user","get_all_users","update_user","delete_user"]
         interface = UserServiceInterface
         for method in methods_list:
             assert hasattr(interface, method)
@@ -37,8 +37,6 @@ class TestUserServiceInterface:
         with pytest.raises(NotImplementedError):
             service.get_all_users()
 
-        with pytest.raises(NotImplementedError):
-            service.get_user_by_email(data={"email": "test@example.com"})
 
         with pytest.raises(NotImplementedError):
             service.update_user(user=user_id, data=user_data)

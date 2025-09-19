@@ -12,7 +12,9 @@ from wsgi import create_app
 def app():
     faker = Faker()
     app = create_app("testing")
+
     with app.app_context():
+        db.drop_all()
         db.create_all()
         for _ in range(25):
             user = User(

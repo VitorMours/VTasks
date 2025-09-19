@@ -14,10 +14,14 @@ class UserRepository:
         -------
             Return True if the user was successfully created else IncorrectUserDataErrors
         """
-        user = User(**data)
-        db.session.add(user)
-        db.session.commit()
-        return True
+        try:
+            user = User(**data)
+            db.session.add(user)
+            db.session.commit()
+            return user
+        except Exception:
+            db.session.rollback()
+            return IncorrectUserDataError("Invalid user data")
 
     @staticmethod
     def get_all() -> List[User] | User:

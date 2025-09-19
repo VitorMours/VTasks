@@ -16,11 +16,6 @@ class UserServiceInterface(ABC):
 
     @staticmethod
     @abstractmethod
-    def get_user_by_email(data) -> None:
-        raise NotImplementedError()
-
-    @staticmethod
-    @abstractmethod
     def update_user(user, data) -> None:
         raise NotImplementedError()
 

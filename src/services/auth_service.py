@@ -12,13 +12,15 @@ from flask import session, redirect, url_for, flash
 class AuthService(AuthServiceInterface):
 
     @staticmethod
-    def _check_session() -> bool:
+    def check_session() -> bool:
         return True
 
 
     @staticmethod
     def create_session(user: User) -> None:
-        print(user)
+        session["email"] = user.email
+        session["username"] = f"{user.first_name} {user.last_name}"
+        session["login"] = True
         return True
 
     @staticmethod
@@ -27,7 +29,6 @@ class AuthService(AuthServiceInterface):
 
     @staticmethod
     def login_user(user_data: dict) -> None:
-        print(user_data)
         AuthService.authenticate_user(user_data)
         return True
 
@@ -37,13 +38,11 @@ class AuthService(AuthServiceInterface):
 
 
     @staticmethod
-    def authenticate_user(user_data: dict) -> None:
-        service = UserService()
+    def authenticate_user(user_data: dict) -> bool:
         user_email = user_data["email"]
-        if user := service.get_user_by_email(user_email):
-            print(user)
-        return True
-    
+        if UserRepository.get_by_email(user_email) is not None:
+            return True
+
     @staticmethod 
     def check_password(password: str, confirmation:str) -> bool | IncorrectCredentialsToLoginError:
         if password == confirmation:

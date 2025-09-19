@@ -12,48 +12,21 @@ from src.utils.security import email_validator
 class UserService(UserServiceInterface):
 
     @staticmethod
-    def create_user(data) -> None:
+    def create_user(data) -> bool | IncorrectUserDataError:
         """
         Função que verifica os dados do dicionario que é passado,
         e caso estejam corretos usa para criar um usuário por meio do
         UserRepository
         """
-        virtuals_and_fk_fields_list =["notes","tasks","full_name"]
-        necessary_fields = set()
-        try:
-            if type(data) != dict:
-                raise IncorrectUserDataError("Existem valores que foram esquecidos, ou passados incorretamente dentro dos dados.")
-            fields = User.__dict__
-        
-            for field in fields:
-                if field.startswith("_") or field.startswith("__") or field in virtuals_and_fk_fields_list:
-                    continue
-                else:
-                    necessary_fields.add(field)
-                
-                
-            necessary_fields.remove("id")
-            if len(data.keys()) != len(necessary_fields):
-                raise IncorrectUserDataError("Existem valores que foram esquecidos, ou passados incorretamente dentro dos dados.")
+        print(data)
+        user = UserRepository.create(data)
+        return user
 
-            for key in data.keys():
-                if key not in necessary_fields:
-                    raise IncorrectUserDataError("Existem valores que foram esquecidos, ou passados incorretamente dentro dos dados.")
-
-            user = UserRepository.create(**data)
-            return user
-
-        except Exception as e:
-            return e
 
     @staticmethod
     def get_all_users() -> None:
         all_users = UserRepository.get_all()
         return all_users
-
-    @staticmethod
-    def get_user_by_email(data) -> None:
-        pass
 
     @staticmethod
     def update_user(user, data) -> None:

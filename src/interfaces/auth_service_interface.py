@@ -1,10 +1,10 @@
 from abc import ABC, abstractmethod
-
+from src.models.user_model import User
 class AuthServiceInterface(ABC):
 
     @staticmethod
     @abstractmethod
-    def create_session():
+    def create_session(user: User) -> None:
         raise NotImplementedError()
 
     @staticmethod
