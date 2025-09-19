@@ -32,7 +32,6 @@ class TestUserRepository:
             "create", "update", "delete",
             "get_all", "get_by_email",
         ]
-        print(dir(create_user_repository))
         for method_name in dir(create_user_repository):
             if method_name.startswith("__"):
                 continue
@@ -49,11 +48,6 @@ class TestUserRepository:
             assert hasattr(repository, method_name), f"Missing method: {method_name}"
             assert callable(getattr(repository, method_name)), f"{method_name} is not a callable method"
 
-    def test_if_get_all_return_list_when_more_than_one(self, app, create_user_repository) -> None:
-        with app.app_context():
-            query = create_user_repository.get_all()
-            assert len(query) >= 1
-
     def test_if_get_all_return_only_users(self, app, create_user_repository) -> None:
         with app.app_context():
             query = create_user_repository.get_all()
@@ -62,28 +56,27 @@ class TestUserRepository:
 
     def test_if_can_create_user_with_repository(self, app, create_user_repository, create_random_user) -> None:
         with app.app_context():
-            create_user_repository.create(create_random_user)
+            create_user_repository.create(**create_random_user)
             searched_user = create_user_repository.get_by_email(create_random_user.email)
             assert create_random_user.email == searched_user.email
 
     def test_if_can_find_user_in_database_by_email(self, app, create_user_repository, create_random_user) -> None:
         with app.app_context():
-            create_user_repository.create(create_random_user)
+            create_user_repository.create(*create_random_user)
             searched_user = create_user_repository.get_by_email(create_random_user.email)
             assert isinstance(searched_user, User)
             assert searched_user.email == create_random_user.email
 
     def test_raising_error_when_not_finding_user(self, app, create_user_repository, create_random_user) -> None:
         with app.app_context():
-            with pytest.raises(UserDoesNotExistsError):
-                create_user_repository.get_by_email("never.exists@gmail.com")
-
+            result = create_user_repository.get_by_email("never.exists@gmail.com")
+            assert result == None
 
     def test_if_can_update_a_user_that_exists(self, app, create_user_repository, create_random_user) -> None:
 
+        faker = Faker()
         with app.app_context():
-            faker = Faker()
-            create_user_repository.create(create_random_user)
+            create_user_repository.create(*create_random_user)
             searched_user = create_user_repository.get_by_email(create_random_user.email)
             new_email = faker.email()
             data = {"email":new_email}
@@ -99,3 +92,7 @@ class TestUserRepository:
                 create_user_repository.update(searched_user, {"dando":"errado"})
 
 
+    def test_if_get_all_return_list_when_more_than_one(self, app, create_user_repository) -> None:
+        with app.app_context():
+            query = create_user_repository.get_all()
+            assert len(query) >= 1

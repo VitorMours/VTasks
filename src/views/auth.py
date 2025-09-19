@@ -40,14 +40,15 @@ class SigninView(MethodView):
 
     if form.validate_on_submit():
         data = form.data
-        password_confirmation = AuthService.check_password(data)
+        password_confirmation = AuthService.check_password(data["password"], data["confirm_password"])
+        
+        del data["confirm_password"]
+        del data["csrf_token"]
+        del data["submit"]
         
         if password_confirmation:
-            user = UserService.create_user(data)
-            print(user)
-            authentication = None
-            if authentication:
-                AuthService.create_session()
+            if user_created := UserService.create_user(data):
+                AuthService.create_session(user_created)
                 return redirect(url_for("views.home.home"))
     return render_template("signin.html", form=form)
 

@@ -44,5 +44,5 @@ class TestUserService:
         with app.app_context():
             user_service = UserService()
             with pytest.raises(UserDoesNotExistsError):
-                assert user_service.exists("jvrezendemoura@gmail.com")
+                assert user_service.exists("testelouco@teste.com")
 

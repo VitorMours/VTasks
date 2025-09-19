@@ -44,8 +44,8 @@ class TestConfig(Config):
     """Configurações para o ambiente de teste."""
     # Usa um banco de dados de teste isolado para garantir que os testes não interfiram
     # nos dados de desenvolvimento.
-    SQLALCHEMY_DATABASE_URI = os.getenv("SQLALCHEMY_DATABASE_URI") or f"sqlite:///test_db.sqlite3"
-
+    SQLALCHEMY_DATABASE_URI = "sqlite:///:memory:"
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
     # Desativa o logging do SQL em testes para não poluir o output
     SQLALCHEMY_ECHO = False
     TESTING = True

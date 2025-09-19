@@ -10,11 +10,20 @@ from wsgi import create_app
 
 @pytest.fixture()
 def app():
+    faker = Faker()
     app = create_app("testing")
     with app.app_context():
         db.create_all()
-        # db.session.add()
-        # db.session.commit()
+        for _ in range(25):
+            user = User(
+                first_name = faker.name(),
+                last_name = faker.last_name(),
+                email = faker.unique.email(),
+                password = faker.password()
+            )
+        
+            db.session.add(user)
+            db.session.commit()
 
         yield app
 
@@ -28,7 +37,7 @@ def runner(app):
 
 
 @pytest.fixture
-def create_default_user():
+def create_default_static_user():
     return User(
         first_name="Lucas",
         last_name="Moura",
@@ -52,10 +61,19 @@ def create_random_user():
     return User(
         first_name = faker.name(),
         last_name = faker.name(),
-        email = faker.email(),
+        email = faker.unique.email(),
         password = faker.password()
     )
 
+@pytest.fixture
+def create_random_user_dict():
+    faker = Faker()
+    return {
+        "first_name":faker.name(),
+        "last_name":faker.name(),
+        "email":faker.unique.email(),
+        "password":faker.password()
+    }
 
 @pytest.fixture
 def create_user_repository():

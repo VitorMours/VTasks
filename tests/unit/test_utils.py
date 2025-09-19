@@ -15,3 +15,4 @@ class TestUtils:
         fake = Faker()
         result = utils.security.email_validator(fake.email())
         assert result == True
+

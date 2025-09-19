@@ -22,7 +22,6 @@ class UserService(UserServiceInterface):
         necessary_fields = set()
         try:
             if type(data) != dict:
-                print(1)
                 raise IncorrectUserDataError("Existem valores que foram esquecidos, ou passados incorretamente dentro dos dados.")
             fields = User.__dict__
         
@@ -32,19 +31,18 @@ class UserService(UserServiceInterface):
                 else:
                     necessary_fields.add(field)
                 
-            print(f"{len(data.keys())} { len(necessary_fields)}")
-            print(f"{data.keys()} { necessary_fields}")
+                
+            necessary_fields.remove("id")
             if len(data.keys()) != len(necessary_fields):
-                print(2)
                 raise IncorrectUserDataError("Existem valores que foram esquecidos, ou passados incorretamente dentro dos dados.")
 
             for key in data.keys():
-                print(3)
                 if key not in necessary_fields:
                     raise IncorrectUserDataError("Existem valores que foram esquecidos, ou passados incorretamente dentro dos dados.")
 
-            return UserRepository.create(**data)
-        
+            user = UserRepository.create(**data)
+            return user
+
         except Exception as e:
             return e
 

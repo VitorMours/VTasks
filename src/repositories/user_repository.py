@@ -6,7 +6,7 @@ from src.utils.erros import UserDoesNotExistsError, IncorrectUserDataError, User
 
 class UserRepository:
     @staticmethod
-    def create(user: User) -> bool | IncorrectUserDataError:
+    def create(data: dict) -> bool | IncorrectUserDataError:
         """
         Method to create a new user in the database
 
@@ -14,6 +14,7 @@ class UserRepository:
         -------
             Return True if the user was successfully created else IncorrectUserDataErrors
         """
+        user = User(**data)
         db.session.add(user)
         db.session.commit()
         return True
@@ -25,14 +26,7 @@ class UserRepository:
 
     @staticmethod
     def get_by_email(email: str) -> list[str]:
-        try:
-            user = User.query.filter_by(email=email).first()
-            if user is None:
-                raise UserDoesNotExistsError("The user does not exists.")
-            return user
-
-        except UserDoesNotExistsError:
-            raise UserDoesNotExistsError("The user does not exists.")
+        return  User.query.filter_by(email=email).first()
         
     @staticmethod
     def update(user: User, data: dict[str, str | int]) -> User:
