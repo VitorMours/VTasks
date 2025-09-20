@@ -24,7 +24,10 @@ class AuthService(AuthServiceInterface):
         return True
 
     @staticmethod
-    def destroy_session() -> None:
+    def destroy_session(user: User) -> None:
+        session.pop("username", None)
+        session.pop("email", None)
+        session.pop("login", None)
         return True
 
     @staticmethod

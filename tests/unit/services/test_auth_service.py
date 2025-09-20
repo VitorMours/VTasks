@@ -32,13 +32,15 @@ class TestAuthService:
                 module = importlib.import_module("src.services.auth_service")
                 assert module.AuthService.create_session(create_random_user)
 
-    def test_service_delete_session_method(self) -> None:
+    def test_service_destroy_session_method(self) -> None:
         module = importlib.import_module("src.services.auth_service")
         assert hasattr(module.AuthService, "destroy_session")
 
-    def test_service_destroy_session_method_implementation(self) -> None:
-        module = importlib.import_module("src.services.auth_service")
-        assert module.AuthService.destroy_session()
+    def test_service_destroy_session_method_implementation(self, app, create_random_user) -> None:
+        with app.app_context():
+            with app.test_request_context():
+                module = importlib.import_module("src.services.auth_service")
+                assert module.AuthService.destroy_session(create_random_user)
 
     def test_service_login_user_method(self) -> None:
         module = importlib.import_module("src.services.auth_service")
@@ -96,3 +98,17 @@ class TestAuthService:
                     AuthService.create_session(user_entity)
 
                     assert session["login"] == True
+
+    def test_if_can_destroy_user_session(self, app, create_random_user_dict) -> None:
+        with app.app_context():
+            with app.test_request_context():
+                user_service = UserService()
+                user_created = user_service.create_user(create_random_user_dict)
+                if user_created:
+                    user_entity = UserRepository.get_by_email(create_random_user_dict["email"])
+                    AuthService.create_session(user_entity)
+                    assert session.get("login") is True
+
+                    AuthService.destroy_session(user_entity)
+                    assert session.get("login") is None
+                        
