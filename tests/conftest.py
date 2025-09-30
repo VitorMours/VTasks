@@ -14,6 +14,7 @@ def app():
     app = create_app("testing")
 
     with app.app_context():
+        yield app
         db.drop_all()
         db.create_all()
         for _ in range(25):
@@ -28,7 +29,6 @@ def app():
             db.session.commit()
 
         yield app
-        db.drop_all()
 
 @pytest.fixture()
 def client(app):

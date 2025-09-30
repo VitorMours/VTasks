@@ -23,6 +23,7 @@ class AuthService(AuthServiceInterface):
             return False
         return True
 
+
     @staticmethod
     def create_session(user: User) -> None:
         session["email"] = user.email
@@ -31,12 +32,8 @@ class AuthService(AuthServiceInterface):
         return True
 
     @staticmethod
-    def destroy_session(user: User | None = None) -> None:
-        session.pop("username", None)
-        session.pop("email", None)
-        session.pop("login", None)
+    def destroy_session() -> None:
         return True
-
 
     @staticmethod
     def login_user(user_data: dict) -> bool:

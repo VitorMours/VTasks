@@ -21,7 +21,7 @@ class User(db.Model):
     """
     __tablename__ = "user"
 
-    id: Mapped[str] = mapped_column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
+    id: Mapped[str] = mapped_column(UUID(as_uuid=False), primary_key=True, default=lambda: str(uuid.uuid4()))
     first_name: Mapped[str] = mapped_column(String(50), nullable=False)
     last_name: Mapped[str | None] = mapped_column(String(50))
     email: Mapped[str] = mapped_column(String(100), nullable=False, unique=True)
@@ -36,50 +36,6 @@ class User(db.Model):
         if self.first_name:
             return self.first_name
         return "O usuário ainda não possui nome cadastrado"
-    
-    @property 
-    def first_name(self) -> None:
-        return self._first_name 
-    
-    @first_name.setter 
-    def first_name(self, value) -> None:
-        if not isinstance(value, str):
-            raise TypeError("O valor passado deve ser apenas uma string")
-        else:
-            self._first_name = value
-
-    @property
-    def last_name(self) -> None:
-        return self._last_name
-    
-    @last_name.setter 
-    def last_name(self, value) -> None:
-        if not isinstance(value, str):
-            raise TypeError("O valor passado deve ser apenas uma string")
-        else:
-            self._last_name = value
-
-    @property
-    def email(self) -> None:
-        return self._email 
-    
-    @email.setter 
-    def email(self, value) -> None:
-        if not isinstance(value, str):
-            raise TypeError("O valor passado deve ser apenas uma string")
-        else:
-            self._email = value
-
-    @property 
-    def password(self) -> None:
-        return self._password 
-    
-    @password.setter 
-    def password(self, value) -> None:
-        if not isinstance(value, str):
-            raise TypeError("O valor passado deve ser apenas uma string")
-        else:
-            self._password = value
 
     def __str__(self) -> str:
         return f"{self.first_name} {self.last_name}: {self.email}"
