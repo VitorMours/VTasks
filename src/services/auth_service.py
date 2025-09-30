@@ -44,7 +44,7 @@ class AuthService(AuthServiceInterface):
         user = UserRepository.get_by_email(user_email)
 
         if user is None:
-            return False
+            return False   
 
         AuthService.create_session(user)
         return True
