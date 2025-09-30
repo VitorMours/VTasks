@@ -20,7 +20,7 @@ class TestTaskRepository:
         assert callable(module.TaskRepository)
 
     def test_if_task_repository_have_the_standard_methods(self) -> None: 
-        standard_methods = ["create","update","delete","get_all","get_by_email", "get_by_id"]
+        standard_methods = ["create","update","delete","get_all","get_by_email", "get_by_owner_id"]
         repository = TaskRepository()
         for method in standard_methods:
             assert hasattr(repository, method)        
@@ -45,7 +45,11 @@ class TestTaskRepository:
             created_task = TaskRepository.create(create_random_task_dict, new_user.id)
             assert isinstance(created_task, Task)
 
-
-    # TODO: Restart from this point
-    def test_if_can_create_and_search_for_task(self, app, create_random_user_dict, create_random_task_dict) -> None:
-        assert True
+    def test_if_can_create_and_search_for_user_tasks(self, app, create_random_user_dict, create_random_task_dict) -> None:
+        with app.app_context():
+            new_user = UserRepository.create(create_random_user_dict)
+            assert isinstance(new_user, User)
+            created_task = TaskRepository.create(create_random_task_dict, new_user.id)
+            assert isinstance(created_task, Task)
+            tasks = TaskRepository.get_by_owner_id(new_user.id)
+            assert isinstance(tasks, list)

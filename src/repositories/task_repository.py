@@ -32,7 +32,7 @@ class TaskRepository:
         pass
     
     @staticmethod
-    def get_all() -> None:
+    def get_all(user: User) -> None:
         pass
     
     @staticmethod
@@ -40,8 +40,9 @@ class TaskRepository:
         pass
     
     @staticmethod 
-    def get_by_id() -> None:
-        pass
+    def get_by_owner_id(id: str) -> None:
+        tasks = Task.query.filter_by(user_id=id).all()
+        return tasks
 
     def __repr__(self) -> str:
         return "<TaskRepository>"

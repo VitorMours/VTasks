@@ -67,4 +67,6 @@ banco de dados
 - [x] Fazer o rodape com o link de email e o link do linkedin
 - [ ] Criar o sistema de temas com javascript dentro do projeto
 - [ ] Fazer o sistema de anoteções e de tasks dentro do projeto 
-- [ ] Estudar como siansi funcionam dentro do flask para poder adicionar dentro do projeto
+
+# 29/09/2025
+- [ ] Corrigir o sistema responsável por fazer o todo dentro do flask
