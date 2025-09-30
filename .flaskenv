@@ -1,0 +1,1 @@
+FLASK_APP=wsgi:create_app('development')
