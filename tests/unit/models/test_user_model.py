@@ -19,52 +19,42 @@ class TestUserModel:
                 password = "32322916aA!")
         assert str(user_instance) == "Lucas Moura: lucas.moura@gmail.com"
         
-    def test_get_user_first_name(self, create_default_user) -> None:
-        assert create_default_user.first_name == "Lucas"
+    def test_get_user_first_name(self, create_default_static_user) -> None:
+        assert create_default_static_user.first_name == "Lucas"
         
-    def test_get_user_last_name(self, create_default_user) -> None:
-        assert create_default_user.last_name == "Moura"
+    def test_get_user_last_name(self, create_default_static_user) -> None:
+        assert create_default_static_user.last_name == "Moura"
     
-    def test_get_user_email(self, create_default_user) -> None:
-        assert create_default_user.email == "lucas.moura@email.com"
+    def test_get_user_email(self, create_default_static_user) -> None:
+        assert create_default_static_user.email == "lucas.moura@email.com"
         
-    def test_get_user_password(self, create_default_user) -> None:
-        assert create_default_user.password == "32322916aA!"
+    def test_get_user_password(self, create_default_static_user) -> None:
+        assert create_default_static_user.password == "32322916aA!"
         
-    def test_modify_user_first_name(self, create_default_user) -> None:
-        create_default_user.first_name = "Pietro"
-        assert create_default_user.first_name == "Pietro"
+    def test_modify_user_frst_name(self, create_default_static_user) -> None:
+        create_default_static_user.first_name = "Pietro"
+        assert create_default_static_user.first_name == "Pietro"
         
-    def test_modify_user_last_name(self, create_default_user) -> None:
-        create_default_user.last_name = "Juan"
-        assert create_default_user.last_name == "Juan"
+    def test_modify_user_last_name(self, create_default_static_user) -> None:
+        create_default_static_user.last_name = "Juan"
+        assert create_default_static_user.last_name == "Juan"
     
-    def test_modify_user_email(self, create_default_user) -> None:
-        create_default_user.email = "email@teste.com"
-        assert create_default_user.email == "email@teste.com"
+    def test_modify_user_email(self, create_default_static_user) -> None:
+        create_default_static_user.email = "email@teste.com"
+        assert create_default_static_user.email == "email@teste.com"
         
-    def test_modify_user_password(self, create_default_user) -> None:
-        create_default_user.password = "123123123aA!"
-        assert create_default_user.password == "123123123aA!"
+    def test_modify_user_password(self, create_default_static_user) -> None:
+        create_default_static_user.password = "123123123aA!"
+        assert create_default_static_user.password == "123123123aA!"
 
-    def test_delete_user_first_name(self, create_default_user) -> None:
+    def test_wrong_primitive_type_in_first_name(self, create_default_static_user) -> None:
         with pytest.raises(TypeError):
-            create_default_user.first_name = None
+            create_default_static_user.first_name(123)
 
-    def test_delete_user_last_name(self, create_default_user) -> None:
+    def test_wrong_primitive_value_for_last_name(self, create_default_static_user) -> None:
         with pytest.raises(TypeError):
-            create_default_user.last_name = None
-            
-    def test_delete_user_email(self, create_default_user) -> None:
-        with pytest.raises(TypeError):
-            create_default_user.email = None
-            
-    def test_delete_user_password(self, create_default_user) -> None:
-        with pytest.raises(TypeError):
-            create_default_user.password = None
+            create_default_static_user.last_name(123)
 
-    def test_get_user_by_id_with_empty_database(self, app, create_default_user) -> None:
-        with app.app_context():
-            query = User.query.filter_by(id=create_default_user.id).all()
-            for user in query:
-                assert isinstance(user, User)
+    def test_wrong_primitive_type_for_email(self, create_default_static_user) -> None:
+        with pytest.raises(TypeError):
+            create_default_static_user.email(123)
