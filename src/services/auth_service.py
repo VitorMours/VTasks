@@ -15,7 +15,6 @@ class AuthService(AuthServiceInterface):
     def check_session() -> bool:
         return True
 
-
     @staticmethod
     def create_session(user: User) -> None:
         session["email"] = user.email
