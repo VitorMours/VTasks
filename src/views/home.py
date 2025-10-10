@@ -7,10 +7,6 @@ import json
 
 bp = Blueprint("home", __name__)
 
-
-
-
-
 class HomeView(View):
     decorators = [login_required]
 
@@ -32,14 +28,11 @@ class NoteTakerView(MethodView):
         # return render_template("note_taker.html", note_uuid = note_uuid active_page="notes")
         pass
 
-
-
-
 class TodoView(MethodView):
     decorators = [login_required]
 
     def get(self) -> str:
-        tasks = TaskServiceImpl.get_all(as_json=True)
+        tasks = TaskService.get_all(as_json=True)
         return render_template("todo.jinja", active_page="todo", tasks = tasks)
     
     def post(self) -> str:

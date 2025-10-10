@@ -26,23 +26,36 @@ class TaskRepository:
     
     @staticmethod   
     def update() -> None:
+        """
+        Deve atualziar uma task com base nos dados do usuario e no novo conteudo
+        que e passado, deve retornar a task modificada dentro do banco de dados 
+        se a modificacao for bem sucedida
+        """
         pass
+
     @staticmethod
     def delete() -> None:
+        """
+        Deve deletar uma task com base no seu id, retornando true se for deletado
+        """
         pass
     
     @staticmethod
-    def get_all(user: User) -> None:
-        pass
+    def get_all() -> None:
+        """
+        Pega todas as tasks presentes dentro do banco de dados
+        """
+        if Task.query.count() == 0:
+            return []
+        return Task.query.all()  
     
     @staticmethod
     def get_by_email() -> None:
+        """
+        Retorna todas as tasks baseadas no email do usuario dono
+        dessa determinada task
+        """
         pass
-    
-    @staticmethod 
-    def get_by_owner_id(id: str) -> None:
-        tasks = Task.query.filter_by(user_id=id).all()
-        return tasks
 
     def __repr__(self) -> str:
         return "<TaskRepository>"

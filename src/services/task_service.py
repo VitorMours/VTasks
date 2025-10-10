@@ -6,7 +6,6 @@ from ..services.user_service import UserService
 from src.repositories.task_repository import TaskRepository
 from src.models.task_model import Task
 
-
 class TaskService(TaskServiceInterface):
     
     @staticmethod

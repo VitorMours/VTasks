@@ -53,3 +53,20 @@ class TestTaskRepository:
             assert isinstance(created_task, Task)
             tasks = TaskRepository.get_by_owner_id(new_user.id)
             assert isinstance(tasks, list)
+
+    def test_if_can_return_all_tasks(self, app) -> None:
+        with app.app_context(): 
+            tasks = TaskRepository.get_all()
+            assert isinstance(tasks, list)
+        
+    def test_if_get_all_return_empty_list_when_no_tasks(self, app) -> None:
+        with app.app_context():
+            tasks = TaskRepository.get_all()
+            assert isinstance(tasks, list)
+            assert len(tasks) == 0
+
+    def test_if_return_list_when_task_exists(self, app) -> None:
+        with app.app_context():
+            # TODO: precisava antes de tudo criar um usu[ario, uma task pra ele e a partir disso fazer o processo todo
+            tasks = TaskRepository.get_all()
+            
