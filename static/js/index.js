@@ -1,10 +1,18 @@
-import addConclusionInteraction from "./task.js";
-
-const allTasks = document.getElementById("todo-all-tab-content");
-const doneTasks = document.getElementById("todo-done-tab-content");
-const activeTasks = document.getElementById("todo-active-tab-content");
+const { handleImageError } = require('./notes.js');
+const task = require('../js/task.js');
+const TaskManager = require('../js/taskManager.js');
 
 
-addConclusionInteraction(allTasks);
-addConclusionInteraction(doneTasks);
-addConclusionInteraction(activeTasks);
+const allList = document.getElementById("todo-all-list");
+const doneList = document.getElementById("todo-done-list");
+const activeList = document.getElementById("todo-active-list");
+
+const deleteIconPath = document.body.dataset.deleteIcon;
+
+document.addEventListener('DOMContentLoaded', () => {
+    const images = document.querySelectorAll('.card-img-top');
+
+    images.forEach(img => {
+        img.onerror = img.classList.add("image-failed");
+    });
+});

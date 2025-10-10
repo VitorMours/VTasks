@@ -18,7 +18,6 @@ class UserService(UserServiceInterface):
         e caso estejam corretos usa para criar um usuário por meio do
         UserRepository
         """
-        print(data)
         user = UserRepository.create(data)
         return user
 

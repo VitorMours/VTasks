@@ -16,11 +16,6 @@ class AuthService(AuthServiceInterface):
 
     @staticmethod
     def check_session() -> bool:
-
-        if session.get("login") is None:
-            return False
-        elif session.get("email") is None:
-            return False
         return True
 
     @staticmethod

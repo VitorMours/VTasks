@@ -9,6 +9,8 @@ bp = Blueprint("home", __name__)
 
 
 
+
+
 class HomeView(View):
     decorators = [login_required]
 
@@ -37,11 +39,9 @@ class TodoView(MethodView):
     decorators = [login_required]
 
     def get(self) -> str:
-        form = TaskForm()
-        tasks = TaskService.get_all(as_json=True)
-        return render_template("todo.jinja", active_page="todo", tasks = tasks, form = form)
-
-    @sanitize_request
+        tasks = TaskServiceImpl.get_all(as_json=True)
+        return render_template("todo.jinja", active_page="todo", tasks = tasks)
+    
     def post(self) -> str:
         form = TaskForm()
         if form.validate_on_submit():
