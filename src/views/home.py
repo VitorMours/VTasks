@@ -32,8 +32,9 @@ class TodoView(MethodView):
     decorators = [login_required]
 
     def get(self) -> str:
-        tasks = TaskService.get_all(as_json=True)
-        return render_template("todo.jinja", active_page="todo", tasks = tasks)
+        form = TaskForm()
+        tasks = TaskService.get_user_tasks()
+        return render_template("todo.html", active_page="todo", tasks = tasks, form = form)
     
     def post(self) -> str:
         form = TaskForm()
@@ -46,6 +47,9 @@ class TodoView(MethodView):
                 flash("Task created successfully!", "success")    
             except Exception as e:
                 flash("An error occurred while creating the task.", "danger")
+        else:
+            flash("Invalid form data. Please check your input.", "warning")
+            print(form.errors)
         return redirect(url_for("views.home.todo"))
     
 

@@ -6,7 +6,6 @@ import uuid
 
 class Task(db.Model):
     __tablename__ = "task"
-    __tablename__ = "task"
 
     id: Mapped[str] = mapped_column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
     task: Mapped[str] = mapped_column(String(50), nullable=False)

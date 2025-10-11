@@ -11,7 +11,7 @@ class TaskService(TaskServiceInterface):
     @staticmethod
     def get_all(as_json = False) -> Task | list[dict[str, str | bool]]:
         user_id = session.get("user_id")
-        tasks = TaskRepository.get_all_user_tasks(user_id)
+        tasks = TaskRepository.get_all()
         if as_json:
             tasks_list = list()
             if not isinstance(tasks, dict):
@@ -21,6 +21,31 @@ class TaskService(TaskServiceInterface):
             return tasks_list
         return tasks
 
+    @staticmethod
+    def get_user_tasks() -> None:
+        user_email = session.get("user_email")
+        all_tasks = TaskRepository.get_by_email(user_email)
+        return all_tasks
+
+    @staticmethod
+    def create(data: dict[str, str]) -> None:
+        user = UserService.get_by_id(data.get("user_id"))
+        
+        print(user)
+        if not user:
+            raise Exception("User not found.")
+        new_task = Task(
+            task = data.get("task"),
+            task_description = data.get("task_description"),
+            task_conclusion = data.get("task_conclusion"),
+            user_id = user.id
+        )
+        created_task = TaskRepository.create(new_task)
+        print(created_task)
+        return created_task
+
+    
+    
     @staticmethod
     def delete() -> None:
         pass
@@ -36,16 +61,3 @@ class TaskService(TaskServiceInterface):
     @staticmethod
     def check_owner() -> None:
         pass
-
-    @staticmethod
-    def get_one_by_id() -> None:
-        pass
-
-    @staticmethod
-    def create(data: dict[str, str]) -> None:
-        if (user := UserService.check_user_by_id(data)):
-            task = TaskRepository.create(data)
-        
-
-    
-    

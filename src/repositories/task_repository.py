@@ -50,12 +50,15 @@ class TaskRepository:
         return Task.query.all()  
     
     @staticmethod
-    def get_by_email() -> None:
+    def get_by_email(email: str) -> None:
         """
         Retorna todas as tasks baseadas no email do usuario dono
         dessa determinada task
         """
-        pass
+        if Task.query.count() == 0:
+            return []
+        return Task.query.filter_by(email=email).first()
+        
 
     def __repr__(self) -> str:
         return "<TaskRepository>"
