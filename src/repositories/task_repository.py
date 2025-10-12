@@ -22,6 +22,8 @@ class TaskRepository:
                 task_conclusion = task_data["task_conclusion"],
                 user_id = user_id
                 )
+        db.session.add(new_task)
+        db.session.commit()
         return new_task
     
     @staticmethod   
@@ -57,8 +59,7 @@ class TaskRepository:
         """
         if Task.query.count() == 0:
             return []
-        return Task.query.filter_by(email=email).first()
-        
+        return Task.query.join(User).filter(User.email == email).all()        
 
     def __repr__(self) -> str:
         return "<TaskRepository>"

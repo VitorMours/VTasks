@@ -41,9 +41,9 @@ class TodoView(MethodView):
         if form.validate_on_submit():
             try:
                 data = form.data 
-                data["user_id"] = session.get("user_id")
+                print(data)
                 data["task_conclusion"] = False
-                task = TaskService.create(data)
+                print(task)
                 flash("Task created successfully!", "success")    
             except Exception as e:
                 flash("An error occurred while creating the task.", "danger")

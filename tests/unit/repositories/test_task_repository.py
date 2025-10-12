@@ -20,7 +20,7 @@ class TestTaskRepository:
         assert callable(module.TaskRepository)
 
     def test_if_task_repository_have_the_standard_methods(self) -> None: 
-        standard_methods = ["create","update","delete","get_all","get_by_email", "get_by_owner_id"]
+        standard_methods = ["create","update","delete","get_all","get_by_email"]
         repository = TaskRepository()
         for method in standard_methods:
             assert hasattr(repository, method)        
@@ -51,7 +51,7 @@ class TestTaskRepository:
             assert isinstance(new_user, User)
             created_task = TaskRepository.create(create_random_task_dict, new_user.id)
             assert isinstance(created_task, Task)
-            tasks = TaskRepository.get_by_owner_id(new_user.id)
+            tasks = TaskRepository.get_by_email(new_user.email)
             assert isinstance(tasks, list)
 
     def test_if_can_return_all_tasks(self, app) -> None:
@@ -65,8 +65,15 @@ class TestTaskRepository:
             assert isinstance(tasks, list)
             assert len(tasks) == 0
 
-    def test_if_return_list_when_task_exists(self, app) -> None:
+    def test_if_return_list_when_task_exists(self, app, create_user_repository, create_random_user_dict) -> None:
         with app.app_context():
-            # TODO: precisava antes de tudo criar um usu[ario, uma task pra ele e a partir disso fazer o processo todo
+            user_repository = UserRepository.create(create_random_user_dict)
+            created_task = TaskRepository.create({
+                "task": "Test Task",
+                "task_description": "This is a test task",
+                "task_conclusion": True
+            }, user_repository.id)
             tasks = TaskRepository.get_all()
-            
+            assert isinstance(tasks, list)
+            assert len(tasks) > 0
+            assert isinstance(tasks[0], Task)            

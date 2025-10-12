@@ -1,5 +1,5 @@
 from abc import ABC
-from typing import List
+from typing import List, Optional
 from ..utils.erros import IncorrectUserDataError
 from ..interfaces.user_service_interface import UserServiceInterface
 from src.models.user_model import User
@@ -28,12 +28,27 @@ class UserService(UserServiceInterface):
         return all_users
 
     @staticmethod
+    def get_user_by_email(email: str) -> Optional[User]:
+        """
+        Busca um usuário pelo ID
+        
+        Args:
+            user_id (str): ID do usuário a ser buscado
+        
+        Returns:
+            User | None: Retorna o objeto User se encontrado, None caso contrário
+        """
+        user = UserRepository.get_by_email(email) 
+        return user
+
+    @staticmethod
     def update_user(user, data) -> None:
         pass
 
     @staticmethod
     def delete_user(data) -> None:
         pass
+    
     @staticmethod
     def exists(user: User | str) -> bool | None:
         """

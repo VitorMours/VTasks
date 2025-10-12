@@ -29,19 +29,19 @@ class TaskService(TaskServiceInterface):
 
     @staticmethod
     def create(data: dict[str, str]) -> None:
-        user = UserService.get_by_id(data.get("user_id"))
-        
-        print(user)
+        user = UserService.get_user_by_email(session.get("email"))
         if not user:
             raise Exception("User not found.")
-        new_task = Task(
-            task = data.get("task"),
-            task_description = data.get("task_description"),
-            task_conclusion = data.get("task_conclusion"),
-            user_id = user.id
+        
+        created_task = TaskRepository.create(
+            task_data={
+                "task": data.get("task"),
+                "task_description": data.get("task_description"),
+                "task_conclusion": data.get("task_conclusion")
+            },
+            user_id=user.id  # ← Apenas o ID, não o objeto User
         )
-        created_task = TaskRepository.create(new_task)
-        print(created_task)
+
         return created_task
 
     
