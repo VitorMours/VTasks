@@ -41,8 +41,8 @@ class TodoView(MethodView):
         if form.validate_on_submit():
             try:
                 data = form.data 
-                print(f"Dados crus: {data}")
                 data["task_conclusion"] = False
+                TaskService.create
                 print(f"dados tratados: {data}")
                 flash("Task created successfully!", "success")    
             except Exception as e:
