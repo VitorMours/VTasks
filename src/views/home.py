@@ -41,15 +41,14 @@ class TodoView(MethodView):
         if form.validate_on_submit():
             try:
                 data = form.data 
-                print(data)
+                print(f"Dados crus: {data}")
                 data["task_conclusion"] = False
-                print(task)
+                print(f"dados tratados: {data}")
                 flash("Task created successfully!", "success")    
             except Exception as e:
                 flash("An error occurred while creating the task.", "danger")
         else:
             flash("Invalid form data. Please check your input.", "warning")
-            print(form.errors)
         return redirect(url_for("views.home.todo"))
     
 

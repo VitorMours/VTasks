@@ -36,11 +36,19 @@ class TaskRepository:
         pass
 
     @staticmethod
-    def delete() -> None:
+    def delete(id: int) -> None:
         """
         Deve deletar uma task com base no seu id, retornando true se for deletado
         """
-        pass
+        if task := Task.query.filter_by(id=id).first_or_404():
+            try:
+                db.session.delete(task)
+                db.session.commit()
+                return True
+            except Exception as e:
+                db.session.rollback()
+            
+        return False
     
     @staticmethod
     def get_all() -> None:

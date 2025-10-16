@@ -77,3 +77,28 @@ class TestTaskRepository:
             assert isinstance(tasks, list)
             assert len(tasks) > 0
             assert isinstance(tasks[0], Task)            
+            
+    def test_if_can_get_task_by_user_email(self, app, create_random_user_dict) -> None:
+        with app.app_context():
+            user_repository = UserRepository.create(create_random_user_dict)
+            created_task = TaskRepository.create({
+                "task": "Test Task",
+                "task_description": "This is a test task",
+                "task_conclusion": True
+            }, user_repository.id)
+            user_task = TaskRepository.get_by_email(user_repository.email)
+            assert isinstance(user_task[0], Task)
+            assert user_task[0] == created_task
+            
+    def test_can_delete_task_that_exists_in_the_database(self, app, create_user_repository, create_random_user_dict) -> None:
+        with app.app_context():
+            user_repository = UserRepository.create(create_random_user_dict)
+            created_task = TaskRepository.create({
+                "task": "Test Task",
+                "task_description": "This is a test task",
+                "task_conclusion": True
+            }, user_repository.id)
+            user_task = TaskRepository.get_by_email(user_repository.email)
+            assert TaskRepository.delete(user_task[0].id)
+
+    
