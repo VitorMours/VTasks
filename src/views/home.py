@@ -33,8 +33,10 @@ class TodoView(MethodView):
 
     def get(self) -> str:
         form = TaskForm()
-        tasks = TaskService.get_user_tasks()
-        return render_template("todo.html", active_page="todo", tasks = tasks, form = form)
+        
+        tasks = TaskService.get_user_tasks(session.get("email"))
+        tasks_serialized = [t.to_json() for t in tasks]
+        return render_template("todo.html", active_page="todo", tasks = tasks_serialized, form = form)
     
     def post(self) -> str:
         form = TaskForm()
@@ -42,7 +44,7 @@ class TodoView(MethodView):
             try:
                 data = form.data 
                 data["task_conclusion"] = False
-                TaskService.create
+                TaskService.create(data)
                 print(f"dados tratados: {data}")
                 flash("Task created successfully!", "success")    
             except Exception as e:
@@ -50,6 +52,9 @@ class TodoView(MethodView):
         else:
             flash("Invalid form data. Please check your input.", "warning")
         return redirect(url_for("views.home.todo"))
+    
+    def put(self) -> str: 
+        pass
     
 
 bp.add_url_rule("/home", view_func=HomeView.as_view("home"))

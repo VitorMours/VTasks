@@ -22,9 +22,12 @@ class TaskService(TaskServiceInterface):
         return tasks
 
     @staticmethod
-    def get_user_tasks() -> None:
-        user_email = session.get("user_email")
-        all_tasks = TaskRepository.get_by_email(user_email)
+    def get_user_tasks(email: str) -> None:
+        user = UserService.get_user_by_email(email)
+        if not user:
+            raise Exception("User not Found")
+
+        all_tasks = TaskRepository.get_by_email(email)
         return all_tasks
 
     @staticmethod
@@ -43,8 +46,6 @@ class TaskService(TaskServiceInterface):
         )
 
         return created_task
-
-    
     
     @staticmethod
     def delete() -> None:
@@ -61,3 +62,9 @@ class TaskService(TaskServiceInterface):
     @staticmethod
     def check_owner() -> None:
         pass
+
+    def __str__(self) -> None:
+        return "<TaskService>"
+
+    def __repr__(self) -> None:
+        return "<TaskService>"
