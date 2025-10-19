@@ -88,8 +88,7 @@ que eu trocar de aba, ou criar uma nova task tenho, salvar as modificacoes que f
 
 
 # 19/10/2025
-- [ ] Consertar a api do flask, para poder se comunicar de maneira correta
+- [x] Consertar a api do flask, para poder se comunicar de maneira correta
+- [ ] Fazer a parte de buscar a task pelo uuid
 - [ ] Fazer o serviço javascript de comunicação com a api
 - [ ] COnseguir usar a api para atualizar as tasks de dentro do app, ou usar o metodo PUT sem ser da api
-- [ ] Conseguir fazer a deleção dos items da lista
-- [ ] Adicionar autenticação de verdade dentro do sistema

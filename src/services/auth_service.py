@@ -20,6 +20,7 @@ class AuthService(AuthServiceInterface):
 
     @staticmethod
     def create_session(user: User) -> None:
+        print(f"user: {user}")
         session["email"] = user.email
         session["username"] = f"{user.first_name} {user.last_name}"
         session["login"] = True

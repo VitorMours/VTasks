@@ -50,6 +50,10 @@ class UserService(UserServiceInterface):
         pass
     
     @staticmethod
+    def get_user_by_uuid(uuid: str) -> User | None:
+        return UserRepository.get_by_uuid(uuid)
+    
+    @staticmethod
     def exists(user: User | str) -> bool | None:
         """
         Check if user exists

@@ -69,6 +69,15 @@ class TaskRepository:
             return []
         return Task.query.join(User).filter(User.email == email).all()        
 
+    @staticmethod
+    def get_by_uuid(uuid: str) -> Task:
+        
+        if not uuid:
+            return None 
+        
+        return Task.query.filter_by(id=uuid).first()
+
+
     def __repr__(self) -> str:
         return "<TaskRepository>"
 

@@ -30,6 +30,11 @@ class TaskService(TaskServiceInterface):
         all_tasks = TaskRepository.get_by_email(email)
         return all_tasks
 
+    @staticmethod 
+    def get_one_by_uuid(uuid: str) -> None:
+        return TaskRepository.get_by_uuid(uuid) 
+
+
     @staticmethod
     def create(data: dict[str, str]) -> None:
         user = UserService.get_user_by_email(session.get("email"))
