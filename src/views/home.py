@@ -52,11 +52,17 @@ class TodoView(MethodView):
         else:
             flash("Invalid form data. Please check your input.", "warning")
         return redirect(url_for("views.home.todo"))
-    
-    def put(self) -> str: 
+
+
+
+class TodoDetailView(MethodView):
+    decorators = [login_required]
+
+    def put(self, task_uuid) -> str:
         pass
-    
+
 
 bp.add_url_rule("/home", view_func=HomeView.as_view("home"))
 bp.add_url_rule("/notes", view_func=NotesView.as_view("notes"))
 bp.add_url_rule("/todo", view_func=TodoView.as_view("todo"))
+bp.add_url_rule("/todo/<uuid:uuid>", view_func=TodoDetailView.as_view("todo-detail"))
