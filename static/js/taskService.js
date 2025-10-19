@@ -11,13 +11,11 @@ class TaskService{
     /**
      * Metodo Responsavel por atualizar o status de uma determinada tarefa que deve existir, 
      * para que possa ser atualizada, mudando o seu status de maneira e valor booleano
-     * 
      * @param {Task} Task - qual task tera seu valor mudado, e sera feito de forma a pegar o que ja esta sendo mostrado, e mudar
      * nao possibilitando insercao de valor de maneira externa.
-     * 
      */
-    async changeTaskStatus(){
-        const response = await fetch("", {
+    async changeTaskStatus(json){
+        const response = await fetch("/api/", {
             method: "PUT",
             ...config
         })

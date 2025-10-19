@@ -82,5 +82,14 @@ que eu trocar de aba, ou criar uma nova task tenho, salvar as modificacoes que f
 
 # 17/10/2025 
 - [x] Implementar testes e servico de tasks
-- [ ] Implementar listagem estilizada e detalhada das tasks 
+- [x] Implementar listagem estilizada e detalhada das tasks 
 - [ ] Implementar delecao das tasks
+
+
+
+# 19/10/2025
+- [ ] Consertar a api do flask, para poder se comunicar de maneira correta
+- [ ] Fazer o serviço javascript de comunicação com a api
+- [ ] COnseguir usar a api para atualizar as tasks de dentro do app, ou usar o metodo PUT sem ser da api
+- [ ] Conseguir fazer a deleção dos items da lista
+- [ ] Adicionar autenticação de verdade dentro do sistema

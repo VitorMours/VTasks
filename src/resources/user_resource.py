@@ -16,7 +16,7 @@ class UserList(Resource):
     def post(self):
         return {"Creating":"user"}
 
-@bp.route("/<int:id>")
+@bp.route("/<uuid:id>")
 @bp.param("id", "The user identifier")
 @bp.response(404, "User not found")
 @bp.response(200, "OK")
