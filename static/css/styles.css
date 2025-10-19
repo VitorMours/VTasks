@@ -22,3 +22,39 @@
     font-size: 0.8rem; 
     text-align: center;
 }
+
+#jumbotron{
+    background-image: url("../img/classroom_2.jpg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+
+    image-rendering: optimizeQuality;
+    background-size: cover;
+    background-position: center;
+}
+
+#glass-card{
+    backdrop-filter: blur(18px);
+}
+
+
+#founder-image {
+    width: 250px;
+    height: 450px; /* Altura adicionada para a div não colapsar */
+    background-image: url("../img/founder.webp"); 
+    background-size: cover; /* Garante que a imagem cubra toda a área */
+    background-position: 100% 0%; /* Centraliza a imagem no elemento */
+    background-repeat: no-repeat;
+}
+
+.flashes,
+.flashes > li {
+    list-style-type: none;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.flashes > li {
+    margin-bottom: 0.5rem;
+}

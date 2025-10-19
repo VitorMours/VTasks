@@ -70,3 +70,17 @@ que eu trocar de aba, ou criar uma nova task tenho, salvar as modificacoes que f
 
 # 29/09/2025
 - [ ] Corrigir o sistema responsável por fazer o todo dentro do flask
+
+
+
+# 10/10/2025
+- [x] Correcao das rotas de notes 
+- [ ] Corrigir o sistema de todo para conseguir inserir tasks dentro do sistema
+- [ ] Criar testes unitarios para as tasks
+- [ ] Criar toast
+
+
+# 17/10/2025 
+- [x] Implementar testes e servico de tasks
+- [ ] Implementar listagem estilizada e detalhada das tasks 
+- [ ] Implementar delecao das tasks

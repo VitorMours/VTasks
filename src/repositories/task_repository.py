@@ -22,27 +22,52 @@ class TaskRepository:
                 task_conclusion = task_data["task_conclusion"],
                 user_id = user_id
                 )
+        db.session.add(new_task)
+        db.session.commit()
         return new_task
     
     @staticmethod   
     def update() -> None:
+        """
+        Deve atualziar uma task com base nos dados do usuario e no novo conteudo
+        que e passado, deve retornar a task modificada dentro do banco de dados 
+        se a modificacao for bem sucedida
+        """
         pass
+
     @staticmethod
-    def delete() -> None:
-        pass
+    def delete(id: int) -> None:
+        """
+        Deve deletar uma task com base no seu id, retornando true se for deletado
+        """
+        if task := Task.query.filter_by(id=id).first_or_404():
+            try:
+                db.session.delete(task)
+                db.session.commit()
+                return True
+            except Exception as e:
+                db.session.rollback()
+            
+        return False
     
     @staticmethod
-    def get_all(user: User) -> None:
-        pass
+    def get_all() -> None:
+        """
+        Pega todas as tasks presentes dentro do banco de dados
+        """
+        if Task.query.count() == 0:
+            return []
+        return Task.query.all()  
     
     @staticmethod
-    def get_by_email() -> None:
-        pass
-    
-    @staticmethod 
-    def get_by_owner_id(id: str) -> None:
-        tasks = Task.query.filter_by(user_id=id).all()
-        return tasks
+    def get_by_email(email: str) -> None:
+        """
+        Retorna todas as tasks baseadas no email do usuario dono
+        dessa determinada task
+        """
+        if Task.query.count() == 0:
+            return []
+        return Task.query.join(User).filter(User.email == email).all()        
 
     def __repr__(self) -> str:
         return "<TaskRepository>"

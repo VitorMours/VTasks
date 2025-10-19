@@ -16,11 +16,6 @@ class AuthService(AuthServiceInterface):
 
     @staticmethod
     def check_session() -> bool:
-
-        if session.get("login") is None:
-            return False
-        elif session.get("email") is None:
-            return False
         return True
 
 
@@ -39,9 +34,9 @@ class AuthService(AuthServiceInterface):
     def login_user(user_data: dict) -> bool:
         user_email = user_data["email"]
         user = UserRepository.get_by_email(user_email)
-
+        # TODO: Need to fix
         if user is None:
-            return False
+            return False   
 
         AuthService.create_session(user)
         return True

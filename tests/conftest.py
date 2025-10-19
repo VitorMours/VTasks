@@ -5,6 +5,7 @@ from faker import Faker
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from src.models import db
 from src.repositories.user_repository import UserRepository
+from src.services.auth_service import AuthService
 from src.models.user_model import User
 from wsgi import create_app
 
@@ -14,7 +15,6 @@ def app():
     app = create_app("testing")
 
     with app.app_context():
-        yield app
         db.drop_all()
         db.create_all()
         for _ in range(25):
@@ -78,7 +78,10 @@ def create_random_user_dict():
         "password":faker.password()
     }
     
-    
+@pytest.fixture
+def create_auth_service():
+    return AuthService()
+
 @pytest.fixture
 def create_random_task_dict():
     faker = Faker()

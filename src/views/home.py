@@ -7,10 +7,6 @@ import json
 
 bp = Blueprint("home", __name__)
 
-
-
-
-
 class HomeView(View):
     decorators = [login_required]
 
@@ -32,28 +28,33 @@ class NoteTakerView(MethodView):
         # return render_template("note_taker.html", note_uuid = note_uuid active_page="notes")
         pass
 
-
-
-
 class TodoView(MethodView):
     decorators = [login_required]
 
     def get(self) -> str:
-        tasks = TaskServiceImpl.get_all(as_json=True)
-        return render_template("todo.jinja", active_page="todo", tasks = tasks)
+        form = TaskForm()
+        
+        tasks = TaskService.get_user_tasks(session.get("email"))
+        tasks_serialized = [t.to_json() for t in tasks]
+        return render_template("todo.html", active_page="todo", tasks = tasks_serialized, form = form)
     
     def post(self) -> str:
         form = TaskForm()
         if form.validate_on_submit():
             try:
                 data = form.data 
-                data["user_id"] = session.get("user_id")
                 data["task_conclusion"] = False
-                task = TaskService.create(data)
+                TaskService.create(data)
+                print(f"dados tratados: {data}")
                 flash("Task created successfully!", "success")    
             except Exception as e:
                 flash("An error occurred while creating the task.", "danger")
+        else:
+            flash("Invalid form data. Please check your input.", "warning")
         return redirect(url_for("views.home.todo"))
+    
+    def put(self) -> str: 
+        pass
     
 
 bp.add_url_rule("/home", view_func=HomeView.as_view("home"))

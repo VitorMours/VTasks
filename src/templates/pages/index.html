@@ -1,10 +1,17 @@
-{% extends "landing_page.jinja" %} {% block css %}
-<link
-  rel="stylesheet"
-  href="{{ url_for('static', filename='css/styles.css') }}"
-/>
-{% endblock %} {% block header %} {% include "partials/header.jinja" %} {%
-endblock %} {% block content %}
+{% extends "landing_page.jinja" %} 
+
+{% block css %}
+  <link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/styles.css') }}"
+  />
+{% endblock %} 
+
+{% block header %} 
+  {% include "partials/header.jinja" %} 
+{% endblock %} 
+
+{% block content %}
 <div
   class="d-flex align-items-center justify-content-center text-center"
   id="jumbotron"
@@ -114,7 +121,9 @@ endblock %} {% block content %}
         <div
           id="founder-image"
           class="rounded-4 shadow-sm border border-5 border-primary mt-5"
-        ></div>
+        >
+          <!-- Imagem do CEO-->
+        </div>
       </div>
 
       <div class="col-12 col-md-8">
@@ -153,5 +162,8 @@ endblock %} {% block content %}
 
 </div>
 
-{% endblock %} {% block footer %} {% include "partials/footer.html" %} {%
-endblock %}
+{% endblock %} 
+
+{% block footer %} 
+  {% include "partials/footer.html" %}  
+{% endblock %}
